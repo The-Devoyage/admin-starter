@@ -1,0 +1,12 @@
+// If you want to override variables do it here
+@import "variables";
+
+$enable-ltr: true;
+$enable-rtl: true;
+
+@import "@coreui/coreui/scss/coreui.scss";
+
+@import "layout";
+
+@import "custom";
+
