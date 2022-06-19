@@ -83,6 +83,7 @@ export const AccountSelectProvider: FC<AccountsSelectProviderProps> = ({
     const getAccountOwner = (
       account: AccountSelect_GetAccountsQuery['getAccounts']['data'][0] | null,
     ) => account?.users.data[0] ?? null;
+
     return { accounts, loading, handleSearch, getAccountOwner };
   }, [
     loading,

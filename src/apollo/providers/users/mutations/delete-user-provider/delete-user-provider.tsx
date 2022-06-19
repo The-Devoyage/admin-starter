@@ -1,18 +1,18 @@
 import { FormikHelpers, FormikProps, useFormik } from 'formik';
 import { FC, createContext, useMemo } from 'react';
 import {
-  DeleteUserInput,
+  DeleteUsersInput,
   useUserPage_DeleteUserMutation,
 } from 'src/types/generated';
 import { useFormHelpers } from 'src/common/utils/use-form-helpers';
 
 export interface IDeleteUserProviderContext {
-  form: FormikProps<DeleteUserInput> | null;
+  form: FormikProps<DeleteUsersInput> | null;
   loading: boolean;
 }
 
 export interface DeleteUserProviderProps {
-  deleteUserInput: DeleteUserInput;
+  deleteUserInput: DeleteUsersInput;
   children: JSX.Element;
 }
 
@@ -30,12 +30,12 @@ export const DeleteUserProvider: FC<DeleteUserProviderProps> = ({
   const { handleFormError, handleFormSuccess } = useFormHelpers();
 
   const handleDeleteUserProvider = (
-    values: DeleteUserInput,
-    helpers: FormikHelpers<DeleteUserInput>,
+    values: DeleteUsersInput,
+    helpers: FormikHelpers<DeleteUsersInput>,
   ) => {
     deleteUser({
       variables: {
-        deleteUserInput: { ...values },
+        deleteUsersInput: { ...values },
       },
       onCompleted: () =>
         handleFormSuccess({

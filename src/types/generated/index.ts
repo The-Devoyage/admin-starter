@@ -13,10 +13,13 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  DateTime: any;
-  EmailAddress: any;
+  CountryCode: string;
+  DateTime: Date;
+  EmailAddress: string;
   JWT: any;
-  ObjectID: any;
+  ObjectID: string;
+  PhoneNumber: string;
+  PostalCode: string;
   Upload: any;
 };
 
@@ -53,19 +56,22 @@ export type Activation = {
 
 export type Address = {
   __typename?: 'Address';
-  city: Scalars['String'];
-  lineOne: Scalars['String'];
+  _id?: Maybe<Scalars['ObjectID']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['CountryCode']>;
+  lineOne?: Maybe<Scalars['String']>;
   lineTwo?: Maybe<Scalars['String']>;
-  state: Scalars['String'];
-  zip: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  zip?: Maybe<Scalars['PostalCode']>;
 };
 
 export type AddressInput = {
-  city: Scalars['String'];
-  lineOne: Scalars['String'];
+  city?: InputMaybe<Scalars['String']>;
+  country?: InputMaybe<Scalars['CountryCode']>;
+  lineOne?: InputMaybe<Scalars['String']>;
   lineTwo?: InputMaybe<Scalars['String']>;
-  state: Scalars['String'];
-  zip: Scalars['String'];
+  state?: InputMaybe<Scalars['String']>;
+  zip?: InputMaybe<Scalars['PostalCode']>;
 };
 
 export enum ArrayFilterByEnum {
@@ -87,18 +93,12 @@ export enum BooleanFilterByEnum {
   Ne = 'NE'
 }
 
-export type CompositionDetail = {
-  __typename?: 'CompositionDetail';
-  trigger: Scalars['String'];
-  variables?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
 export type Content = {
   __typename?: 'Content';
   _id: Scalars['ObjectID'];
   active: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
-  created_by: Scalars['ObjectID'];
+  created_by: User;
   html: Scalars['String'];
   layout?: Maybe<Layout>;
   name: Scalars['String'];
@@ -109,37 +109,52 @@ export type Content = {
   variables?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
-export type CreateContentInput = {
+export type ContentFieldFiltersInput = {
+  _id?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  active?: InputMaybe<Array<InputMaybe<BooleanFieldFilter>>>;
+  createdAt?: InputMaybe<Array<InputMaybe<DateFieldFilter>>>;
+  created_by?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  html?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  name?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  plainText?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  subject?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  trigger?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  updatedAt?: InputMaybe<Array<InputMaybe<DateFieldFilter>>>;
+};
+
+export type ContentInput = {
   active: Scalars['Boolean'];
   html: Scalars['String'];
+  layout?: InputMaybe<Scalars['ObjectID']>;
   name: Scalars['String'];
   plainText: Scalars['String'];
   subject: Scalars['String'];
   trigger: Scalars['String'];
+  variables?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type CreateContentInput = {
+  payload: ContentInput;
 };
 
 export type CreateLayoutInput = {
-  html: Scalars['String'];
-  name: Scalars['String'];
+  payload: LayoutInput;
+};
+
+export type CreateMediaInput = {
+  payload: MediaPayloadInput;
 };
 
 export type CreatePaywallInput = {
-  description: Scalars['String'];
-  name: Scalars['String'];
-  product_id: Scalars['ID'];
-  status?: InputMaybe<PaywallStatusEnum>;
+  payload: PaywallInput;
 };
 
 export type CreatePaywallPurchaseInput = {
-  account?: InputMaybe<Scalars['ObjectID']>;
-  paywall: Scalars['ObjectID'];
-  status?: InputMaybe<PaywallPurchaseStatusEnum>;
+  payload: PaywallPurchaseInput;
 };
 
 export type CreateServiceInput = {
-  limits: Array<PaywallLimitInput>;
-  name: Scalars['String'];
-  webhook?: InputMaybe<Scalars['String']>;
+  payload: ServiceInput;
 };
 
 export type CreateUserInput = {
@@ -163,16 +178,16 @@ export enum DateFilterByEnum {
   Ne = 'NE'
 }
 
-export type DeleteContentInput = {
-  _id: Scalars['ObjectID'];
+export type DeleteContentsInput = {
+  query: ContentFieldFiltersInput;
 };
 
-export type DeleteLayoutInput = {
-  _id: Scalars['ObjectID'];
+export type DeleteLayoutsInput = {
+  query: LayoutFieldFiltersInput;
 };
 
 export type DeleteMediaInput = {
-  _ids: Array<Scalars['ObjectID']>;
+  query: MediaFieldFiltersInput;
 };
 
 export type DeleteMediaResponse = {
@@ -180,8 +195,13 @@ export type DeleteMediaResponse = {
   deletedCount: Scalars['Int'];
 };
 
-export type DeleteUserInput = {
-  _id: Scalars['ObjectID'];
+export type DeleteResponse = {
+  __typename?: 'DeleteResponse';
+  deletedCount: Scalars['Int'];
+};
+
+export type DeleteUsersInput = {
+  query: UserFieldFiltersInput;
 };
 
 /** Global configuration details. */
@@ -206,17 +226,8 @@ export type GetAccountsResponse = {
 };
 
 export type GetContentsInput = {
-  _id?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
-  active?: InputMaybe<Array<InputMaybe<BooleanFieldFilter>>>;
   config?: InputMaybe<FilterConfig>;
-  createdAt?: InputMaybe<Array<InputMaybe<DateFieldFilter>>>;
-  created_by?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
-  html?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
-  name?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
-  plainText?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
-  subject?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
-  trigger?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
-  updatedAt?: InputMaybe<Array<InputMaybe<DateFieldFilter>>>;
+  query: ContentFieldFiltersInput;
 };
 
 export type GetContentsResponse = {
@@ -226,13 +237,8 @@ export type GetContentsResponse = {
 };
 
 export type GetLayoutsInput = {
-  _id?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
   config?: InputMaybe<FilterConfig>;
-  createdAt?: InputMaybe<Array<InputMaybe<DateFieldFilter>>>;
-  created_by?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
-  html?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
-  name?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
-  updatedAt?: InputMaybe<Array<InputMaybe<DateFieldFilter>>>;
+  query: LayoutFieldFiltersInput;
 };
 
 export type GetLayoutsResponse = {
@@ -242,14 +248,8 @@ export type GetLayoutsResponse = {
 };
 
 export type GetMediaInput = {
-  _id?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
   config?: InputMaybe<FilterConfig>;
-  createdAt?: InputMaybe<Array<InputMaybe<DateFieldFilter>>>;
-  created_by?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
-  mimetype?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
-  path?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
-  title?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
-  updatedAt?: InputMaybe<Array<InputMaybe<DateFieldFilter>>>;
+  query: MediaFieldFiltersInput;
 };
 
 export type GetMediaResponse = {
@@ -259,14 +259,8 @@ export type GetMediaResponse = {
 };
 
 export type GetPaywallPurchasesInput = {
-  _id?: InputMaybe<StringFieldFilter>;
-  account?: InputMaybe<StringFieldFilter>;
   config?: InputMaybe<FilterConfig>;
-  createdAt?: InputMaybe<StringFieldFilter>;
-  created_by?: InputMaybe<StringFieldFilter>;
-  paywall?: InputMaybe<StringFieldFilter>;
-  status?: InputMaybe<StringFieldFilter>;
-  updatedAt?: InputMaybe<StringFieldFilter>;
+  query: PaywallPurchaseFieldFiltersInput;
 };
 
 export type GetPaywallPurchasesResponse = {
@@ -276,14 +270,8 @@ export type GetPaywallPurchasesResponse = {
 };
 
 export type GetPaywallsInput = {
-  _id?: InputMaybe<StringFieldFilter>;
   config?: InputMaybe<FilterConfig>;
-  createdAt?: InputMaybe<StringFieldFilter>;
-  created_by?: InputMaybe<StringFieldFilter>;
-  name?: InputMaybe<StringFieldFilter>;
-  productId?: InputMaybe<StringFieldFilter>;
-  status?: InputMaybe<StringFieldFilter>;
-  updatedAt?: InputMaybe<StringFieldFilter>;
+  query: PaywallFieldFiltersInput;
 };
 
 export type GetPaywallsResponse = {
@@ -293,12 +281,8 @@ export type GetPaywallsResponse = {
 };
 
 export type GetServicesInput = {
-  _id?: InputMaybe<StringFieldFilter>;
   config?: InputMaybe<FilterConfig>;
-  createdAt?: InputMaybe<StringFieldFilter>;
-  created_by?: InputMaybe<StringFieldFilter>;
-  name?: InputMaybe<StringFieldFilter>;
-  updatedAt?: InputMaybe<StringFieldFilter>;
+  query: ServiceFieldFiltersInput;
 };
 
 export type GetServicesResponse = {
@@ -391,10 +375,24 @@ export type Layout = {
   __typename?: 'Layout';
   _id: Scalars['ObjectID'];
   createdAt: Scalars['DateTime'];
-  created_by: Scalars['ObjectID'];
+  created_by: User;
   html: Scalars['String'];
   name: Scalars['String'];
   updatedAt: Scalars['DateTime'];
+};
+
+export type LayoutFieldFiltersInput = {
+  _id?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  createdAt?: InputMaybe<Array<InputMaybe<DateFieldFilter>>>;
+  created_by?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  html?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  name?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  updatedAt?: InputMaybe<Array<InputMaybe<DateFieldFilter>>>;
+};
+
+export type LayoutInput = {
+  html: Scalars['String'];
+  name: Scalars['String'];
 };
 
 export type Limit = {
@@ -409,7 +407,7 @@ export type LocalMembershipInput = {
   first_name?: InputMaybe<Scalars['String']>;
   image?: InputMaybe<Scalars['ObjectID']>;
   last_name?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['PhoneNumber']>;
 };
 
 export type LocalUserDetails = {
@@ -419,7 +417,7 @@ export type LocalUserDetails = {
   first_name?: Maybe<Scalars['String']>;
   image?: Maybe<Media>;
   last_name?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['PhoneNumber']>;
 };
 
 export type LoginAccountResponse = {
@@ -448,6 +446,21 @@ export type Media = {
   path: Scalars['String'];
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
+};
+
+export type MediaFieldFiltersInput = {
+  _id?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  createdAt?: InputMaybe<Array<InputMaybe<DateFieldFilter>>>;
+  created_by?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  mimetype?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  path?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  title?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  updatedAt?: InputMaybe<Array<InputMaybe<DateFieldFilter>>>;
+};
+
+export type MediaPayloadInput = {
+  file: Scalars['Upload'];
+  title: Scalars['String'];
 };
 
 export type Membership = {
@@ -482,21 +495,21 @@ export type Mutation = {
   __typename?: 'Mutation';
   createContent: Content;
   createLayout: Layout;
+  createMedia: Media;
   createPaywall: Paywall;
   createPaywallPurchase: PaywallPurchase;
   createService: Service;
   createUser: User;
-  deleteContent: Content;
-  deleteLayout: Layout;
+  deleteContents: DeleteResponse;
+  deleteLayouts: DeleteResponse;
   deleteMedia: DeleteMediaResponse;
-  deleteUser: User;
+  deleteUsers: DeleteResponse;
   inviteUser: User;
   login: LoginAccountResponse;
   loginUser: LoginUserResponse;
   register: Account;
   resetActivationCode: Account;
   resetPassword: Account;
-  singleFileUpload: Media;
   switchUserMembership: LoginUserResponse;
   updateContent: Content;
   updateEmail: Account;
@@ -516,6 +529,11 @@ export type MutationCreateContentArgs = {
 
 export type MutationCreateLayoutArgs = {
   createLayoutInput: CreateLayoutInput;
+};
+
+
+export type MutationCreateMediaArgs = {
+  createMediaInput: CreateMediaInput;
 };
 
 
@@ -539,13 +557,13 @@ export type MutationCreateUserArgs = {
 };
 
 
-export type MutationDeleteContentArgs = {
-  deleteContentInput: DeleteContentInput;
+export type MutationDeleteContentsArgs = {
+  deleteContentsInput: DeleteContentsInput;
 };
 
 
-export type MutationDeleteLayoutArgs = {
-  deleteLayoutInput: DeleteLayoutInput;
+export type MutationDeleteLayoutsArgs = {
+  deleteLayoutsInput: DeleteLayoutsInput;
 };
 
 
@@ -554,8 +572,8 @@ export type MutationDeleteMediaArgs = {
 };
 
 
-export type MutationDeleteUserArgs = {
-  deleteUserInput: DeleteUserInput;
+export type MutationDeleteUsersArgs = {
+  deleteUsersInput: DeleteUsersInput;
 };
 
 
@@ -581,11 +599,6 @@ export type MutationResetActivationCodeArgs = {
 
 export type MutationResetPasswordArgs = {
   resetInput: ResetPasswordInput;
-};
-
-
-export type MutationSingleFileUploadArgs = {
-  singleFileUploadInput: SingleFileUploadInput;
 };
 
 
@@ -656,6 +669,23 @@ export type Paywall = {
   updatedAt: Scalars['DateTime'];
 };
 
+export type PaywallFieldFiltersInput = {
+  _id?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  createdAt?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  created_by?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  name?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  productId?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  status?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  updatedAt?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+};
+
+export type PaywallInput = {
+  description: Scalars['String'];
+  name: Scalars['String'];
+  product_id: Scalars['ID'];
+  status?: InputMaybe<PaywallStatusEnum>;
+};
+
 export type PaywallLimitInput = {
   name: Scalars['String'];
   scopes: Array<ScopeInput>;
@@ -672,6 +702,22 @@ export type PaywallPurchase = {
   updatedAt: Scalars['DateTime'];
 };
 
+export type PaywallPurchaseFieldFiltersInput = {
+  _id?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  account?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  createdAt?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  created_by?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  paywall?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  status?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  updatedAt?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+};
+
+export type PaywallPurchaseInput = {
+  account?: InputMaybe<Scalars['ObjectID']>;
+  paywall: Scalars['ObjectID'];
+  status?: InputMaybe<PaywallPurchaseStatusEnum>;
+};
+
 export enum PaywallPurchaseStatusEnum {
   Active = 'ACTIVE',
   Created = 'CREATED',
@@ -686,7 +732,6 @@ export enum PaywallStatusEnum {
 export type Query = {
   __typename?: 'Query';
   getAccounts: GetAccountsResponse;
-  getCompositionDetails: Array<Maybe<CompositionDetail>>;
   getContents: GetContentsResponse;
   getLayouts: GetLayoutsResponse;
   getMedia: GetMediaResponse;
@@ -775,9 +820,17 @@ export type Service = {
   updatedAt: Scalars['DateTime'];
 };
 
-export type SingleFileUploadInput = {
-  file: Scalars['Upload'];
-  title: Scalars['String'];
+export type ServiceFieldFiltersInput = {
+  _id?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  createdAt?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  created_by?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  name?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+  updatedAt?: InputMaybe<Array<InputMaybe<StringFieldFilter>>>;
+};
+
+export type ServiceInput = {
+  limits: Array<PaywallLimitInput>;
+  name: Scalars['String'];
 };
 
 export type Stats = {
@@ -817,15 +870,8 @@ export type SwitchUserMembershipInput = {
 };
 
 export type UpdateContentInput = {
-  _id: Scalars['ObjectID'];
-  active?: InputMaybe<Scalars['Boolean']>;
-  html?: InputMaybe<Scalars['String']>;
-  layout?: InputMaybe<Scalars['ObjectID']>;
-  name?: InputMaybe<Scalars['String']>;
-  plainText?: InputMaybe<Scalars['String']>;
-  subject?: InputMaybe<Scalars['String']>;
-  trigger?: InputMaybe<Scalars['String']>;
-  variables?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  payload: ContentInput;
+  query: ContentFieldFiltersInput;
 };
 
 export type UpdateEmailInput = {
@@ -834,30 +880,28 @@ export type UpdateEmailInput = {
 };
 
 export type UpdateLayoutInput = {
-  _id: Scalars['ObjectID'];
-  html?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
+  payload: LayoutInput;
+  query: LayoutFieldFiltersInput;
+};
+
+export type UpdateMediaInput = {
+  payload: MediaPayloadInput;
+  query: MediaFieldFiltersInput;
 };
 
 export type UpdatePaywallInput = {
-  description?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  paywall: GetPaywallsInput;
-  product_id?: InputMaybe<Scalars['ID']>;
-  status?: InputMaybe<PaywallStatusEnum>;
+  payload: PaywallInput;
+  query: PaywallFieldFiltersInput;
 };
 
 export type UpdatePaywallPurchaseInput = {
-  account?: InputMaybe<Scalars['ObjectID']>;
-  paywallPurchase: GetPaywallPurchasesInput;
-  status?: InputMaybe<PaywallPurchaseStatusEnum>;
+  payload: PaywallPurchaseInput;
+  query: PaywallPurchaseFieldFiltersInput;
 };
 
 export type UpdateServiceInput = {
-  limits?: InputMaybe<Array<PaywallLimitInput>>;
-  name?: InputMaybe<Scalars['String']>;
-  service: GetServicesInput;
-  webhook?: InputMaybe<Scalars['String']>;
+  payload: ServiceInput;
+  query: ServiceFieldFiltersInput;
 };
 
 export type UpdateUserInput = {
@@ -872,12 +916,12 @@ export type User = {
   address?: Maybe<Address>;
   createdAt: Scalars['DateTime'];
   created_by?: Maybe<User>;
-  email: Scalars['String'];
+  email: Scalars['EmailAddress'];
   first_name?: Maybe<Scalars['String']>;
   image?: Maybe<Media>;
   last_name?: Maybe<Scalars['String']>;
   memberships: Array<Membership>;
-  phone?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['PhoneNumber']>;
   updatedAt: Scalars['DateTime'];
 };
 
@@ -897,12 +941,12 @@ export type UserFieldFiltersInput = {
 export type UserInput = {
   about?: InputMaybe<Scalars['String']>;
   address?: InputMaybe<AddressInput>;
-  email?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['EmailAddress']>;
   first_name?: InputMaybe<Scalars['String']>;
   image?: InputMaybe<Scalars['ObjectID']>;
   last_name?: InputMaybe<Scalars['String']>;
   memberships?: InputMaybe<MembershipInput>;
-  phone?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['PhoneNumber']>;
 };
 
 export type VerifyEmailInput = {
@@ -920,35 +964,35 @@ export type LoginProvider_LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginProvider_LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginAccountResponse', token: any, account: { __typename?: 'Account', _id: any, email: any } } };
+export type LoginProvider_LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginAccountResponse', token: any, account: { __typename?: 'Account', _id: string, email: string } } };
 
 export type RegisterProvider_RegisterMutationVariables = Exact<{
   registerInput: RegisterInput;
 }>;
 
 
-export type RegisterProvider_RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'Account', _id: any } };
+export type RegisterProvider_RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'Account', _id: string } };
 
 export type ResetActivationCodeProvider_ResetActivationCodeMutationVariables = Exact<{
   resetCodeInput: ResetCodeInput;
 }>;
 
 
-export type ResetActivationCodeProvider_ResetActivationCodeMutation = { __typename?: 'Mutation', resetActivationCode: { __typename?: 'Account', _id: any } };
+export type ResetActivationCodeProvider_ResetActivationCodeMutation = { __typename?: 'Mutation', resetActivationCode: { __typename?: 'Account', _id: string } };
 
 export type ResetPasswordProvider_ResetPasswordMutationVariables = Exact<{
   resetInput: ResetPasswordInput;
 }>;
 
 
-export type ResetPasswordProvider_ResetPasswordMutation = { __typename?: 'Mutation', resetPassword: { __typename?: 'Account', _id: any } };
+export type ResetPasswordProvider_ResetPasswordMutation = { __typename?: 'Mutation', resetPassword: { __typename?: 'Account', _id: string } };
 
 export type VerifyEmailProvider_VerifyEmailMutationVariables = Exact<{
   verifyEmailInput: VerifyEmailInput;
 }>;
 
 
-export type VerifyEmailProvider_VerifyEmailMutation = { __typename?: 'Mutation', verifyEmail: { __typename?: 'Account', _id: any } };
+export type VerifyEmailProvider_VerifyEmailMutation = { __typename?: 'Mutation', verifyEmail: { __typename?: 'Account', _id: string } };
 
 export type AccountCountWidget_GetAccountsQueryVariables = Exact<{
   getAccountsInput: GetAccountsInput;
@@ -963,7 +1007,7 @@ export type AccountPage_GetAccountsQueryVariables = Exact<{
 }>;
 
 
-export type AccountPage_GetAccountsQuery = { __typename?: 'Query', getAccounts: { __typename?: 'GetAccountsResponse', data: Array<{ __typename?: 'Account', _id: any, email: any, createdAt: any, updatedAt: any, activation?: { __typename?: 'Activation', code?: string | null, limit: any, verified: boolean } | null, users: { __typename?: 'GetUsersResponse', stats: { __typename?: 'Stats', total?: number | null }, data: Array<{ __typename?: 'User', _id: any, email: string, first_name?: string | null, last_name?: string | null, updatedAt: any, about?: string | null, image?: { __typename?: 'Media', path: string, _id: any } | null, memberships: Array<{ __typename?: 'Membership', _id: any, default: boolean, status?: MembershipStatusEnum | null, account: { __typename?: 'Account', _id: any } }> }> } }> } };
+export type AccountPage_GetAccountsQuery = { __typename?: 'Query', getAccounts: { __typename?: 'GetAccountsResponse', data: Array<{ __typename?: 'Account', _id: string, email: string, createdAt: Date, updatedAt: Date, activation?: { __typename?: 'Activation', code?: string | null, limit: Date, verified: boolean } | null, users: { __typename?: 'GetUsersResponse', stats: { __typename?: 'Stats', total?: number | null }, data: Array<{ __typename?: 'User', _id: string, email: string, first_name?: string | null, last_name?: string | null, updatedAt: Date, about?: string | null, image?: { __typename?: 'Media', path: string, _id: string } | null, memberships: Array<{ __typename?: 'Membership', _id: string, default: boolean, status?: MembershipStatusEnum | null, account: { __typename?: 'Account', _id: string } }> }> } }> } };
 
 export type AccountSelect_GetAccountsQueryVariables = Exact<{
   getAccountsInput: GetAccountsInput;
@@ -971,7 +1015,7 @@ export type AccountSelect_GetAccountsQueryVariables = Exact<{
 }>;
 
 
-export type AccountSelect_GetAccountsQuery = { __typename?: 'Query', getAccounts: { __typename?: 'GetAccountsResponse', data: Array<{ __typename?: 'Account', _id: any, email: any, users: { __typename?: 'GetUsersResponse', data: Array<{ __typename?: 'User', _id: any, first_name?: string | null, last_name?: string | null, email: string }> } }> } };
+export type AccountSelect_GetAccountsQuery = { __typename?: 'Query', getAccounts: { __typename?: 'GetAccountsResponse', data: Array<{ __typename?: 'Account', _id: string, email: string, users: { __typename?: 'GetUsersResponse', data: Array<{ __typename?: 'User', _id: string, first_name?: string | null, last_name?: string | null, email: string }> } }> } };
 
 export type AccountsPage_GetAccountsQueryVariables = Exact<{
   getAccountsInput: GetAccountsInput;
@@ -979,45 +1023,45 @@ export type AccountsPage_GetAccountsQueryVariables = Exact<{
 }>;
 
 
-export type AccountsPage_GetAccountsQuery = { __typename?: 'Query', getAccounts: { __typename?: 'GetAccountsResponse', stats: { __typename?: 'Stats', total?: number | null, remaining?: number | null, cursor?: any | null }, data: Array<{ __typename?: 'Account', _id: any, email: any, createdAt: any, users: { __typename?: 'GetUsersResponse', stats: { __typename?: 'Stats', total?: number | null } } }> } };
+export type AccountsPage_GetAccountsQuery = { __typename?: 'Query', getAccounts: { __typename?: 'GetAccountsResponse', stats: { __typename?: 'Stats', total?: number | null, remaining?: number | null, cursor?: Date | null }, data: Array<{ __typename?: 'Account', _id: string, email: string, createdAt: Date, users: { __typename?: 'GetUsersResponse', stats: { __typename?: 'Stats', total?: number | null } } }> } };
 
 export type CreateUserMutationVariables = Exact<{
   createUserInput: CreateUserInput;
 }>;
 
 
-export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', _id: any } };
+export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', _id: string } };
 
 export type UserPage_DeleteUserMutationVariables = Exact<{
-  deleteUserInput: DeleteUserInput;
+  deleteUsersInput: DeleteUsersInput;
 }>;
 
 
-export type UserPage_DeleteUserMutation = { __typename?: 'Mutation', deleteUser: { __typename?: 'User', _id: any } };
+export type UserPage_DeleteUserMutation = { __typename?: 'Mutation', deleteUsers: { __typename?: 'DeleteResponse', deletedCount: number } };
 
 export type UsersPage_InviteUserMutationVariables = Exact<{
   inviteUserInput: InviteUserInput;
 }>;
 
 
-export type UsersPage_InviteUserMutation = { __typename?: 'Mutation', inviteUser: { __typename?: 'User', _id: any, first_name?: string | null, memberships: Array<{ __typename?: 'Membership', role: number, status?: MembershipStatusEnum | null, _id: any, account: { __typename?: 'Account', _id: any } }> } };
+export type UsersPage_InviteUserMutation = { __typename?: 'Mutation', inviteUser: { __typename?: 'User', _id: string, first_name?: string | null, memberships: Array<{ __typename?: 'Membership', role: number, status?: MembershipStatusEnum | null, _id: string, account: { __typename?: 'Account', _id: string } }> } };
 
 export type LoginProvider_LoginUserMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LoginProvider_LoginUserMutation = { __typename?: 'Mutation', loginUser: { __typename?: 'LoginUserResponse', token: string, user: { __typename?: 'User', _id: any } } };
+export type LoginProvider_LoginUserMutation = { __typename?: 'Mutation', loginUser: { __typename?: 'LoginUserResponse', token: string, user: { __typename?: 'User', _id: string } } };
 
 export type UserPage_UpdateUserMutationVariables = Exact<{
   updateUserInput: UpdateUserInput;
 }>;
 
 
-export type UserPage_UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', _id: any, email: string, first_name?: string | null, last_name?: string | null, about?: string | null, phone?: string | null, address?: { __typename?: 'Address', city: string, lineTwo?: string | null, lineOne: string, state: string, zip: string } | null, image?: { __typename?: 'Media', _id: any, path: string, title: string } | null } };
+export type UserPage_UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', _id: string, email: string, first_name?: string | null, last_name?: string | null, about?: string | null, phone?: string | null, address?: { __typename?: 'Address', city?: string | null, lineTwo?: string | null, lineOne?: string | null, state?: string | null, zip?: string | null } | null, image?: { __typename?: 'Media', _id: string, path: string, title: string } | null } };
 
 export type App_MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type App_MeQuery = { __typename?: 'Query', me: { __typename?: 'User', _id: any, first_name?: string | null, last_name?: string | null, email: string, image?: { __typename?: 'Media', path: string } | null } };
+export type App_MeQuery = { __typename?: 'Query', me: { __typename?: 'User', _id: string, first_name?: string | null, last_name?: string | null, email: string, image?: { __typename?: 'Media', path: string } | null } };
 
 export type UserCountWidget_GetUsersQueryVariables = Exact<{
   getUsersInput: GetUsersInput;
@@ -1032,21 +1076,21 @@ export type UserPage_GetUsersQueryVariables = Exact<{
 }>;
 
 
-export type UserPage_GetUsersQuery = { __typename?: 'Query', getUsers: { __typename?: 'GetUsersResponse', data: Array<{ __typename?: 'User', _id: any, first_name?: string | null, last_name?: string | null, email: string, phone?: string | null, about?: string | null, updatedAt: any, createdAt: any, address?: { __typename?: 'Address', lineOne: string, lineTwo?: string | null, zip: string, city: string, state: string } | null, image?: { __typename?: 'Media', path: string, _id: any } | null, memberships: Array<{ __typename?: 'Membership', _id: any, role: number, status?: MembershipStatusEnum | null, createdAt: any, updatedAt: any, default: boolean, local?: { __typename?: 'LocalUserDetails', first_name?: string | null, last_name?: string | null, phone?: string | null, about?: string | null, image?: { __typename?: 'Media', _id: any, path: string } | null, address?: { __typename?: 'Address', lineOne: string, lineTwo?: string | null, city: string, state: string, zip: string } | null } | null, account: { __typename?: 'Account', _id: any, email: any, users: { __typename?: 'GetUsersResponse', data: Array<{ __typename?: 'User', _id: any, first_name?: string | null, last_name?: string | null, email: string }> } } }> }> } };
+export type UserPage_GetUsersQuery = { __typename?: 'Query', getUsers: { __typename?: 'GetUsersResponse', data: Array<{ __typename?: 'User', _id: string, first_name?: string | null, last_name?: string | null, email: string, phone?: string | null, about?: string | null, updatedAt: Date, createdAt: Date, address?: { __typename?: 'Address', lineOne?: string | null, lineTwo?: string | null, zip?: string | null, city?: string | null, state?: string | null, country?: string | null, _id?: string | null } | null, image?: { __typename?: 'Media', path: string, _id: string } | null, memberships: Array<{ __typename?: 'Membership', _id: string, role: number, status?: MembershipStatusEnum | null, createdAt: Date, updatedAt: Date, default: boolean, local?: { __typename?: 'LocalUserDetails', first_name?: string | null, last_name?: string | null, phone?: string | null, about?: string | null, image?: { __typename?: 'Media', _id: string, path: string } | null, address?: { __typename?: 'Address', lineOne?: string | null, lineTwo?: string | null, city?: string | null, state?: string | null, zip?: string | null, country?: string | null, _id?: string | null } | null } | null, account: { __typename?: 'Account', _id: string, email: string, users: { __typename?: 'GetUsersResponse', data: Array<{ __typename?: 'User', _id: string, first_name?: string | null, last_name?: string | null, email: string }> } } }> }> } };
 
 export type UserSelect_GetUsersQueryVariables = Exact<{
   getUsersInput: GetUsersInput;
 }>;
 
 
-export type UserSelect_GetUsersQuery = { __typename?: 'Query', getUsers: { __typename?: 'GetUsersResponse', data: Array<{ __typename?: 'User', _id: any, email: string, first_name?: string | null, last_name?: string | null }> } };
+export type UserSelect_GetUsersQuery = { __typename?: 'Query', getUsers: { __typename?: 'GetUsersResponse', data: Array<{ __typename?: 'User', _id: string, email: string, first_name?: string | null, last_name?: string | null }> } };
 
 export type UsersPage_GetUsersQueryVariables = Exact<{
   getUsersInput: GetUsersInput;
 }>;
 
 
-export type UsersPage_GetUsersQuery = { __typename?: 'Query', getUsers: { __typename?: 'GetUsersResponse', stats: { __typename?: 'Stats', total?: number | null, remaining?: number | null, cursor?: any | null }, data: Array<{ __typename?: 'User', _id: any, first_name?: string | null, last_name?: string | null, email: string, phone?: string | null, image?: { __typename?: 'Media', path: string, _id: any } | null }> } };
+export type UsersPage_GetUsersQuery = { __typename?: 'Query', getUsers: { __typename?: 'GetUsersResponse', stats: { __typename?: 'Stats', total?: number | null, remaining?: number | null, cursor?: Date | null }, data: Array<{ __typename?: 'User', _id: string, first_name?: string | null, last_name?: string | null, email: string, phone?: string | null, image?: { __typename?: 'Media', path: string, _id: string } | null }> } };
 
 
 export const LoginProvider_LoginDocument = gql`
@@ -1463,9 +1507,9 @@ export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutati
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
 export const UserPage_DeleteUserDocument = gql`
-    mutation UserPage_DeleteUser($deleteUserInput: DeleteUserInput!) {
-  deleteUser(deleteUserInput: $deleteUserInput) {
-    _id
+    mutation UserPage_DeleteUser($deleteUsersInput: DeleteUsersInput!) {
+  deleteUsers(deleteUsersInput: $deleteUsersInput) {
+    deletedCount
   }
 }
     `;
@@ -1484,7 +1528,7 @@ export type UserPage_DeleteUserMutationFn = Apollo.MutationFunction<UserPage_Del
  * @example
  * const [userPageDeleteUserMutation, { data, loading, error }] = useUserPage_DeleteUserMutation({
  *   variables: {
- *      deleteUserInput: // value for 'deleteUserInput'
+ *      deleteUsersInput: // value for 'deleteUsersInput'
  *   },
  * });
  */
@@ -1723,6 +1767,8 @@ export const UserPage_GetUsersDocument = gql`
         zip
         city
         state
+        country
+        _id
       }
       image {
         path
@@ -1750,6 +1796,8 @@ export const UserPage_GetUsersDocument = gql`
             city
             state
             zip
+            country
+            _id
           }
         }
         account {

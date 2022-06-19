@@ -86,7 +86,7 @@ export const useFormHelpers = () => {
         } else {
           triggerToast({
             header: `${Format.String.humanizeString(
-              graphQLError.extensions.serviceName,
+              graphQLError.extensions.serviceName ?? 'Unknown',
             )} Error`,
             message: graphQLError.message,
             button: toast?.button,

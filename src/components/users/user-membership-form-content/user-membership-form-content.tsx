@@ -47,7 +47,7 @@ export const UserMembershipFormContent: FC<
             loading={loading}
             value={{
               value: {
-                _id: userToUpdate(form?.initialValues.query),
+                _id: userToUpdate(form?.initialValues.query) ?? '',
               },
             }}
             handleChange={(v) =>
@@ -60,8 +60,12 @@ export const UserMembershipFormContent: FC<
           <AccountSelect
             loading={loading}
             value={{
-              value: form?.initialValues.payload.memberships?.account,
+              _id:
+                form?.initialValues.payload.memberships?.account ??
+                form?.values.payload.memberships?.account ??
+                '',
             }}
+            disabled={!!form?.initialValues.payload.memberships?.account}
             handleChange={(v) =>
               form?.setFieldValue('payload.memberships.account', v?.value)
             }

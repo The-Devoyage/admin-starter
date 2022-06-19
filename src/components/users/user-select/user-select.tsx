@@ -10,7 +10,7 @@ import {
 } from 'src/types/generated';
 
 type HandleChangeArg = SingleValue<{
-  value: Pick<User, '_id'> | undefined;
+  value: Pick<User, '_id'>;
   label: string;
   user?: UserSelect_GetUsersQuery['getUsers']['data'][0];
 }>;
@@ -54,7 +54,7 @@ export const UserSelect: FC<UserSelectProps> = ({
           isMulti={false}
           onChange={(v) => handleChange(v as HandleChangeArg)}
           onInputChange={handleSearch}
-          isDisabled={loading || value?.value?._id}
+          isDisabled={loading || !!value?.value?._id}
           filterOption={() => true}
           value={
             value?.value?._id && {

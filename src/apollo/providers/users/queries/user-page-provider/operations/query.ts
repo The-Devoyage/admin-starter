@@ -21,6 +21,8 @@ export const USER_PAGE_GET_USERS = gql`
           zip
           city
           state
+          country
+          _id
         }
         image {
           path
@@ -48,6 +50,8 @@ export const USER_PAGE_GET_USERS = gql`
               city
               state
               zip
+              country
+              _id
             }
           }
           account {

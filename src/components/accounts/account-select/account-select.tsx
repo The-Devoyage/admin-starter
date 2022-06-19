@@ -11,22 +11,22 @@ import {
 } from 'src/types/generated';
 
 type HandleChangeArg = SingleValue<{
-  value: Pick<Account, '_id'> | undefined;
+  value: Pick<Account, '_id'>;
   label: string;
 }>;
 
 interface AccountSelectProps {
-  value: SingleValue<{
-    value: Pick<Account, '_id'>;
-  }>;
+  value: SingleValue<Pick<Account, '_id'>>;
   handleChange: (v: HandleChangeArg) => void;
   loading: boolean;
+  disabled: boolean;
 }
 
 export const AccountSelect: FC<AccountSelectProps> = ({
   value,
   handleChange,
   loading,
+  disabled,
 }) => (
   <Providers.Accounts.Queries.AccountSelectProvider
     getUsersInput={{
@@ -46,10 +46,10 @@ export const AccountSelect: FC<AccountSelectProps> = ({
     }}
     getAccountsInput={{
       query: {
-        _id: value?.value
+        _id: value?._id
           ? [
               {
-                string: value.value as unknown as string,
+                string: value._id,
                 filterBy: StringFilterByEnum.Objectid,
                 operator: OperatorFieldConfigEnum.And,
               },
@@ -59,7 +59,12 @@ export const AccountSelect: FC<AccountSelectProps> = ({
     }}
   >
     <Providers.Accounts.Queries.AccountSelectProviderContext.Consumer>
-      {({ accounts, handleSearch, getAccountOwner }) => (
+      {({
+        accounts,
+        handleSearch,
+        getAccountOwner,
+        loading: loadingAccounts,
+      }) => (
         <ReactSelect
           name="account"
           placeholder="Account Owner"
@@ -73,19 +78,18 @@ export const AccountSelect: FC<AccountSelectProps> = ({
           isMulti={false}
           onChange={(v) => handleChange(v as HandleChangeArg)}
           onInputChange={handleSearch}
-          isDisabled={loading || !!value?.value}
+          isDisabled={loading || disabled}
+          isLoading={loadingAccounts || loading}
           filterOption={() => true}
-          value={
-            value?.value && {
-              value: value?.value,
-              label: `${Utils.Users.determineName(
-                accounts.find((a) => a._id === value?.value) ?? null,
-                getAccountOwner(
-                  accounts.find((a) => a._id === value?.value) ?? null,
-                ),
-              )}'s Account`,
-            }
-          }
+          value={{
+            value: value?._id,
+            label: `${Utils.Users.determineName(
+              accounts.find((a) => a._id === value?._id) ?? null,
+              getAccountOwner(
+                accounts.find((a) => a._id === value?._id) ?? null,
+              ),
+            )}'s Account`,
+          }}
         />
       )}
     </Providers.Accounts.Queries.AccountSelectProviderContext.Consumer>

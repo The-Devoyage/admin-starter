@@ -36,6 +36,12 @@ export const ResetPasswordCard = () => {
                 <CButton onClick={() => navigate('/login')} color="link">
                   Login
                 </CButton>
+                <CButton
+                  onClick={() => navigate('/reset-activation-code')}
+                  color="link"
+                >
+                  Reset Activation Code
+                </CButton>
                 <CButton onClick={() => navigate('/verify-email')} color="link">
                   Verify Email
                 </CButton>

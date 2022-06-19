@@ -34,11 +34,11 @@ export const cache: InMemoryCache = new InMemoryCache({
     Query: {
       fields: {
         getAccounts: {
-          keyArgs: ['getAccountsInput', ['_id']],
+          keyArgs: ['getAccountsInput', ['query']],
           merge: mergeCursorPagination,
         },
         getUsers: {
-          keyArgs: ['getUsersInput', ['user']],
+          keyArgs: ['getUsersInput', ['query']],
           merge: mergeCursorPagination,
         },
       },

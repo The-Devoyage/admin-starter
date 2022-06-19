@@ -9,3 +9,10 @@ generates:
       - typescript-react-apollo
     config:
       withResultType: true
+      scalars:
+        DateTime: Date
+        ObjectID: string
+        EmailAddress: string
+        PhoneNumber: string
+        CountryCode: string
+        PostalCode: string
