@@ -13,6 +13,7 @@ import {
   useUsersPage_InviteUserMutation,
 } from 'src/types/generated';
 import { useFormHelpers } from 'src/common/utils/use-form-helpers';
+import { Utils } from 'src/common';
 
 export interface IInviteUserProviderContext {
   form: FormikProps<InviteUserInput> | null;
@@ -48,10 +49,13 @@ export const InviteUserProvider: FC<InviteUserProviderProps> = ({
     values: InviteUserInput,
     helpers: FormikHelpers<InviteUserInput>,
   ) => {
+    const payload =
+      Utils.Format.Object.removeUnusedProperties<InviteUserInput>(values);
+
     inviteUser({
       variables: {
         inviteUserInput: {
-          ...values,
+          ...payload,
         },
       },
       onCompleted: () =>
@@ -59,6 +63,7 @@ export const InviteUserProvider: FC<InviteUserProviderProps> = ({
           helpers,
           reset,
           success: { header: 'Success', message: 'Invite Sent!' },
+          callback: () => helpers.setValues(values),
         }),
       onError: (error) => handleFormError({ error, reset, helpers }),
     });

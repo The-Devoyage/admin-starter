@@ -37,18 +37,18 @@ export const LoginProvider: FC<{
       },
       onCompleted: (data) => {
         localStorage.setItem('token', data.login.token);
-        handleFormSuccess({
-          reset,
-          helpers,
-          success: {
-            header: 'Login Account',
-            message:
-              'Account Login Successful. Limited access due to missing user login.',
-          },
-        });
         if (onComplete) {
           onComplete();
         } else {
+          handleFormSuccess({
+            reset,
+            helpers,
+            success: {
+              header: 'Login Account',
+              message:
+                'Account Login Successful. Limited access due to missing user login.',
+            },
+          });
           Variables.Auth.isAuthenticatedVar(true);
           navigate('/');
         }

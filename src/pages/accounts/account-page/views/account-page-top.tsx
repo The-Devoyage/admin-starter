@@ -11,7 +11,7 @@ export const AccountPageTop = () => (
           payload: {
             email: account?.email ?? '',
             memberships: {
-              account: account?._id,
+              account: account?._id!,
               default: true,
               role: 10,
             },

@@ -5,6 +5,7 @@ import {
   SetStateAction,
   useState,
   useMemo,
+  ReactNode,
 } from 'react';
 import { FormikHelpers, FormikProps, useFormik } from 'formik';
 import { CreateUserInput, useCreateUserMutation } from 'src/types/generated';
@@ -27,7 +28,7 @@ export const CreateUserProviderContext =
   });
 
 interface CreateUserProviderProps {
-  children: JSX.Element;
+  children: ReactNode;
   createUserInput: CreateUserInput;
 }
 
@@ -71,7 +72,7 @@ export const CreateUserProvider: FC<CreateUserProviderProps> = ({
     });
   };
 
-  const form = useFormik({
+  const form = useFormik<CreateUserInput>({
     initialValues: createUserInput,
     onSubmit: handleCreateUser,
     enableReinitialize: true,

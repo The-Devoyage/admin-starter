@@ -38,6 +38,7 @@ export const AccountPageProvider: FC<AccountPageProviderProps> = ({
   children,
 }) => {
   const navigate = useNavigate();
+
   const { data, loading } = useAccountPage_GetAccountsQuery({
     variables: {
       getUsersInput,

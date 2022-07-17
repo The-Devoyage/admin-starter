@@ -78,7 +78,7 @@ export const useFormHelpers = () => {
                 header: Format.String.humanizeString(exceptionError),
                 message: `Please check the "${Format.String.humanizeString(
                   exceptionError,
-                )}" field and try agian.`,
+                )}" field and try again.`,
                 button: toast?.button,
               });
             }

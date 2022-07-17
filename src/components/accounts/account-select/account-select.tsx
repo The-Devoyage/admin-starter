@@ -19,7 +19,7 @@ interface AccountSelectProps {
   value: SingleValue<Pick<Account, '_id'>>;
   handleChange: (v: HandleChangeArg) => void;
   loading: boolean;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 export const AccountSelect: FC<AccountSelectProps> = ({
@@ -81,15 +81,18 @@ export const AccountSelect: FC<AccountSelectProps> = ({
           isDisabled={loading || disabled}
           isLoading={loadingAccounts || loading}
           filterOption={() => true}
-          value={{
-            value: value?._id,
-            label: `${Utils.Users.determineName(
-              accounts.find((a) => a._id === value?._id) ?? null,
-              getAccountOwner(
+          isClearable
+          value={
+            value?._id && {
+              value: value?._id,
+              label: `${Utils.Users.determineName(
                 accounts.find((a) => a._id === value?._id) ?? null,
-              ),
-            )}'s Account`,
-          }}
+                getAccountOwner(
+                  accounts.find((a) => a._id === value?._id) ?? null,
+                ),
+              )}'s Account`,
+            }
+          }
         />
       )}
     </Providers.Accounts.Queries.AccountSelectProviderContext.Consumer>

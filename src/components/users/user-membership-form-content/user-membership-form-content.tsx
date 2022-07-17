@@ -1,5 +1,8 @@
 import {
-  CCardTitle,
+  CAccordion,
+  CAccordionBody,
+  CAccordionHeader,
+  CAccordionItem,
   CCol,
   CDropdownDivider,
   CFormCheck,
@@ -20,6 +23,7 @@ import { UserMembershipLocalFormContent } from '../user-membership-local-form-co
 import { UserMembershipStatusSelect } from '../user-membership-status-select';
 import { UserRoleSelect } from '../user-role-select';
 import { UserSelect } from '../user-select';
+import { StringFilterByEnum } from 'src/types/generated';
 
 interface UpdateUserMembershipFormContentProps {
   form: FormikProps<UpdateUserInput> | FormikProps<InviteUserInput> | null;
@@ -29,7 +33,7 @@ interface UpdateUserMembershipFormContentProps {
 export const UserMembershipFormContent: FC<
   UpdateUserMembershipFormContentProps
 > = ({ form, loading }) => {
-  const userToUpdate = (userFieldFilters?: UserFieldFiltersInput) => {
+  const userIdToUpdate = (userFieldFilters?: UserFieldFiltersInput) => {
     const _idFilters = userFieldFilters?._id;
     const _idFilter = _idFilters?.length ? _idFilters[0] : null;
     if (_idFilter?.string) {
@@ -45,14 +49,15 @@ export const UserMembershipFormContent: FC<
           <CFormLabel>User</CFormLabel>
           <UserSelect
             loading={loading}
-            value={{
-              value: {
-                _id: userToUpdate(form?.initialValues.query) ?? '',
-              },
+            value={userIdToUpdate(form?.values.query) ?? ''}
+            disabled={!!form?.initialValues.query._id?.length}
+            handleChange={(v) => {
+              form?.setFieldValue('query._id[0].string', v);
+              form?.setFieldValue(
+                'query._id[0].filterBy',
+                StringFilterByEnum.Objectid,
+              );
             }}
-            handleChange={(v) =>
-              form?.setFieldValue('query.user._id[0].string', v?.value?._id)
-            }
           />
         </CCol>
         <CCol lg={12} className="mb-3">
@@ -108,9 +113,20 @@ export const UserMembershipFormContent: FC<
         </CCol>
       </CRow>
       <CDropdownDivider className="mb-3" />
-      <CCardTitle component="h6">Local Details</CCardTitle>
-      <UserMembershipLocalFormContent form={form} loading={loading} />
-      <LocalAddressFormContent form={form} loading={loading} />
+      <CAccordion>
+        <CAccordionItem>
+          <CAccordionHeader>Local User Details</CAccordionHeader>
+          <CAccordionBody>
+            <UserMembershipLocalFormContent form={form} loading={loading} />
+          </CAccordionBody>
+        </CAccordionItem>
+        <CAccordionItem>
+          <CAccordionHeader>Local Address</CAccordionHeader>
+          <CAccordionBody>
+            <LocalAddressFormContent form={form} loading={loading} />
+          </CAccordionBody>
+        </CAccordionItem>
+      </CAccordion>
     </>
   );
 };

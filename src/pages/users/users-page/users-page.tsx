@@ -9,10 +9,8 @@ const UsersPage = () => (
     <Providers.Users.Mutations.CreateUserProvider
       createUserInput={{ payload: { email: '' } }}
     >
-      <>
-        <UsersList />
-        <CreateUserModal />
-      </>
+      <UsersList />
+      <CreateUserModal />
     </Providers.Users.Mutations.CreateUserProvider>
   </Providers.Users.Queries.UsersPageProvider>
 );

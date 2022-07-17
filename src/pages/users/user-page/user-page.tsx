@@ -53,10 +53,10 @@ const UserPage = () => {
       }}
     >
       <CRow>
-        <CCol md={12} lg={8}>
+        <CCol md={12} lg={6}>
           <UserPageLeft />
         </CCol>
-        <CCol md={12} lg={4}>
+        <CCol md={12} lg={6}>
           <UserPageRight />
         </CCol>
       </CRow>

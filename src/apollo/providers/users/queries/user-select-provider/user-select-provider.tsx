@@ -53,7 +53,7 @@ export const UserSelectProvider: FC<UserSelectProviderProps> = ({
         if (keyWords.length > 0 && keyWords[0] !== '') {
           refetch({
             getUsersInput: {
-              user: {
+              query: {
                 _id,
                 email: keyWords.map((k) => ({
                   string: k,

@@ -46,7 +46,7 @@ export const InviteUserModal: FC = () => (
               disabled={
                 !Utils.isValidObjectId(
                   form?.values.payload.memberships?.account,
-                )
+                ) || !form?.dirty
               }
             >
               Add

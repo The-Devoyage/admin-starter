@@ -52,14 +52,14 @@ export const AccountsPageProvider: FC<AccountsPageProviderProps> = ({
       fetchMore({
         variables: {
           getUsersInput: {
-            getUsersInput,
-            getAccountsInput: {
-              ...getAccountsInput,
-              config: {
-                pagination: {
-                  limit: 10,
-                  createdAt: data?.getAccounts.stats.cursor,
-                },
+            ...getUsersInput,
+          },
+          getAccountsInput: {
+            ...getAccountsInput,
+            config: {
+              pagination: {
+                limit: 10,
+                createdAt: data?.getAccounts.stats.cursor,
               },
             },
           },

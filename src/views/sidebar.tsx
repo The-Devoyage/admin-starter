@@ -24,6 +24,9 @@ function Sidebar() {
         <CNavItem to="/users" component={NavLink}>
           Users
         </CNavItem>
+        <CNavItem to="/media" component={NavLink}>
+          Media
+        </CNavItem>
       </CSidebarNav>
     </CSidebar>
   );

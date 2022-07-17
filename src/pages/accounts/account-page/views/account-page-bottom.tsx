@@ -5,7 +5,6 @@ import {
   AccountUsersCard,
 } from 'src/components/accounts';
 import { InviteUserModal } from 'src/components/users';
-import { StringFilterByEnum } from 'src/types/generated';
 
 export const AccountPageBottom = () => (
   <Providers.Accounts.Queries.AccountPageProviderContext.Consumer>
@@ -13,11 +12,11 @@ export const AccountPageBottom = () => (
       <Providers.Users.Mutations.InviteUserProvider
         inviteUserInput={{
           query: {
-            _id: [{ string: '', filterBy: StringFilterByEnum.Objectid }],
+            _id: [],
           },
           payload: {
             memberships: {
-              account: account?._id,
+              account: account?._id!,
               local: {
                 first_name: '',
                 last_name: '',

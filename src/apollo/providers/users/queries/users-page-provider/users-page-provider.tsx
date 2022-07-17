@@ -1,4 +1,4 @@
-import { createContext, FC, useMemo } from 'react';
+import { createContext, FC, ReactNode, useMemo } from 'react';
 import { Utils } from 'src/common';
 import {
   GetUsersInput,
@@ -25,7 +25,7 @@ export const UsersPageProviderContext =
   });
 
 export interface UsersPageProviderProps {
-  children: JSX.Element;
+  children: ReactNode;
   getUsersInput: GetUsersInput;
 }
 
@@ -73,7 +73,7 @@ export const UsersPageProvider: FC<UsersPageProviderProps> = ({
         if (keyWords.length > 0 && keyWords[0] !== '') {
           refetch({
             getUsersInput: {
-              user: {
+              query: {
                 _id,
                 email: keyWords.map((k) => ({
                   string: k,
@@ -103,6 +103,7 @@ export const UsersPageProvider: FC<UsersPageProviderProps> = ({
     };
 
     const users = data?.getUsers.data ?? [];
+
     return { users, loading, stats, handleFetchMore, handleSearch };
   }, [
     loading,

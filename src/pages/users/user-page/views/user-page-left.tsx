@@ -11,7 +11,7 @@ export const UserPageLeft = () => (
           query: {
             _id: [
               {
-                string: user?._id,
+                string: user?._id!,
                 filterBy: StringFilterByEnum.Objectid,
               },
             ],
@@ -38,7 +38,7 @@ export const UserPageLeft = () => (
           <CCol lg={12}>
             <UserOverviewCard user={user} loading={loading} />
           </CCol>
-          <CCol lg={8} className="mt-3">
+          <CCol lg={12} className="mt-3">
             <UserDetailsCard user={user} loading={loading} />
           </CCol>
         </>

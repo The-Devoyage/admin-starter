@@ -36,7 +36,7 @@ export const AccountOverviewCard: FC<AccountOverviewCardProps> = ({
   return (
     <CCard>
       <CRow className="g-0">
-        <CCol md={4}>
+        <CCol md={6}>
           <CCardBody>
             <CRow className="align-items-center">
               <CCol xs={8}>
@@ -84,7 +84,7 @@ export const AccountOverviewCard: FC<AccountOverviewCardProps> = ({
             </CRow>
           </CCardBody>
         </CCol>
-        <CCol md={8}>
+        <CCol md={6}>
           <CCardBody className="h-100 d-flex flex-column justify-content-center">
             {defaultUser ? (
               <UserOverviewCard user={defaultUser} loading={loading} />

@@ -6,6 +6,7 @@ import ResetActivationCodePage from './pages/auth/reset-activation-code-page/res
 import ResetPasswordPage from './pages/auth/reset-password-page/reset-password-page';
 import VerifyEmailPage from './pages/auth/verify-email-page/verify-email-page';
 import Dashboard from './pages/dashboard/dashboard';
+import { MediasPage } from './pages/media/medias-page/medias-page';
 import UserPage from './pages/users/user-page/user-page';
 import UsersPage from './pages/users/users-page/users-page';
 
@@ -79,6 +80,15 @@ const accountsRoutes: Route[] = [
   },
 ];
 
+const mediaRoutes: Route[] = [
+  {
+    path: '/media',
+    name: 'Media',
+    component: MediasPage,
+    allow: 'AUTHENTICATED',
+  },
+];
+
 export const routes: Route[] = [
   {
     path: '/',
@@ -89,4 +99,5 @@ export const routes: Route[] = [
   ...authRoutes,
   ...usersRoutes,
   ...accountsRoutes,
+  ...mediaRoutes,
 ];
