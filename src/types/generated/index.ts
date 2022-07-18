@@ -1100,6 +1100,13 @@ export type DeleteMediaMutationVariables = Exact<{
 
 export type DeleteMediaMutation = { __typename?: 'Mutation', deleteMedia: { __typename?: 'DeleteMediaResponse', deletedCount: number } };
 
+export type MediaList_GetMediaQueryVariables = Exact<{
+  getMediaInput: GetMediaInput;
+}>;
+
+
+export type MediaList_GetMediaQuery = { __typename?: 'Query', getMedia: { __typename?: 'GetMediaResponse', data: Array<{ __typename?: 'Media', _id: string, src: string, title: string, mimetype: string, createdAt: Date, created_by: { __typename?: 'User', first_name?: string | null, last_name?: string | null, email: string } }>, stats: { __typename?: 'Stats', total?: number | null, cursor?: Date | null, remaining?: number | null } } };
+
 export type MediaManager_GetMediaQueryVariables = Exact<{
   getMediaInput: GetMediaInput;
 }>;
@@ -1107,12 +1114,12 @@ export type MediaManager_GetMediaQueryVariables = Exact<{
 
 export type MediaManager_GetMediaQuery = { __typename?: 'Query', getMedia: { __typename?: 'GetMediaResponse', data: Array<{ __typename?: 'Media', _id: string, title: string, mimetype: string, src: string }>, stats: { __typename?: 'Stats', total?: number | null, cursor?: Date | null, remaining?: number | null } } };
 
-export type MediasPage_GetMediaQueryVariables = Exact<{
+export type MediaCountWidget_GetMediaQueryVariables = Exact<{
   getMediaInput: GetMediaInput;
 }>;
 
 
-export type MediasPage_GetMediaQuery = { __typename?: 'Query', getMedia: { __typename?: 'GetMediaResponse', data: Array<{ __typename?: 'Media', _id: string, src: string, title: string, mimetype: string, createdAt: Date, created_by: { __typename?: 'User', first_name?: string | null, last_name?: string | null, email: string } }>, stats: { __typename?: 'Stats', total?: number | null, cursor?: Date | null, remaining?: number | null } } };
+export type MediaCountWidget_GetMediaQuery = { __typename?: 'Query', getMedia: { __typename?: 'GetMediaResponse', stats: { __typename?: 'Stats', total?: number | null, history?: Array<{ __typename?: 'HistoricStats', total?: number | null, _id?: { __typename?: 'HistoricStatsId', MONTH?: number | null } | null }> | null } } };
 
 export type CreateUserMutationVariables = Exact<{
   createUserInput: CreateUserInput;
@@ -1633,6 +1640,57 @@ export function useDeleteMediaMutation(baseOptions?: Apollo.MutationHookOptions<
 export type DeleteMediaMutationHookResult = ReturnType<typeof useDeleteMediaMutation>;
 export type DeleteMediaMutationResult = Apollo.MutationResult<DeleteMediaMutation>;
 export type DeleteMediaMutationOptions = Apollo.BaseMutationOptions<DeleteMediaMutation, DeleteMediaMutationVariables>;
+export const MediaList_GetMediaDocument = gql`
+    query MediaList_GetMedia($getMediaInput: GetMediaInput!) {
+  getMedia(getMediaInput: $getMediaInput) {
+    data {
+      _id
+      src
+      title
+      mimetype
+      createdAt
+      created_by {
+        first_name
+        last_name
+        email
+      }
+    }
+    stats {
+      total
+      cursor
+      remaining
+    }
+  }
+}
+    `;
+
+/**
+ * __useMediaList_GetMediaQuery__
+ *
+ * To run a query within a React component, call `useMediaList_GetMediaQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMediaList_GetMediaQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMediaList_GetMediaQuery({
+ *   variables: {
+ *      getMediaInput: // value for 'getMediaInput'
+ *   },
+ * });
+ */
+export function useMediaList_GetMediaQuery(baseOptions: Apollo.QueryHookOptions<MediaList_GetMediaQuery, MediaList_GetMediaQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MediaList_GetMediaQuery, MediaList_GetMediaQueryVariables>(MediaList_GetMediaDocument, options);
+      }
+export function useMediaList_GetMediaLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MediaList_GetMediaQuery, MediaList_GetMediaQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MediaList_GetMediaQuery, MediaList_GetMediaQueryVariables>(MediaList_GetMediaDocument, options);
+        }
+export type MediaList_GetMediaQueryHookResult = ReturnType<typeof useMediaList_GetMediaQuery>;
+export type MediaList_GetMediaLazyQueryHookResult = ReturnType<typeof useMediaList_GetMediaLazyQuery>;
+export type MediaList_GetMediaQueryResult = Apollo.QueryResult<MediaList_GetMediaQuery, MediaList_GetMediaQueryVariables>;
 export const MediaManager_GetMediaDocument = gql`
     query MediaManager_GetMedia($getMediaInput: GetMediaInput!) {
   getMedia(getMediaInput: $getMediaInput) {
@@ -1678,57 +1736,49 @@ export function useMediaManager_GetMediaLazyQuery(baseOptions?: Apollo.LazyQuery
 export type MediaManager_GetMediaQueryHookResult = ReturnType<typeof useMediaManager_GetMediaQuery>;
 export type MediaManager_GetMediaLazyQueryHookResult = ReturnType<typeof useMediaManager_GetMediaLazyQuery>;
 export type MediaManager_GetMediaQueryResult = Apollo.QueryResult<MediaManager_GetMediaQuery, MediaManager_GetMediaQueryVariables>;
-export const MediasPage_GetMediaDocument = gql`
-    query MediasPage_GetMedia($getMediaInput: GetMediaInput!) {
+export const MediaCountWidget_GetMediaDocument = gql`
+    query MediaCountWidget_GetMedia($getMediaInput: GetMediaInput!) {
   getMedia(getMediaInput: $getMediaInput) {
-    data {
-      _id
-      src
-      title
-      mimetype
-      createdAt
-      created_by {
-        first_name
-        last_name
-        email
-      }
-    }
     stats {
       total
-      cursor
-      remaining
+      history {
+        _id {
+          MONTH
+        }
+        total
+      }
     }
   }
 }
     `;
 
 /**
- * __useMediasPage_GetMediaQuery__
+ * __useMediaCountWidget_GetMediaQuery__
  *
- * To run a query within a React component, call `useMediasPage_GetMediaQuery` and pass it any options that fit your needs.
- * When your component renders, `useMediasPage_GetMediaQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useMediaCountWidget_GetMediaQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMediaCountWidget_GetMediaQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useMediasPage_GetMediaQuery({
+ * const { data, loading, error } = useMediaCountWidget_GetMediaQuery({
  *   variables: {
  *      getMediaInput: // value for 'getMediaInput'
  *   },
  * });
  */
-export function useMediasPage_GetMediaQuery(baseOptions: Apollo.QueryHookOptions<MediasPage_GetMediaQuery, MediasPage_GetMediaQueryVariables>) {
+export function useMediaCountWidget_GetMediaQuery(baseOptions: Apollo.QueryHookOptions<MediaCountWidget_GetMediaQuery, MediaCountWidget_GetMediaQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MediasPage_GetMediaQuery, MediasPage_GetMediaQueryVariables>(MediasPage_GetMediaDocument, options);
+        return Apollo.useQuery<MediaCountWidget_GetMediaQuery, MediaCountWidget_GetMediaQueryVariables>(MediaCountWidget_GetMediaDocument, options);
       }
-export function useMediasPage_GetMediaLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MediasPage_GetMediaQuery, MediasPage_GetMediaQueryVariables>) {
+export function useMediaCountWidget_GetMediaLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MediaCountWidget_GetMediaQuery, MediaCountWidget_GetMediaQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MediasPage_GetMediaQuery, MediasPage_GetMediaQueryVariables>(MediasPage_GetMediaDocument, options);
+          return Apollo.useLazyQuery<MediaCountWidget_GetMediaQuery, MediaCountWidget_GetMediaQueryVariables>(MediaCountWidget_GetMediaDocument, options);
         }
-export type MediasPage_GetMediaQueryHookResult = ReturnType<typeof useMediasPage_GetMediaQuery>;
-export type MediasPage_GetMediaLazyQueryHookResult = ReturnType<typeof useMediasPage_GetMediaLazyQuery>;
-export type MediasPage_GetMediaQueryResult = Apollo.QueryResult<MediasPage_GetMediaQuery, MediasPage_GetMediaQueryVariables>;
+export type MediaCountWidget_GetMediaQueryHookResult = ReturnType<typeof useMediaCountWidget_GetMediaQuery>;
+export type MediaCountWidget_GetMediaLazyQueryHookResult = ReturnType<typeof useMediaCountWidget_GetMediaLazyQuery>;
+export type MediaCountWidget_GetMediaQueryResult = Apollo.QueryResult<MediaCountWidget_GetMediaQuery, MediaCountWidget_GetMediaQueryVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($createUserInput: CreateUserInput!) {
   createUser(createUserInput: $createUserInput) {

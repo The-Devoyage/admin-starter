@@ -63,13 +63,13 @@ export const UserCountWidget = () => (
         createdAt: [
           {
             filterBy: DateFilterByEnum.Gte,
-            date: dayjs(`1/1/${dayjs().year()}`),
+            date: dayjs(`1/1/${dayjs().year()}`).toDate(),
             groups: ['users_widget.and'],
             operator: OperatorFieldConfigEnum.And,
           },
           {
             filterBy: DateFilterByEnum.Lt,
-            date: dayjs(`1/1/${dayjs().year() + 1}`),
+            date: dayjs(`1/1/${dayjs().year() + 1}`).toDate(),
             groups: ['users_widget.and'],
             operator: OperatorFieldConfigEnum.And,
           },
