@@ -11,9 +11,12 @@ interface AccountPageTopProps {
 }
 
 export const AccountPageTop: FC<AccountPageTopProps> = ({ account_id }) => {
-  const { account, loading, defaultUser } = useGetAccountsContext<
-    AccountPage_GetAccountsQuery['getAccounts']['data'][0]
-  >({ _id: account_id });
+  const { loading, utils } =
+    useGetAccountsContext<
+      AccountPage_GetAccountsQuery['getAccounts']['data'][0]
+    >();
+  const account = utils.getAccount(account_id);
+  const defaultUser = utils.getDefaultUser(account_id);
 
   return (
     <Providers.Users.Mutations.CreateUserProvider

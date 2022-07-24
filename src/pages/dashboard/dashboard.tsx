@@ -11,7 +11,7 @@ import {
   useMediaCountWidget_GetMediaQuery,
 } from 'src/types/generated';
 import dayjs from 'dayjs';
-import { ACCOUNT_COUNT_WIDGET_GET_ACCOUNTS } from 'src/apollo/providers/accounts/queries/get-accounts-provider/operations';
+import { ACCOUNT_COUNT_WIDGET_GET_ACCOUNTS } from './query';
 
 const Dashboard = () => (
   <CRow>

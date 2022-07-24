@@ -48,7 +48,7 @@ const labels = [
 ];
 
 export const AccountCountWidget = () => {
-  const { stats, loading } = useGetAccountsContext({});
+  const { stats, loading } = useGetAccountsContext();
 
   return (
     <CWidgetStatsA

@@ -16,10 +16,11 @@ interface AccountPageBottomProps {
 export const AccountPageBottom: FC<AccountPageBottomProps> = ({
   account_id,
 }) => {
-  const { accounts, loading } = useGetAccountsContext<
-    AccountPage_GetAccountsQuery['getAccounts']['data'][0]
-  >({});
-  const account = accounts.find((a) => a._id === account_id);
+  const { loading, utils } =
+    useGetAccountsContext<
+      AccountPage_GetAccountsQuery['getAccounts']['data'][0]
+    >();
+  const account = utils.getAccount(account_id);
 
   return (
     <Providers.Users.Mutations.InviteUserProvider

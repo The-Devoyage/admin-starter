@@ -10,7 +10,7 @@ import {
   StringFilterByEnum,
 } from 'src/types/generated';
 import { Utils } from 'src/common';
-import { ACCOUNT_SELECT_GET_ACCOUNTS } from 'src/apollo/providers/accounts/queries/get-accounts-provider/operations';
+import { ACCOUNT_SELECT_GET_ACCOUNTS } from './query';
 
 type HandleChangeArg = SingleValue<{
   value: Pick<Account, '_id'>;

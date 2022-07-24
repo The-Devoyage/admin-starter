@@ -1,7 +1,7 @@
 import { Providers } from 'src/apollo';
-import { ACCOUNTS_LIST_GET_ACCOUNTS } from 'src/apollo/providers/accounts/queries/get-accounts-provider/operations';
 import { AccountsList } from 'src/components/accounts';
 import { CreateAccountModal } from 'src/components/accounts/create-account-modal';
+import { ACCOUNTS_LIST_GET_ACCOUNTS } from './query';
 
 const AccountsPage = () => (
   <Providers.Accounts.Queries.GetAccountsProvider
