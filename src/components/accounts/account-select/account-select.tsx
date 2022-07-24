@@ -1,14 +1,16 @@
 import { FC } from 'react';
-import { SingleValue } from 'react-select';
+import ReactSelect, { SingleValue } from 'react-select';
 import { Providers } from 'src/apollo';
-import { Utils } from 'src/common';
-import { ReactSelect } from 'src/common/inputs';
+import { useGetAccountsContext } from 'src/apollo/providers/accounts/queries';
 import {
   Account,
+  AccountSelect_GetAccountsQuery,
   BooleanFilterByEnum,
   OperatorFieldConfigEnum,
   StringFilterByEnum,
 } from 'src/types/generated';
+import { Utils } from 'src/common';
+import { ACCOUNT_SELECT_GET_ACCOUNTS } from 'src/apollo/providers/accounts/queries/get-accounts-provider/operations';
 
 type HandleChangeArg = SingleValue<{
   value: Pick<Account, '_id'>;
@@ -28,73 +30,94 @@ export const AccountSelect: FC<AccountSelectProps> = ({
   loading,
   disabled,
 }) => (
-  <Providers.Accounts.Queries.AccountSelectProvider
-    getUsersInput={{
-      query: {
-        memberships: [
-          {
-            default: {
-              bool: true,
-              filterBy: BooleanFilterByEnum.Eq,
-              operator: OperatorFieldConfigEnum.And,
-              groups: ['account_users.and'],
-            },
+  <Providers.Accounts.Queries.GetAccountsProvider
+    query={{
+      documentNode: ACCOUNT_SELECT_GET_ACCOUNTS,
+      variables: {
+        getAccountsInput: {
+          query: {
+            _id: value?._id
+              ? [
+                  {
+                    string: value._id,
+                    filterBy: StringFilterByEnum.Objectid,
+                    operator: OperatorFieldConfigEnum.And,
+                  },
+                ]
+              : undefined,
           },
-        ],
-      },
-      config: { pagination: { limit: 1 } },
-    }}
-    getAccountsInput={{
-      query: {
-        _id: value?._id
-          ? [
+        },
+        getUsersInput: {
+          query: {
+            memberships: [
               {
-                string: value._id,
-                filterBy: StringFilterByEnum.Objectid,
-                operator: OperatorFieldConfigEnum.And,
+                default: {
+                  bool: true,
+                  filterBy: BooleanFilterByEnum.Eq,
+                  operator: OperatorFieldConfigEnum.And,
+                  groups: ['account_users.and'],
+                },
               },
-            ]
-          : undefined,
+            ],
+          },
+          config: { pagination: { limit: 1 } },
+        },
       },
     }}
   >
-    <Providers.Accounts.Queries.AccountSelectProviderContext.Consumer>
-      {({
-        accounts,
-        handleSearch,
-        getAccountOwner,
-        loading: loadingAccounts,
-      }) => (
-        <ReactSelect
-          name="account"
-          placeholder="Account Owner"
-          options={accounts.map((a) => {
-            const accountOwner = getAccountOwner(a);
-            return {
-              label: `${Utils.Users.determineName(a, accountOwner)}'s account`,
-              value: a._id,
-            };
-          })}
-          isMulti={false}
-          onChange={(v) => handleChange(v as HandleChangeArg)}
-          onInputChange={handleSearch}
-          isDisabled={loading || disabled}
-          isLoading={loadingAccounts || loading}
-          filterOption={() => true}
-          isClearable
-          value={
-            value?._id && {
-              value: value?._id,
-              label: `${Utils.Users.determineName(
-                accounts.find((a) => a._id === value?._id) ?? null,
-                getAccountOwner(
-                  accounts.find((a) => a._id === value?._id) ?? null,
-                ),
-              )}'s Account`,
-            }
-          }
-        />
-      )}
-    </Providers.Accounts.Queries.AccountSelectProviderContext.Consumer>
-  </Providers.Accounts.Queries.AccountSelectProvider>
+    <AccountSelectInput
+      value={value}
+      disabled={disabled}
+      handleChange={handleChange}
+      loading={loading}
+    />
+  </Providers.Accounts.Queries.GetAccountsProvider>
 );
+
+const AccountSelectInput: FC<AccountSelectProps> = ({
+  value,
+  loading,
+  handleChange,
+  disabled,
+}) => {
+  const {
+    accounts,
+    handleSearch,
+    utils,
+    loading: loadingAccounts,
+  } = useGetAccountsContext<
+    AccountSelect_GetAccountsQuery['getAccounts']['data'][0]
+  >();
+
+  return (
+    <ReactSelect
+      name="account"
+      placeholder="Account Owner"
+      options={accounts.map((a) => {
+        const accountOwner = utils.getAccountOwner(a._id);
+        return {
+          label: `${Utils.Users.determineName(a, accountOwner)}'s account`,
+          value: a._id,
+        };
+      })}
+      isMulti={false}
+      onChange={(v) => handleChange(v as HandleChangeArg)}
+      onInputChange={handleSearch}
+      isDisabled={loading || disabled}
+      isLoading={loadingAccounts || loading}
+      filterOption={() => true}
+      isClearable
+      value={
+        value?._id && {
+          value: value?._id,
+          label: `${Utils.Users.determineName(
+            accounts.find((a) => a._id === value?._id) ?? null,
+            utils.getAccountOwner(
+              accounts.find((a) => a._id === value?._id)?._id ?? '',
+            ),
+          )}'s Account`,
+        }
+      }
+    />
+  );
+};

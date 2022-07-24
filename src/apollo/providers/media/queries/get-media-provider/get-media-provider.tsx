@@ -70,7 +70,6 @@ export const GetMediaProvider: FC<GetMediaProviderProps> = ({
   });
 
   const stats = data?.getMedia.stats;
-  // const media = data?.getMedia.data ?? [];
 
   const handleSearch = (v: string) => {
     if (v) {

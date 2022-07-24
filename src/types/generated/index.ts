@@ -2,9 +2,15 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -33,7 +39,6 @@ export type Account = {
   updatedAt: Scalars['DateTime'];
   users: GetUsersResponse;
 };
-
 
 export type AccountUsersArgs = {
   getUsersInput: GetUsersInput;
@@ -76,7 +81,7 @@ export type AddressInput = {
 
 export enum ArrayFilterByEnum {
   In = 'IN',
-  Nin = 'NIN'
+  Nin = 'NIN',
 }
 
 /** Filter for documents which have a property that is a Boolean. */
@@ -90,7 +95,7 @@ export type BooleanFieldFilter = {
 /** Equal or Not Equal */
 export enum BooleanFilterByEnum {
   Eq = 'EQ',
-  Ne = 'NE'
+  Ne = 'NE',
 }
 
 export type Content = {
@@ -181,7 +186,7 @@ export enum DateFilterByEnum {
   Gte = 'GTE',
   Lt = 'LT',
   Lte = 'LTE',
-  Ne = 'NE'
+  Ne = 'NE',
 }
 
 export type DeleteContentsInput = {
@@ -220,7 +225,7 @@ export enum ExtensionEnum {
   Png = 'PNG',
   Svg = 'SVG',
   Tiff = 'TIFF',
-  Webp = 'WEBP'
+  Webp = 'WEBP',
 }
 
 /** Global configuration details. */
@@ -342,7 +347,7 @@ export enum GravityEnum {
   So = 'SO',
   Soea = 'SOEA',
   Sowe = 'SOWE',
-  We = 'WE'
+  We = 'WE',
 }
 
 export type HistoricStats = {
@@ -379,7 +384,7 @@ export enum HistoryFilterIntervalEnum {
   Month = 'MONTH',
   Seconds = 'SECONDS',
   Week = 'WEEK',
-  Year = 'YEAR'
+  Year = 'YEAR',
 }
 
 /** Filter for documents which have a property that is an Integer. */
@@ -396,7 +401,7 @@ export enum IntFilterByEnum {
   Gte = 'GTE',
   Lt = 'LT',
   Lte = 'LTE',
-  Ne = 'NE'
+  Ne = 'NE',
 }
 
 export type InviteUserInput = {
@@ -522,7 +527,7 @@ export enum MembershipStatusEnum {
   Active = 'ACTIVE',
   Inactive = 'INACTIVE',
   Pending = 'PENDING',
-  Revoked = 'REVOKED'
+  Revoked = 'REVOKED',
 }
 
 export type Mutation = {
@@ -555,126 +560,101 @@ export type Mutation = {
   verifyEmail: Account;
 };
 
-
 export type MutationCreateContentArgs = {
   createContentInput: CreateContentInput;
 };
-
 
 export type MutationCreateLayoutArgs = {
   createLayoutInput: CreateLayoutInput;
 };
 
-
 export type MutationCreateMediaArgs = {
   createMediaInput: CreateMediaInput;
 };
-
 
 export type MutationCreatePaywallArgs = {
   createPaywallInput: CreatePaywallInput;
 };
 
-
 export type MutationCreatePaywallPurchaseArgs = {
   createPaywallPurchaseInput: CreatePaywallPurchaseInput;
 };
-
 
 export type MutationCreateServiceArgs = {
   createServiceInput: CreateServiceInput;
 };
 
-
 export type MutationCreateUserArgs = {
   createUserInput: CreateUserInput;
 };
-
 
 export type MutationDeleteContentsArgs = {
   deleteContentsInput: DeleteContentsInput;
 };
 
-
 export type MutationDeleteLayoutsArgs = {
   deleteLayoutsInput: DeleteLayoutsInput;
 };
-
 
 export type MutationDeleteMediaArgs = {
   deleteMediaInput: DeleteMediaInput;
 };
 
-
 export type MutationDeleteUsersArgs = {
   deleteUsersInput: DeleteUsersInput;
 };
-
 
 export type MutationInviteUserArgs = {
   inviteUserInput: InviteUserInput;
 };
 
-
 export type MutationLoginArgs = {
   loginInput: LoginInput;
 };
-
 
 export type MutationRegisterArgs = {
   registerInput: RegisterInput;
 };
 
-
 export type MutationResetActivationCodeArgs = {
   resetCodeInput: ResetCodeInput;
 };
-
 
 export type MutationResetPasswordArgs = {
   resetInput: ResetPasswordInput;
 };
 
-
 export type MutationSwitchUserMembershipArgs = {
   switchUserMembershipInput: SwitchUserMembershipInput;
 };
-
 
 export type MutationUpdateContentArgs = {
   updateContentInput: UpdateContentInput;
 };
 
-
 export type MutationUpdateEmailArgs = {
   updateEmailInput: UpdateEmailInput;
 };
-
 
 export type MutationUpdateLayoutArgs = {
   updateLayoutInput: UpdateLayoutInput;
 };
 
-
 export type MutationUpdatePaywallArgs = {
   updatePaywallInput: UpdatePaywallInput;
 };
-
 
 export type MutationUpdatePaywallPurchaseArgs = {
   updatePaywallPurchaseInput: UpdatePaywallPurchaseInput;
 };
 
-
 export type MutationUpdateServiceArgs = {
   updateServiceInput: UpdateServiceInput;
 };
 
-
 export type MutationUpdateUserArgs = {
   updateUserInput: UpdateUserInput;
 };
-
 
 export type MutationVerifyEmailArgs = {
   verifyEmailInput: VerifyEmailInput;
@@ -682,7 +662,7 @@ export type MutationVerifyEmailArgs = {
 
 export enum OperatorFieldConfigEnum {
   And = 'AND',
-  Or = 'OR'
+  Or = 'OR',
 }
 
 export type Pagination = {
@@ -755,12 +735,12 @@ export type PaywallPurchaseInput = {
 export enum PaywallPurchaseStatusEnum {
   Active = 'ACTIVE',
   Created = 'CREATED',
-  Inactive = 'INACTIVE'
+  Inactive = 'INACTIVE',
 }
 
 export enum PaywallStatusEnum {
   Active = 'ACTIVE',
-  Inactive = 'INACTIVE'
+  Inactive = 'INACTIVE',
 }
 
 export type Query = {
@@ -778,41 +758,33 @@ export type Query = {
   me: User;
 };
 
-
 export type QueryGetAccountsArgs = {
   getAccountsInput: GetAccountsInput;
 };
-
 
 export type QueryGetContentsArgs = {
   getContentsInput: GetContentsInput;
 };
 
-
 export type QueryGetLayoutsArgs = {
   getLayoutsInput: GetLayoutsInput;
 };
-
 
 export type QueryGetMediaArgs = {
   getMediaInput: GetMediaInput;
 };
 
-
 export type QueryGetPaywallPurchasesArgs = {
   getPaywallPurchasesInput: GetPaywallPurchasesInput;
 };
-
 
 export type QueryGetPaywallsArgs = {
   getPaywallsInput: GetPaywallsInput;
 };
 
-
 export type QueryGetServicesArgs = {
   getServicesInput: GetServicesInput;
 };
-
 
 export type QueryGetUsersArgs = {
   getUsersInput: GetUsersInput;
@@ -838,7 +810,7 @@ export enum ResizingTypeEnum {
   Fill = 'FILL',
   FillDown = 'FILL_DOWN',
   Fit = 'FIT',
-  Force = 'FORCE'
+  Force = 'FORCE',
 }
 
 export type Scope = {
@@ -904,7 +876,7 @@ export type StringFieldFilter = {
 export enum StringFilterByEnum {
   Match = 'MATCH',
   Objectid = 'OBJECTID',
-  Regex = 'REGEX'
+  Regex = 'REGEX',
 }
 
 export type SwitchUserMembershipInput = {
@@ -1024,183 +996,554 @@ export type LoginProvider_LoginMutationVariables = Exact<{
   loginInput: LoginInput;
 }>;
 
-
-export type LoginProvider_LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginAccountResponse', token: any, account: { __typename?: 'Account', _id: string, email: string } } };
+export type LoginProvider_LoginMutation = {
+  __typename?: 'Mutation';
+  login: {
+    __typename?: 'LoginAccountResponse';
+    token: any;
+    account: { __typename?: 'Account'; _id: string; email: string };
+  };
+};
 
 export type RegisterProvider_RegisterMutationVariables = Exact<{
   registerInput: RegisterInput;
 }>;
 
+export type RegisterProvider_RegisterMutation = {
+  __typename?: 'Mutation';
+  register: { __typename?: 'Account'; _id: string };
+};
 
-export type RegisterProvider_RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'Account', _id: string } };
+export type ResetActivationCodeProvider_ResetActivationCodeMutationVariables =
+  Exact<{
+    resetCodeInput: ResetCodeInput;
+  }>;
 
-export type ResetActivationCodeProvider_ResetActivationCodeMutationVariables = Exact<{
-  resetCodeInput: ResetCodeInput;
-}>;
-
-
-export type ResetActivationCodeProvider_ResetActivationCodeMutation = { __typename?: 'Mutation', resetActivationCode: { __typename?: 'Account', _id: string } };
+export type ResetActivationCodeProvider_ResetActivationCodeMutation = {
+  __typename?: 'Mutation';
+  resetActivationCode: { __typename?: 'Account'; _id: string };
+};
 
 export type ResetPasswordProvider_ResetPasswordMutationVariables = Exact<{
   resetInput: ResetPasswordInput;
 }>;
 
-
-export type ResetPasswordProvider_ResetPasswordMutation = { __typename?: 'Mutation', resetPassword: { __typename?: 'Account', _id: string } };
+export type ResetPasswordProvider_ResetPasswordMutation = {
+  __typename?: 'Mutation';
+  resetPassword: { __typename?: 'Account'; _id: string };
+};
 
 export type VerifyEmailProvider_VerifyEmailMutationVariables = Exact<{
   verifyEmailInput: VerifyEmailInput;
 }>;
 
-
-export type VerifyEmailProvider_VerifyEmailMutation = { __typename?: 'Mutation', verifyEmail: { __typename?: 'Account', _id: string } };
+export type VerifyEmailProvider_VerifyEmailMutation = {
+  __typename?: 'Mutation';
+  verifyEmail: { __typename?: 'Account'; _id: string };
+};
 
 export type AccountCountWidget_GetAccountsQueryVariables = Exact<{
   getAccountsInput: GetAccountsInput;
 }>;
 
-
-export type AccountCountWidget_GetAccountsQuery = { __typename?: 'Query', getAccounts: { __typename?: 'GetAccountsResponse', stats: { __typename?: 'Stats', total?: number | null, history?: Array<{ __typename?: 'HistoricStats', total?: number | null, _id?: { __typename?: 'HistoricStatsId', MONTH?: number | null } | null }> | null } } };
+export type AccountCountWidget_GetAccountsQuery = {
+  __typename?: 'Query';
+  getAccounts: {
+    __typename?: 'GetAccountsResponse';
+    stats: {
+      __typename?: 'Stats';
+      total?: number | null;
+      history?: Array<{
+        __typename?: 'HistoricStats';
+        total?: number | null;
+        _id?: { __typename?: 'HistoricStatsId'; MONTH?: number | null } | null;
+      }> | null;
+    };
+  };
+};
 
 export type AccountPage_GetAccountsQueryVariables = Exact<{
   getAccountsInput: GetAccountsInput;
   getUsersInput: GetUsersInput;
 }>;
 
-
-export type AccountPage_GetAccountsQuery = { __typename?: 'Query', getAccounts: { __typename?: 'GetAccountsResponse', data: Array<{ __typename?: 'Account', _id: string, email: string, createdAt: Date, updatedAt: Date, activation?: { __typename?: 'Activation', code?: string | null, limit: Date, verified: boolean } | null, users: { __typename?: 'GetUsersResponse', stats: { __typename?: 'Stats', total?: number | null }, data: Array<{ __typename?: 'User', _id: string, email: string, first_name?: string | null, last_name?: string | null, updatedAt: Date, about?: string | null, image?: { __typename?: 'Media', path: string, _id: string } | null, memberships: Array<{ __typename?: 'Membership', _id: string, default: boolean, status?: MembershipStatusEnum | null, account: { __typename?: 'Account', _id: string } }> }> } }> } };
+export type AccountPage_GetAccountsQuery = {
+  __typename?: 'Query';
+  getAccounts: {
+    __typename?: 'GetAccountsResponse';
+    data: Array<{
+      __typename?: 'Account';
+      _id: string;
+      email: string;
+      createdAt: Date;
+      updatedAt: Date;
+      activation?: {
+        __typename?: 'Activation';
+        code?: string | null;
+        limit: Date;
+        verified: boolean;
+      } | null;
+      users: {
+        __typename?: 'GetUsersResponse';
+        stats: { __typename?: 'Stats'; total?: number | null };
+        data: Array<{
+          __typename?: 'User';
+          _id: string;
+          email: string;
+          first_name?: string | null;
+          last_name?: string | null;
+          updatedAt: Date;
+          about?: string | null;
+          image?: { __typename?: 'Media'; path: string; _id: string } | null;
+          memberships: Array<{
+            __typename?: 'Membership';
+            _id: string;
+            default: boolean;
+            status?: MembershipStatusEnum | null;
+            account: { __typename?: 'Account'; _id: string };
+          }>;
+        }>;
+      };
+    }>;
+  };
+};
 
 export type AccountSelect_GetAccountsQueryVariables = Exact<{
   getAccountsInput: GetAccountsInput;
   getUsersInput: GetUsersInput;
 }>;
 
-
-export type AccountSelect_GetAccountsQuery = { __typename?: 'Query', getAccounts: { __typename?: 'GetAccountsResponse', data: Array<{ __typename?: 'Account', _id: string, email: string, users: { __typename?: 'GetUsersResponse', data: Array<{ __typename?: 'User', _id: string, first_name?: string | null, last_name?: string | null, email: string }> } }> } };
+export type AccountSelect_GetAccountsQuery = {
+  __typename?: 'Query';
+  getAccounts: {
+    __typename?: 'GetAccountsResponse';
+    data: Array<{
+      __typename?: 'Account';
+      _id: string;
+      email: string;
+      users: {
+        __typename?: 'GetUsersResponse';
+        data: Array<{
+          __typename?: 'User';
+          _id: string;
+          first_name?: string | null;
+          last_name?: string | null;
+          email: string;
+        }>;
+      };
+    }>;
+  };
+};
 
 export type AccountsPage_GetAccountsQueryVariables = Exact<{
   getAccountsInput: GetAccountsInput;
   getUsersInput: GetUsersInput;
 }>;
 
+export type AccountsPage_GetAccountsQuery = {
+  __typename?: 'Query';
+  getAccounts: {
+    __typename?: 'GetAccountsResponse';
+    stats: {
+      __typename?: 'Stats';
+      total?: number | null;
+      remaining?: number | null;
+      cursor?: Date | null;
+    };
+    data: Array<{
+      __typename?: 'Account';
+      _id: string;
+      email: string;
+      createdAt: Date;
+      users: {
+        __typename?: 'GetUsersResponse';
+        stats: { __typename?: 'Stats'; total?: number | null };
+      };
+    }>;
+  };
+};
 
-export type AccountsPage_GetAccountsQuery = { __typename?: 'Query', getAccounts: { __typename?: 'GetAccountsResponse', stats: { __typename?: 'Stats', total?: number | null, remaining?: number | null, cursor?: Date | null }, data: Array<{ __typename?: 'Account', _id: string, email: string, createdAt: Date, users: { __typename?: 'GetUsersResponse', stats: { __typename?: 'Stats', total?: number | null } } }> } };
+export type AccountsList_GetAccountsQueryVariables = Exact<{
+  getAccountsInput: GetAccountsInput;
+  getUsersInput: GetUsersInput;
+}>;
+
+export type AccountsList_GetAccountsQuery = {
+  __typename?: 'Query';
+  getAccounts: {
+    __typename?: 'GetAccountsResponse';
+    stats: {
+      __typename?: 'Stats';
+      total?: number | null;
+      remaining?: number | null;
+      cursor?: Date | null;
+    };
+    data: Array<{
+      __typename?: 'Account';
+      _id: string;
+      email: string;
+      createdAt: Date;
+      users: {
+        __typename?: 'GetUsersResponse';
+        stats: { __typename?: 'Stats'; total?: number | null };
+      };
+    }>;
+  };
+};
 
 export type CreateMediaMutationVariables = Exact<{
   createMediaInput: CreateMediaInput;
 }>;
 
-
-export type CreateMediaMutation = { __typename?: 'Mutation', createMedia: { __typename?: 'CreateMediaResponse', media: Array<{ __typename?: 'Media', _id: string, path: string, mimetype: string, title: string }> } };
+export type CreateMediaMutation = {
+  __typename?: 'Mutation';
+  createMedia: {
+    __typename?: 'CreateMediaResponse';
+    media: Array<{
+      __typename?: 'Media';
+      _id: string;
+      path: string;
+      mimetype: string;
+      title: string;
+    }>;
+  };
+};
 
 export type DeleteMediaMutationVariables = Exact<{
   deleteMediaInput: DeleteMediaInput;
 }>;
 
-
-export type DeleteMediaMutation = { __typename?: 'Mutation', deleteMedia: { __typename?: 'DeleteMediaResponse', deletedCount: number } };
+export type DeleteMediaMutation = {
+  __typename?: 'Mutation';
+  deleteMedia: { __typename?: 'DeleteMediaResponse'; deletedCount: number };
+};
 
 export type MediaList_GetMediaQueryVariables = Exact<{
   getMediaInput: GetMediaInput;
 }>;
 
-
-export type MediaList_GetMediaQuery = { __typename?: 'Query', getMedia: { __typename?: 'GetMediaResponse', data: Array<{ __typename?: 'Media', _id: string, src: string, title: string, mimetype: string, createdAt: Date, created_by: { __typename?: 'User', first_name?: string | null, last_name?: string | null, email: string } }>, stats: { __typename?: 'Stats', total?: number | null, cursor?: Date | null, remaining?: number | null } } };
+export type MediaList_GetMediaQuery = {
+  __typename?: 'Query';
+  getMedia: {
+    __typename?: 'GetMediaResponse';
+    data: Array<{
+      __typename?: 'Media';
+      _id: string;
+      src: string;
+      title: string;
+      mimetype: string;
+      createdAt: Date;
+      created_by: {
+        __typename?: 'User';
+        first_name?: string | null;
+        last_name?: string | null;
+        email: string;
+      };
+    }>;
+    stats: {
+      __typename?: 'Stats';
+      total?: number | null;
+      cursor?: Date | null;
+      remaining?: number | null;
+    };
+  };
+};
 
 export type MediaManager_GetMediaQueryVariables = Exact<{
   getMediaInput: GetMediaInput;
 }>;
 
-
-export type MediaManager_GetMediaQuery = { __typename?: 'Query', getMedia: { __typename?: 'GetMediaResponse', data: Array<{ __typename?: 'Media', _id: string, title: string, mimetype: string, src: string }>, stats: { __typename?: 'Stats', total?: number | null, cursor?: Date | null, remaining?: number | null } } };
+export type MediaManager_GetMediaQuery = {
+  __typename?: 'Query';
+  getMedia: {
+    __typename?: 'GetMediaResponse';
+    data: Array<{
+      __typename?: 'Media';
+      _id: string;
+      title: string;
+      mimetype: string;
+      src: string;
+    }>;
+    stats: {
+      __typename?: 'Stats';
+      total?: number | null;
+      cursor?: Date | null;
+      remaining?: number | null;
+    };
+  };
+};
 
 export type MediaCountWidget_GetMediaQueryVariables = Exact<{
   getMediaInput: GetMediaInput;
 }>;
 
-
-export type MediaCountWidget_GetMediaQuery = { __typename?: 'Query', getMedia: { __typename?: 'GetMediaResponse', stats: { __typename?: 'Stats', total?: number | null, history?: Array<{ __typename?: 'HistoricStats', total?: number | null, _id?: { __typename?: 'HistoricStatsId', MONTH?: number | null } | null }> | null } } };
+export type MediaCountWidget_GetMediaQuery = {
+  __typename?: 'Query';
+  getMedia: {
+    __typename?: 'GetMediaResponse';
+    stats: {
+      __typename?: 'Stats';
+      total?: number | null;
+      history?: Array<{
+        __typename?: 'HistoricStats';
+        total?: number | null;
+        _id?: { __typename?: 'HistoricStatsId'; MONTH?: number | null } | null;
+      }> | null;
+    };
+  };
+};
 
 export type CreateUserMutationVariables = Exact<{
   createUserInput: CreateUserInput;
 }>;
 
-
-export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', _id: string } };
+export type CreateUserMutation = {
+  __typename?: 'Mutation';
+  createUser: { __typename?: 'User'; _id: string };
+};
 
 export type UserPage_DeleteUserMutationVariables = Exact<{
   deleteUsersInput: DeleteUsersInput;
 }>;
 
-
-export type UserPage_DeleteUserMutation = { __typename?: 'Mutation', deleteUsers: { __typename?: 'DeleteResponse', deletedCount: number } };
+export type UserPage_DeleteUserMutation = {
+  __typename?: 'Mutation';
+  deleteUsers: { __typename?: 'DeleteResponse'; deletedCount: number };
+};
 
 export type UsersPage_InviteUserMutationVariables = Exact<{
   inviteUserInput: InviteUserInput;
 }>;
 
+export type UsersPage_InviteUserMutation = {
+  __typename?: 'Mutation';
+  inviteUser: {
+    __typename?: 'User';
+    _id: string;
+    first_name?: string | null;
+    memberships: Array<{
+      __typename?: 'Membership';
+      role: number;
+      status?: MembershipStatusEnum | null;
+      _id: string;
+      account: { __typename?: 'Account'; _id: string };
+    }>;
+  };
+};
 
-export type UsersPage_InviteUserMutation = { __typename?: 'Mutation', inviteUser: { __typename?: 'User', _id: string, first_name?: string | null, memberships: Array<{ __typename?: 'Membership', role: number, status?: MembershipStatusEnum | null, _id: string, account: { __typename?: 'Account', _id: string } }> } };
+export type LoginProvider_LoginUserMutationVariables = Exact<{
+  [key: string]: never;
+}>;
 
-export type LoginProvider_LoginUserMutationVariables = Exact<{ [key: string]: never; }>;
-
-
-export type LoginProvider_LoginUserMutation = { __typename?: 'Mutation', loginUser: { __typename?: 'LoginUserResponse', token: string, user: { __typename?: 'User', _id: string } } };
+export type LoginProvider_LoginUserMutation = {
+  __typename?: 'Mutation';
+  loginUser: {
+    __typename?: 'LoginUserResponse';
+    token: string;
+    user: { __typename?: 'User'; _id: string };
+  };
+};
 
 export type UserPage_UpdateUserMutationVariables = Exact<{
   updateUserInput: UpdateUserInput;
 }>;
 
+export type UserPage_UpdateUserMutation = {
+  __typename?: 'Mutation';
+  updateUser: {
+    __typename?: 'User';
+    _id: string;
+    email: string;
+    first_name?: string | null;
+    last_name?: string | null;
+    about?: string | null;
+    phone?: string | null;
+    address?: {
+      __typename?: 'Address';
+      city?: string | null;
+      lineTwo?: string | null;
+      lineOne?: string | null;
+      state?: string | null;
+      zip?: string | null;
+    } | null;
+    image?: {
+      __typename?: 'Media';
+      _id: string;
+      path: string;
+      title: string;
+    } | null;
+  };
+};
 
-export type UserPage_UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', _id: string, email: string, first_name?: string | null, last_name?: string | null, about?: string | null, phone?: string | null, address?: { __typename?: 'Address', city?: string | null, lineTwo?: string | null, lineOne?: string | null, state?: string | null, zip?: string | null } | null, image?: { __typename?: 'Media', _id: string, path: string, title: string } | null } };
+export type App_MeQueryVariables = Exact<{ [key: string]: never }>;
 
-export type App_MeQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type App_MeQuery = { __typename?: 'Query', me: { __typename?: 'User', _id: string, first_name?: string | null, last_name?: string | null, email: string, image?: { __typename?: 'Media', path: string } | null } };
+export type App_MeQuery = {
+  __typename?: 'Query';
+  me: {
+    __typename?: 'User';
+    _id: string;
+    first_name?: string | null;
+    last_name?: string | null;
+    email: string;
+    image?: { __typename?: 'Media'; path: string } | null;
+  };
+};
 
 export type UserCountWidget_GetUsersQueryVariables = Exact<{
   getUsersInput: GetUsersInput;
 }>;
 
-
-export type UserCountWidget_GetUsersQuery = { __typename?: 'Query', getUsers: { __typename?: 'GetUsersResponse', stats: { __typename?: 'Stats', total?: number | null, history?: Array<{ __typename?: 'HistoricStats', total?: number | null, _id?: { __typename?: 'HistoricStatsId', MONTH?: number | null } | null }> | null } } };
+export type UserCountWidget_GetUsersQuery = {
+  __typename?: 'Query';
+  getUsers: {
+    __typename?: 'GetUsersResponse';
+    stats: {
+      __typename?: 'Stats';
+      total?: number | null;
+      history?: Array<{
+        __typename?: 'HistoricStats';
+        total?: number | null;
+        _id?: { __typename?: 'HistoricStatsId'; MONTH?: number | null } | null;
+      }> | null;
+    };
+  };
+};
 
 export type UserPage_GetUsersQueryVariables = Exact<{
   getUsersInput: GetUsersInput;
   membershipsAccountUsersInput: GetUsersInput;
 }>;
 
-
-export type UserPage_GetUsersQuery = { __typename?: 'Query', getUsers: { __typename?: 'GetUsersResponse', data: Array<{ __typename?: 'User', _id: string, first_name?: string | null, last_name?: string | null, email: string, phone?: string | null, about?: string | null, updatedAt: Date, createdAt: Date, address?: { __typename?: 'Address', lineOne?: string | null, lineTwo?: string | null, zip?: string | null, city?: string | null, state?: string | null, country?: string | null, _id?: string | null } | null, image?: { __typename?: 'Media', path: string, _id: string } | null, memberships: Array<{ __typename?: 'Membership', _id: string, role: number, status?: MembershipStatusEnum | null, createdAt: Date, updatedAt: Date, default: boolean, local?: { __typename?: 'LocalUserDetails', first_name?: string | null, last_name?: string | null, phone?: string | null, about?: string | null, image?: { __typename?: 'Media', _id: string, path: string } | null, address?: { __typename?: 'Address', lineOne?: string | null, lineTwo?: string | null, city?: string | null, state?: string | null, zip?: string | null, country?: string | null, _id?: string | null } | null } | null, account: { __typename?: 'Account', _id: string, email: string, users: { __typename?: 'GetUsersResponse', data: Array<{ __typename?: 'User', _id: string, first_name?: string | null, last_name?: string | null, email: string }> } } }> }> } };
+export type UserPage_GetUsersQuery = {
+  __typename?: 'Query';
+  getUsers: {
+    __typename?: 'GetUsersResponse';
+    data: Array<{
+      __typename?: 'User';
+      _id: string;
+      first_name?: string | null;
+      last_name?: string | null;
+      email: string;
+      phone?: string | null;
+      about?: string | null;
+      updatedAt: Date;
+      createdAt: Date;
+      address?: {
+        __typename?: 'Address';
+        lineOne?: string | null;
+        lineTwo?: string | null;
+        zip?: string | null;
+        city?: string | null;
+        state?: string | null;
+        country?: string | null;
+        _id?: string | null;
+      } | null;
+      image?: { __typename?: 'Media'; path: string; _id: string } | null;
+      memberships: Array<{
+        __typename?: 'Membership';
+        _id: string;
+        role: number;
+        status?: MembershipStatusEnum | null;
+        createdAt: Date;
+        updatedAt: Date;
+        default: boolean;
+        local?: {
+          __typename?: 'LocalUserDetails';
+          first_name?: string | null;
+          last_name?: string | null;
+          phone?: string | null;
+          about?: string | null;
+          image?: { __typename?: 'Media'; _id: string; path: string } | null;
+          address?: {
+            __typename?: 'Address';
+            lineOne?: string | null;
+            lineTwo?: string | null;
+            city?: string | null;
+            state?: string | null;
+            zip?: string | null;
+            country?: string | null;
+            _id?: string | null;
+          } | null;
+        } | null;
+        account: {
+          __typename?: 'Account';
+          _id: string;
+          email: string;
+          users: {
+            __typename?: 'GetUsersResponse';
+            data: Array<{
+              __typename?: 'User';
+              _id: string;
+              first_name?: string | null;
+              last_name?: string | null;
+              email: string;
+            }>;
+          };
+        };
+      }>;
+    }>;
+  };
+};
 
 export type UserSelect_GetUsersQueryVariables = Exact<{
   getUsersInput: GetUsersInput;
 }>;
 
-
-export type UserSelect_GetUsersQuery = { __typename?: 'Query', getUsers: { __typename?: 'GetUsersResponse', data: Array<{ __typename?: 'User', _id: string, email: string, first_name?: string | null, last_name?: string | null }> } };
+export type UserSelect_GetUsersQuery = {
+  __typename?: 'Query';
+  getUsers: {
+    __typename?: 'GetUsersResponse';
+    data: Array<{
+      __typename?: 'User';
+      _id: string;
+      email: string;
+      first_name?: string | null;
+      last_name?: string | null;
+    }>;
+  };
+};
 
 export type UsersPage_GetUsersQueryVariables = Exact<{
   getUsersInput: GetUsersInput;
 }>;
 
-
-export type UsersPage_GetUsersQuery = { __typename?: 'Query', getUsers: { __typename?: 'GetUsersResponse', stats: { __typename?: 'Stats', total?: number | null, remaining?: number | null, cursor?: Date | null }, data: Array<{ __typename?: 'User', _id: string, first_name?: string | null, last_name?: string | null, email: string, phone?: string | null, image?: { __typename?: 'Media', path: string, _id: string } | null }> } };
-
+export type UsersPage_GetUsersQuery = {
+  __typename?: 'Query';
+  getUsers: {
+    __typename?: 'GetUsersResponse';
+    stats: {
+      __typename?: 'Stats';
+      total?: number | null;
+      remaining?: number | null;
+      cursor?: Date | null;
+    };
+    data: Array<{
+      __typename?: 'User';
+      _id: string;
+      first_name?: string | null;
+      last_name?: string | null;
+      email: string;
+      phone?: string | null;
+      image?: { __typename?: 'Media'; path: string; _id: string } | null;
+    }>;
+  };
+};
 
 export const LoginProvider_LoginDocument = gql`
-    mutation LoginProvider_Login($loginInput: LoginInput!) {
-  login(loginInput: $loginInput) {
-    token
-    account {
-      _id
-      email
+  mutation LoginProvider_Login($loginInput: LoginInput!) {
+    login(loginInput: $loginInput) {
+      token
+      account {
+        _id
+        email
+      }
     }
   }
-}
-    `;
-export type LoginProvider_LoginMutationFn = Apollo.MutationFunction<LoginProvider_LoginMutation, LoginProvider_LoginMutationVariables>;
+`;
+export type LoginProvider_LoginMutationFn = Apollo.MutationFunction<
+  LoginProvider_LoginMutation,
+  LoginProvider_LoginMutationVariables
+>;
 
 /**
  * __useLoginProvider_LoginMutation__
@@ -1219,21 +1562,38 @@ export type LoginProvider_LoginMutationFn = Apollo.MutationFunction<LoginProvide
  *   },
  * });
  */
-export function useLoginProvider_LoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginProvider_LoginMutation, LoginProvider_LoginMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LoginProvider_LoginMutation, LoginProvider_LoginMutationVariables>(LoginProvider_LoginDocument, options);
-      }
-export type LoginProvider_LoginMutationHookResult = ReturnType<typeof useLoginProvider_LoginMutation>;
-export type LoginProvider_LoginMutationResult = Apollo.MutationResult<LoginProvider_LoginMutation>;
-export type LoginProvider_LoginMutationOptions = Apollo.BaseMutationOptions<LoginProvider_LoginMutation, LoginProvider_LoginMutationVariables>;
-export const RegisterProvider_RegisterDocument = gql`
-    mutation RegisterProvider_Register($registerInput: RegisterInput!) {
-  register(registerInput: $registerInput) {
-    _id
-  }
+export function useLoginProvider_LoginMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    LoginProvider_LoginMutation,
+    LoginProvider_LoginMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    LoginProvider_LoginMutation,
+    LoginProvider_LoginMutationVariables
+  >(LoginProvider_LoginDocument, options);
 }
-    `;
-export type RegisterProvider_RegisterMutationFn = Apollo.MutationFunction<RegisterProvider_RegisterMutation, RegisterProvider_RegisterMutationVariables>;
+export type LoginProvider_LoginMutationHookResult = ReturnType<
+  typeof useLoginProvider_LoginMutation
+>;
+export type LoginProvider_LoginMutationResult =
+  Apollo.MutationResult<LoginProvider_LoginMutation>;
+export type LoginProvider_LoginMutationOptions = Apollo.BaseMutationOptions<
+  LoginProvider_LoginMutation,
+  LoginProvider_LoginMutationVariables
+>;
+export const RegisterProvider_RegisterDocument = gql`
+  mutation RegisterProvider_Register($registerInput: RegisterInput!) {
+    register(registerInput: $registerInput) {
+      _id
+    }
+  }
+`;
+export type RegisterProvider_RegisterMutationFn = Apollo.MutationFunction<
+  RegisterProvider_RegisterMutation,
+  RegisterProvider_RegisterMutationVariables
+>;
 
 /**
  * __useRegisterProvider_RegisterMutation__
@@ -1252,21 +1612,42 @@ export type RegisterProvider_RegisterMutationFn = Apollo.MutationFunction<Regist
  *   },
  * });
  */
-export function useRegisterProvider_RegisterMutation(baseOptions?: Apollo.MutationHookOptions<RegisterProvider_RegisterMutation, RegisterProvider_RegisterMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RegisterProvider_RegisterMutation, RegisterProvider_RegisterMutationVariables>(RegisterProvider_RegisterDocument, options);
-      }
-export type RegisterProvider_RegisterMutationHookResult = ReturnType<typeof useRegisterProvider_RegisterMutation>;
-export type RegisterProvider_RegisterMutationResult = Apollo.MutationResult<RegisterProvider_RegisterMutation>;
-export type RegisterProvider_RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterProvider_RegisterMutation, RegisterProvider_RegisterMutationVariables>;
-export const ResetActivationCodeProvider_ResetActivationCodeDocument = gql`
-    mutation ResetActivationCodeProvider_ResetActivationCode($resetCodeInput: ResetCodeInput!) {
-  resetActivationCode(resetCodeInput: $resetCodeInput) {
-    _id
-  }
+export function useRegisterProvider_RegisterMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RegisterProvider_RegisterMutation,
+    RegisterProvider_RegisterMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    RegisterProvider_RegisterMutation,
+    RegisterProvider_RegisterMutationVariables
+  >(RegisterProvider_RegisterDocument, options);
 }
-    `;
-export type ResetActivationCodeProvider_ResetActivationCodeMutationFn = Apollo.MutationFunction<ResetActivationCodeProvider_ResetActivationCodeMutation, ResetActivationCodeProvider_ResetActivationCodeMutationVariables>;
+export type RegisterProvider_RegisterMutationHookResult = ReturnType<
+  typeof useRegisterProvider_RegisterMutation
+>;
+export type RegisterProvider_RegisterMutationResult =
+  Apollo.MutationResult<RegisterProvider_RegisterMutation>;
+export type RegisterProvider_RegisterMutationOptions =
+  Apollo.BaseMutationOptions<
+    RegisterProvider_RegisterMutation,
+    RegisterProvider_RegisterMutationVariables
+  >;
+export const ResetActivationCodeProvider_ResetActivationCodeDocument = gql`
+  mutation ResetActivationCodeProvider_ResetActivationCode(
+    $resetCodeInput: ResetCodeInput!
+  ) {
+    resetActivationCode(resetCodeInput: $resetCodeInput) {
+      _id
+    }
+  }
+`;
+export type ResetActivationCodeProvider_ResetActivationCodeMutationFn =
+  Apollo.MutationFunction<
+    ResetActivationCodeProvider_ResetActivationCodeMutation,
+    ResetActivationCodeProvider_ResetActivationCodeMutationVariables
+  >;
 
 /**
  * __useResetActivationCodeProvider_ResetActivationCodeMutation__
@@ -1285,21 +1666,41 @@ export type ResetActivationCodeProvider_ResetActivationCodeMutationFn = Apollo.M
  *   },
  * });
  */
-export function useResetActivationCodeProvider_ResetActivationCodeMutation(baseOptions?: Apollo.MutationHookOptions<ResetActivationCodeProvider_ResetActivationCodeMutation, ResetActivationCodeProvider_ResetActivationCodeMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<ResetActivationCodeProvider_ResetActivationCodeMutation, ResetActivationCodeProvider_ResetActivationCodeMutationVariables>(ResetActivationCodeProvider_ResetActivationCodeDocument, options);
-      }
-export type ResetActivationCodeProvider_ResetActivationCodeMutationHookResult = ReturnType<typeof useResetActivationCodeProvider_ResetActivationCodeMutation>;
-export type ResetActivationCodeProvider_ResetActivationCodeMutationResult = Apollo.MutationResult<ResetActivationCodeProvider_ResetActivationCodeMutation>;
-export type ResetActivationCodeProvider_ResetActivationCodeMutationOptions = Apollo.BaseMutationOptions<ResetActivationCodeProvider_ResetActivationCodeMutation, ResetActivationCodeProvider_ResetActivationCodeMutationVariables>;
-export const ResetPasswordProvider_ResetPasswordDocument = gql`
-    mutation ResetPasswordProvider_ResetPassword($resetInput: ResetPasswordInput!) {
-  resetPassword(resetInput: $resetInput) {
-    _id
-  }
+export function useResetActivationCodeProvider_ResetActivationCodeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ResetActivationCodeProvider_ResetActivationCodeMutation,
+    ResetActivationCodeProvider_ResetActivationCodeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    ResetActivationCodeProvider_ResetActivationCodeMutation,
+    ResetActivationCodeProvider_ResetActivationCodeMutationVariables
+  >(ResetActivationCodeProvider_ResetActivationCodeDocument, options);
 }
-    `;
-export type ResetPasswordProvider_ResetPasswordMutationFn = Apollo.MutationFunction<ResetPasswordProvider_ResetPasswordMutation, ResetPasswordProvider_ResetPasswordMutationVariables>;
+export type ResetActivationCodeProvider_ResetActivationCodeMutationHookResult =
+  ReturnType<typeof useResetActivationCodeProvider_ResetActivationCodeMutation>;
+export type ResetActivationCodeProvider_ResetActivationCodeMutationResult =
+  Apollo.MutationResult<ResetActivationCodeProvider_ResetActivationCodeMutation>;
+export type ResetActivationCodeProvider_ResetActivationCodeMutationOptions =
+  Apollo.BaseMutationOptions<
+    ResetActivationCodeProvider_ResetActivationCodeMutation,
+    ResetActivationCodeProvider_ResetActivationCodeMutationVariables
+  >;
+export const ResetPasswordProvider_ResetPasswordDocument = gql`
+  mutation ResetPasswordProvider_ResetPassword(
+    $resetInput: ResetPasswordInput!
+  ) {
+    resetPassword(resetInput: $resetInput) {
+      _id
+    }
+  }
+`;
+export type ResetPasswordProvider_ResetPasswordMutationFn =
+  Apollo.MutationFunction<
+    ResetPasswordProvider_ResetPasswordMutation,
+    ResetPasswordProvider_ResetPasswordMutationVariables
+  >;
 
 /**
  * __useResetPasswordProvider_ResetPasswordMutation__
@@ -1318,21 +1719,41 @@ export type ResetPasswordProvider_ResetPasswordMutationFn = Apollo.MutationFunct
  *   },
  * });
  */
-export function useResetPasswordProvider_ResetPasswordMutation(baseOptions?: Apollo.MutationHookOptions<ResetPasswordProvider_ResetPasswordMutation, ResetPasswordProvider_ResetPasswordMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<ResetPasswordProvider_ResetPasswordMutation, ResetPasswordProvider_ResetPasswordMutationVariables>(ResetPasswordProvider_ResetPasswordDocument, options);
-      }
-export type ResetPasswordProvider_ResetPasswordMutationHookResult = ReturnType<typeof useResetPasswordProvider_ResetPasswordMutation>;
-export type ResetPasswordProvider_ResetPasswordMutationResult = Apollo.MutationResult<ResetPasswordProvider_ResetPasswordMutation>;
-export type ResetPasswordProvider_ResetPasswordMutationOptions = Apollo.BaseMutationOptions<ResetPasswordProvider_ResetPasswordMutation, ResetPasswordProvider_ResetPasswordMutationVariables>;
-export const VerifyEmailProvider_VerifyEmailDocument = gql`
-    mutation VerifyEmailProvider_VerifyEmail($verifyEmailInput: VerifyEmailInput!) {
-  verifyEmail(verifyEmailInput: $verifyEmailInput) {
-    _id
-  }
+export function useResetPasswordProvider_ResetPasswordMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ResetPasswordProvider_ResetPasswordMutation,
+    ResetPasswordProvider_ResetPasswordMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    ResetPasswordProvider_ResetPasswordMutation,
+    ResetPasswordProvider_ResetPasswordMutationVariables
+  >(ResetPasswordProvider_ResetPasswordDocument, options);
 }
-    `;
-export type VerifyEmailProvider_VerifyEmailMutationFn = Apollo.MutationFunction<VerifyEmailProvider_VerifyEmailMutation, VerifyEmailProvider_VerifyEmailMutationVariables>;
+export type ResetPasswordProvider_ResetPasswordMutationHookResult = ReturnType<
+  typeof useResetPasswordProvider_ResetPasswordMutation
+>;
+export type ResetPasswordProvider_ResetPasswordMutationResult =
+  Apollo.MutationResult<ResetPasswordProvider_ResetPasswordMutation>;
+export type ResetPasswordProvider_ResetPasswordMutationOptions =
+  Apollo.BaseMutationOptions<
+    ResetPasswordProvider_ResetPasswordMutation,
+    ResetPasswordProvider_ResetPasswordMutationVariables
+  >;
+export const VerifyEmailProvider_VerifyEmailDocument = gql`
+  mutation VerifyEmailProvider_VerifyEmail(
+    $verifyEmailInput: VerifyEmailInput!
+  ) {
+    verifyEmail(verifyEmailInput: $verifyEmailInput) {
+      _id
+    }
+  }
+`;
+export type VerifyEmailProvider_VerifyEmailMutationFn = Apollo.MutationFunction<
+  VerifyEmailProvider_VerifyEmailMutation,
+  VerifyEmailProvider_VerifyEmailMutationVariables
+>;
 
 /**
  * __useVerifyEmailProvider_VerifyEmailMutation__
@@ -1351,28 +1772,43 @@ export type VerifyEmailProvider_VerifyEmailMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useVerifyEmailProvider_VerifyEmailMutation(baseOptions?: Apollo.MutationHookOptions<VerifyEmailProvider_VerifyEmailMutation, VerifyEmailProvider_VerifyEmailMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<VerifyEmailProvider_VerifyEmailMutation, VerifyEmailProvider_VerifyEmailMutationVariables>(VerifyEmailProvider_VerifyEmailDocument, options);
-      }
-export type VerifyEmailProvider_VerifyEmailMutationHookResult = ReturnType<typeof useVerifyEmailProvider_VerifyEmailMutation>;
-export type VerifyEmailProvider_VerifyEmailMutationResult = Apollo.MutationResult<VerifyEmailProvider_VerifyEmailMutation>;
-export type VerifyEmailProvider_VerifyEmailMutationOptions = Apollo.BaseMutationOptions<VerifyEmailProvider_VerifyEmailMutation, VerifyEmailProvider_VerifyEmailMutationVariables>;
+export function useVerifyEmailProvider_VerifyEmailMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    VerifyEmailProvider_VerifyEmailMutation,
+    VerifyEmailProvider_VerifyEmailMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    VerifyEmailProvider_VerifyEmailMutation,
+    VerifyEmailProvider_VerifyEmailMutationVariables
+  >(VerifyEmailProvider_VerifyEmailDocument, options);
+}
+export type VerifyEmailProvider_VerifyEmailMutationHookResult = ReturnType<
+  typeof useVerifyEmailProvider_VerifyEmailMutation
+>;
+export type VerifyEmailProvider_VerifyEmailMutationResult =
+  Apollo.MutationResult<VerifyEmailProvider_VerifyEmailMutation>;
+export type VerifyEmailProvider_VerifyEmailMutationOptions =
+  Apollo.BaseMutationOptions<
+    VerifyEmailProvider_VerifyEmailMutation,
+    VerifyEmailProvider_VerifyEmailMutationVariables
+  >;
 export const AccountCountWidget_GetAccountsDocument = gql`
-    query AccountCountWidget_GetAccounts($getAccountsInput: GetAccountsInput!) {
-  getAccounts(getAccountsInput: $getAccountsInput) {
-    stats {
-      total
-      history {
-        _id {
-          MONTH
-        }
+  query AccountCountWidget_GetAccounts($getAccountsInput: GetAccountsInput!) {
+    getAccounts(getAccountsInput: $getAccountsInput) {
+      stats {
         total
+        history {
+          _id {
+            MONTH
+          }
+          total
+        }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useAccountCountWidget_GetAccountsQuery__
@@ -1390,59 +1826,85 @@ export const AccountCountWidget_GetAccountsDocument = gql`
  *   },
  * });
  */
-export function useAccountCountWidget_GetAccountsQuery(baseOptions: Apollo.QueryHookOptions<AccountCountWidget_GetAccountsQuery, AccountCountWidget_GetAccountsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AccountCountWidget_GetAccountsQuery, AccountCountWidget_GetAccountsQueryVariables>(AccountCountWidget_GetAccountsDocument, options);
-      }
-export function useAccountCountWidget_GetAccountsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AccountCountWidget_GetAccountsQuery, AccountCountWidget_GetAccountsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AccountCountWidget_GetAccountsQuery, AccountCountWidget_GetAccountsQueryVariables>(AccountCountWidget_GetAccountsDocument, options);
-        }
-export type AccountCountWidget_GetAccountsQueryHookResult = ReturnType<typeof useAccountCountWidget_GetAccountsQuery>;
-export type AccountCountWidget_GetAccountsLazyQueryHookResult = ReturnType<typeof useAccountCountWidget_GetAccountsLazyQuery>;
-export type AccountCountWidget_GetAccountsQueryResult = Apollo.QueryResult<AccountCountWidget_GetAccountsQuery, AccountCountWidget_GetAccountsQueryVariables>;
+export function useAccountCountWidget_GetAccountsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    AccountCountWidget_GetAccountsQuery,
+    AccountCountWidget_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    AccountCountWidget_GetAccountsQuery,
+    AccountCountWidget_GetAccountsQueryVariables
+  >(AccountCountWidget_GetAccountsDocument, options);
+}
+export function useAccountCountWidget_GetAccountsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AccountCountWidget_GetAccountsQuery,
+    AccountCountWidget_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    AccountCountWidget_GetAccountsQuery,
+    AccountCountWidget_GetAccountsQueryVariables
+  >(AccountCountWidget_GetAccountsDocument, options);
+}
+export type AccountCountWidget_GetAccountsQueryHookResult = ReturnType<
+  typeof useAccountCountWidget_GetAccountsQuery
+>;
+export type AccountCountWidget_GetAccountsLazyQueryHookResult = ReturnType<
+  typeof useAccountCountWidget_GetAccountsLazyQuery
+>;
+export type AccountCountWidget_GetAccountsQueryResult = Apollo.QueryResult<
+  AccountCountWidget_GetAccountsQuery,
+  AccountCountWidget_GetAccountsQueryVariables
+>;
 export const AccountPage_GetAccountsDocument = gql`
-    query AccountPage_GetAccounts($getAccountsInput: GetAccountsInput!, $getUsersInput: GetUsersInput!) {
-  getAccounts(getAccountsInput: $getAccountsInput) {
-    data {
-      _id
-      email
-      createdAt
-      updatedAt
-      activation {
-        code
-        limit
-        verified
-      }
-      users(getUsersInput: $getUsersInput) {
-        stats {
-          total
+  query AccountPage_GetAccounts(
+    $getAccountsInput: GetAccountsInput!
+    $getUsersInput: GetUsersInput!
+  ) {
+    getAccounts(getAccountsInput: $getAccountsInput) {
+      data {
+        _id
+        email
+        createdAt
+        updatedAt
+        activation {
+          code
+          limit
+          verified
         }
-        data {
-          _id
-          email
-          first_name
-          last_name
-          updatedAt
-          about
-          image {
-            path
-            _id
+        users(getUsersInput: $getUsersInput) {
+          stats {
+            total
           }
-          memberships {
+          data {
             _id
-            default
-            status
-            account {
+            email
+            first_name
+            last_name
+            updatedAt
+            about
+            image {
+              path
               _id
+            }
+            memberships {
+              _id
+              default
+              status
+              account {
+                _id
+              }
             }
           }
         }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useAccountPage_GetAccountsQuery__
@@ -1461,35 +1923,61 @@ export const AccountPage_GetAccountsDocument = gql`
  *   },
  * });
  */
-export function useAccountPage_GetAccountsQuery(baseOptions: Apollo.QueryHookOptions<AccountPage_GetAccountsQuery, AccountPage_GetAccountsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AccountPage_GetAccountsQuery, AccountPage_GetAccountsQueryVariables>(AccountPage_GetAccountsDocument, options);
-      }
-export function useAccountPage_GetAccountsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AccountPage_GetAccountsQuery, AccountPage_GetAccountsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AccountPage_GetAccountsQuery, AccountPage_GetAccountsQueryVariables>(AccountPage_GetAccountsDocument, options);
-        }
-export type AccountPage_GetAccountsQueryHookResult = ReturnType<typeof useAccountPage_GetAccountsQuery>;
-export type AccountPage_GetAccountsLazyQueryHookResult = ReturnType<typeof useAccountPage_GetAccountsLazyQuery>;
-export type AccountPage_GetAccountsQueryResult = Apollo.QueryResult<AccountPage_GetAccountsQuery, AccountPage_GetAccountsQueryVariables>;
+export function useAccountPage_GetAccountsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    AccountPage_GetAccountsQuery,
+    AccountPage_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    AccountPage_GetAccountsQuery,
+    AccountPage_GetAccountsQueryVariables
+  >(AccountPage_GetAccountsDocument, options);
+}
+export function useAccountPage_GetAccountsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AccountPage_GetAccountsQuery,
+    AccountPage_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    AccountPage_GetAccountsQuery,
+    AccountPage_GetAccountsQueryVariables
+  >(AccountPage_GetAccountsDocument, options);
+}
+export type AccountPage_GetAccountsQueryHookResult = ReturnType<
+  typeof useAccountPage_GetAccountsQuery
+>;
+export type AccountPage_GetAccountsLazyQueryHookResult = ReturnType<
+  typeof useAccountPage_GetAccountsLazyQuery
+>;
+export type AccountPage_GetAccountsQueryResult = Apollo.QueryResult<
+  AccountPage_GetAccountsQuery,
+  AccountPage_GetAccountsQueryVariables
+>;
 export const AccountSelect_GetAccountsDocument = gql`
-    query AccountSelect_GetAccounts($getAccountsInput: GetAccountsInput!, $getUsersInput: GetUsersInput!) {
-  getAccounts(getAccountsInput: $getAccountsInput) {
-    data {
-      _id
-      email
-      users(getUsersInput: $getUsersInput) {
-        data {
-          _id
-          first_name
-          last_name
-          email
+  query AccountSelect_GetAccounts(
+    $getAccountsInput: GetAccountsInput!
+    $getUsersInput: GetUsersInput!
+  ) {
+    getAccounts(getAccountsInput: $getAccountsInput) {
+      data {
+        _id
+        email
+        users(getUsersInput: $getUsersInput) {
+          data {
+            _id
+            first_name
+            last_name
+            email
+          }
         }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useAccountSelect_GetAccountsQuery__
@@ -1508,38 +1996,64 @@ export const AccountSelect_GetAccountsDocument = gql`
  *   },
  * });
  */
-export function useAccountSelect_GetAccountsQuery(baseOptions: Apollo.QueryHookOptions<AccountSelect_GetAccountsQuery, AccountSelect_GetAccountsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AccountSelect_GetAccountsQuery, AccountSelect_GetAccountsQueryVariables>(AccountSelect_GetAccountsDocument, options);
-      }
-export function useAccountSelect_GetAccountsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AccountSelect_GetAccountsQuery, AccountSelect_GetAccountsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AccountSelect_GetAccountsQuery, AccountSelect_GetAccountsQueryVariables>(AccountSelect_GetAccountsDocument, options);
-        }
-export type AccountSelect_GetAccountsQueryHookResult = ReturnType<typeof useAccountSelect_GetAccountsQuery>;
-export type AccountSelect_GetAccountsLazyQueryHookResult = ReturnType<typeof useAccountSelect_GetAccountsLazyQuery>;
-export type AccountSelect_GetAccountsQueryResult = Apollo.QueryResult<AccountSelect_GetAccountsQuery, AccountSelect_GetAccountsQueryVariables>;
+export function useAccountSelect_GetAccountsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    AccountSelect_GetAccountsQuery,
+    AccountSelect_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    AccountSelect_GetAccountsQuery,
+    AccountSelect_GetAccountsQueryVariables
+  >(AccountSelect_GetAccountsDocument, options);
+}
+export function useAccountSelect_GetAccountsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AccountSelect_GetAccountsQuery,
+    AccountSelect_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    AccountSelect_GetAccountsQuery,
+    AccountSelect_GetAccountsQueryVariables
+  >(AccountSelect_GetAccountsDocument, options);
+}
+export type AccountSelect_GetAccountsQueryHookResult = ReturnType<
+  typeof useAccountSelect_GetAccountsQuery
+>;
+export type AccountSelect_GetAccountsLazyQueryHookResult = ReturnType<
+  typeof useAccountSelect_GetAccountsLazyQuery
+>;
+export type AccountSelect_GetAccountsQueryResult = Apollo.QueryResult<
+  AccountSelect_GetAccountsQuery,
+  AccountSelect_GetAccountsQueryVariables
+>;
 export const AccountsPage_GetAccountsDocument = gql`
-    query AccountsPage_GetAccounts($getAccountsInput: GetAccountsInput!, $getUsersInput: GetUsersInput!) {
-  getAccounts(getAccountsInput: $getAccountsInput) {
-    stats {
-      total
-      remaining
-      cursor
-    }
-    data {
-      _id
-      email
-      createdAt
-      users(getUsersInput: $getUsersInput) {
-        stats {
-          total
+  query AccountsPage_GetAccounts(
+    $getAccountsInput: GetAccountsInput!
+    $getUsersInput: GetUsersInput!
+  ) {
+    getAccounts(getAccountsInput: $getAccountsInput) {
+      stats {
+        total
+        remaining
+        cursor
+      }
+      data {
+        _id
+        email
+        createdAt
+        users(getUsersInput: $getUsersInput) {
+          stats {
+            total
+          }
         }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useAccountsPage_GetAccountsQuery__
@@ -1558,30 +2072,132 @@ export const AccountsPage_GetAccountsDocument = gql`
  *   },
  * });
  */
-export function useAccountsPage_GetAccountsQuery(baseOptions: Apollo.QueryHookOptions<AccountsPage_GetAccountsQuery, AccountsPage_GetAccountsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AccountsPage_GetAccountsQuery, AccountsPage_GetAccountsQueryVariables>(AccountsPage_GetAccountsDocument, options);
+export function useAccountsPage_GetAccountsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    AccountsPage_GetAccountsQuery,
+    AccountsPage_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    AccountsPage_GetAccountsQuery,
+    AccountsPage_GetAccountsQueryVariables
+  >(AccountsPage_GetAccountsDocument, options);
+}
+export function useAccountsPage_GetAccountsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AccountsPage_GetAccountsQuery,
+    AccountsPage_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    AccountsPage_GetAccountsQuery,
+    AccountsPage_GetAccountsQueryVariables
+  >(AccountsPage_GetAccountsDocument, options);
+}
+export type AccountsPage_GetAccountsQueryHookResult = ReturnType<
+  typeof useAccountsPage_GetAccountsQuery
+>;
+export type AccountsPage_GetAccountsLazyQueryHookResult = ReturnType<
+  typeof useAccountsPage_GetAccountsLazyQuery
+>;
+export type AccountsPage_GetAccountsQueryResult = Apollo.QueryResult<
+  AccountsPage_GetAccountsQuery,
+  AccountsPage_GetAccountsQueryVariables
+>;
+export const AccountsList_GetAccountsDocument = gql`
+  query AccountsList_GetAccounts(
+    $getAccountsInput: GetAccountsInput!
+    $getUsersInput: GetUsersInput!
+  ) {
+    getAccounts(getAccountsInput: $getAccountsInput) {
+      stats {
+        total
+        remaining
+        cursor
       }
-export function useAccountsPage_GetAccountsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AccountsPage_GetAccountsQuery, AccountsPage_GetAccountsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AccountsPage_GetAccountsQuery, AccountsPage_GetAccountsQueryVariables>(AccountsPage_GetAccountsDocument, options);
+      data {
+        _id
+        email
+        createdAt
+        users(getUsersInput: $getUsersInput) {
+          stats {
+            total
+          }
         }
-export type AccountsPage_GetAccountsQueryHookResult = ReturnType<typeof useAccountsPage_GetAccountsQuery>;
-export type AccountsPage_GetAccountsLazyQueryHookResult = ReturnType<typeof useAccountsPage_GetAccountsLazyQuery>;
-export type AccountsPage_GetAccountsQueryResult = Apollo.QueryResult<AccountsPage_GetAccountsQuery, AccountsPage_GetAccountsQueryVariables>;
-export const CreateMediaDocument = gql`
-    mutation CreateMedia($createMediaInput: CreateMediaInput!) {
-  createMedia(createMediaInput: $createMediaInput) {
-    media {
-      _id
-      path
-      mimetype
-      title
+      }
     }
   }
+`;
+
+/**
+ * __useAccountsList_GetAccountsQuery__
+ *
+ * To run a query within a React component, call `useAccountsList_GetAccountsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAccountsList_GetAccountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAccountsList_GetAccountsQuery({
+ *   variables: {
+ *      getAccountsInput: // value for 'getAccountsInput'
+ *      getUsersInput: // value for 'getUsersInput'
+ *   },
+ * });
+ */
+export function useAccountsList_GetAccountsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    AccountsList_GetAccountsQuery,
+    AccountsList_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    AccountsList_GetAccountsQuery,
+    AccountsList_GetAccountsQueryVariables
+  >(AccountsList_GetAccountsDocument, options);
 }
-    `;
-export type CreateMediaMutationFn = Apollo.MutationFunction<CreateMediaMutation, CreateMediaMutationVariables>;
+export function useAccountsList_GetAccountsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AccountsList_GetAccountsQuery,
+    AccountsList_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    AccountsList_GetAccountsQuery,
+    AccountsList_GetAccountsQueryVariables
+  >(AccountsList_GetAccountsDocument, options);
+}
+export type AccountsList_GetAccountsQueryHookResult = ReturnType<
+  typeof useAccountsList_GetAccountsQuery
+>;
+export type AccountsList_GetAccountsLazyQueryHookResult = ReturnType<
+  typeof useAccountsList_GetAccountsLazyQuery
+>;
+export type AccountsList_GetAccountsQueryResult = Apollo.QueryResult<
+  AccountsList_GetAccountsQuery,
+  AccountsList_GetAccountsQueryVariables
+>;
+export const CreateMediaDocument = gql`
+  mutation CreateMedia($createMediaInput: CreateMediaInput!) {
+    createMedia(createMediaInput: $createMediaInput) {
+      media {
+        _id
+        path
+        mimetype
+        title
+      }
+    }
+  }
+`;
+export type CreateMediaMutationFn = Apollo.MutationFunction<
+  CreateMediaMutation,
+  CreateMediaMutationVariables
+>;
 
 /**
  * __useCreateMediaMutation__
@@ -1600,21 +2216,38 @@ export type CreateMediaMutationFn = Apollo.MutationFunction<CreateMediaMutation,
  *   },
  * });
  */
-export function useCreateMediaMutation(baseOptions?: Apollo.MutationHookOptions<CreateMediaMutation, CreateMediaMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateMediaMutation, CreateMediaMutationVariables>(CreateMediaDocument, options);
-      }
-export type CreateMediaMutationHookResult = ReturnType<typeof useCreateMediaMutation>;
-export type CreateMediaMutationResult = Apollo.MutationResult<CreateMediaMutation>;
-export type CreateMediaMutationOptions = Apollo.BaseMutationOptions<CreateMediaMutation, CreateMediaMutationVariables>;
-export const DeleteMediaDocument = gql`
-    mutation DeleteMedia($deleteMediaInput: DeleteMediaInput!) {
-  deleteMedia(deleteMediaInput: $deleteMediaInput) {
-    deletedCount
-  }
+export function useCreateMediaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateMediaMutation,
+    CreateMediaMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateMediaMutation, CreateMediaMutationVariables>(
+    CreateMediaDocument,
+    options,
+  );
 }
-    `;
-export type DeleteMediaMutationFn = Apollo.MutationFunction<DeleteMediaMutation, DeleteMediaMutationVariables>;
+export type CreateMediaMutationHookResult = ReturnType<
+  typeof useCreateMediaMutation
+>;
+export type CreateMediaMutationResult =
+  Apollo.MutationResult<CreateMediaMutation>;
+export type CreateMediaMutationOptions = Apollo.BaseMutationOptions<
+  CreateMediaMutation,
+  CreateMediaMutationVariables
+>;
+export const DeleteMediaDocument = gql`
+  mutation DeleteMedia($deleteMediaInput: DeleteMediaInput!) {
+    deleteMedia(deleteMediaInput: $deleteMediaInput) {
+      deletedCount
+    }
+  }
+`;
+export type DeleteMediaMutationFn = Apollo.MutationFunction<
+  DeleteMediaMutation,
+  DeleteMediaMutationVariables
+>;
 
 /**
  * __useDeleteMediaMutation__
@@ -1633,36 +2266,50 @@ export type DeleteMediaMutationFn = Apollo.MutationFunction<DeleteMediaMutation,
  *   },
  * });
  */
-export function useDeleteMediaMutation(baseOptions?: Apollo.MutationHookOptions<DeleteMediaMutation, DeleteMediaMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteMediaMutation, DeleteMediaMutationVariables>(DeleteMediaDocument, options);
-      }
-export type DeleteMediaMutationHookResult = ReturnType<typeof useDeleteMediaMutation>;
-export type DeleteMediaMutationResult = Apollo.MutationResult<DeleteMediaMutation>;
-export type DeleteMediaMutationOptions = Apollo.BaseMutationOptions<DeleteMediaMutation, DeleteMediaMutationVariables>;
+export function useDeleteMediaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteMediaMutation,
+    DeleteMediaMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<DeleteMediaMutation, DeleteMediaMutationVariables>(
+    DeleteMediaDocument,
+    options,
+  );
+}
+export type DeleteMediaMutationHookResult = ReturnType<
+  typeof useDeleteMediaMutation
+>;
+export type DeleteMediaMutationResult =
+  Apollo.MutationResult<DeleteMediaMutation>;
+export type DeleteMediaMutationOptions = Apollo.BaseMutationOptions<
+  DeleteMediaMutation,
+  DeleteMediaMutationVariables
+>;
 export const MediaList_GetMediaDocument = gql`
-    query MediaList_GetMedia($getMediaInput: GetMediaInput!) {
-  getMedia(getMediaInput: $getMediaInput) {
-    data {
-      _id
-      src
-      title
-      mimetype
-      createdAt
-      created_by {
-        first_name
-        last_name
-        email
+  query MediaList_GetMedia($getMediaInput: GetMediaInput!) {
+    getMedia(getMediaInput: $getMediaInput) {
+      data {
+        _id
+        src
+        title
+        mimetype
+        createdAt
+        created_by {
+          first_name
+          last_name
+          email
+        }
       }
-    }
-    stats {
-      total
-      cursor
-      remaining
+      stats {
+        total
+        cursor
+        remaining
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useMediaList_GetMediaQuery__
@@ -1680,34 +2327,57 @@ export const MediaList_GetMediaDocument = gql`
  *   },
  * });
  */
-export function useMediaList_GetMediaQuery(baseOptions: Apollo.QueryHookOptions<MediaList_GetMediaQuery, MediaList_GetMediaQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MediaList_GetMediaQuery, MediaList_GetMediaQueryVariables>(MediaList_GetMediaDocument, options);
-      }
-export function useMediaList_GetMediaLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MediaList_GetMediaQuery, MediaList_GetMediaQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MediaList_GetMediaQuery, MediaList_GetMediaQueryVariables>(MediaList_GetMediaDocument, options);
-        }
-export type MediaList_GetMediaQueryHookResult = ReturnType<typeof useMediaList_GetMediaQuery>;
-export type MediaList_GetMediaLazyQueryHookResult = ReturnType<typeof useMediaList_GetMediaLazyQuery>;
-export type MediaList_GetMediaQueryResult = Apollo.QueryResult<MediaList_GetMediaQuery, MediaList_GetMediaQueryVariables>;
+export function useMediaList_GetMediaQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    MediaList_GetMediaQuery,
+    MediaList_GetMediaQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    MediaList_GetMediaQuery,
+    MediaList_GetMediaQueryVariables
+  >(MediaList_GetMediaDocument, options);
+}
+export function useMediaList_GetMediaLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    MediaList_GetMediaQuery,
+    MediaList_GetMediaQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    MediaList_GetMediaQuery,
+    MediaList_GetMediaQueryVariables
+  >(MediaList_GetMediaDocument, options);
+}
+export type MediaList_GetMediaQueryHookResult = ReturnType<
+  typeof useMediaList_GetMediaQuery
+>;
+export type MediaList_GetMediaLazyQueryHookResult = ReturnType<
+  typeof useMediaList_GetMediaLazyQuery
+>;
+export type MediaList_GetMediaQueryResult = Apollo.QueryResult<
+  MediaList_GetMediaQuery,
+  MediaList_GetMediaQueryVariables
+>;
 export const MediaManager_GetMediaDocument = gql`
-    query MediaManager_GetMedia($getMediaInput: GetMediaInput!) {
-  getMedia(getMediaInput: $getMediaInput) {
-    data {
-      _id
-      title
-      mimetype
-      src
-    }
-    stats {
-      total
-      cursor
-      remaining
+  query MediaManager_GetMedia($getMediaInput: GetMediaInput!) {
+    getMedia(getMediaInput: $getMediaInput) {
+      data {
+        _id
+        title
+        mimetype
+        src
+      }
+      stats {
+        total
+        cursor
+        remaining
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useMediaManager_GetMediaQuery__
@@ -1725,32 +2395,55 @@ export const MediaManager_GetMediaDocument = gql`
  *   },
  * });
  */
-export function useMediaManager_GetMediaQuery(baseOptions: Apollo.QueryHookOptions<MediaManager_GetMediaQuery, MediaManager_GetMediaQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MediaManager_GetMediaQuery, MediaManager_GetMediaQueryVariables>(MediaManager_GetMediaDocument, options);
-      }
-export function useMediaManager_GetMediaLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MediaManager_GetMediaQuery, MediaManager_GetMediaQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MediaManager_GetMediaQuery, MediaManager_GetMediaQueryVariables>(MediaManager_GetMediaDocument, options);
-        }
-export type MediaManager_GetMediaQueryHookResult = ReturnType<typeof useMediaManager_GetMediaQuery>;
-export type MediaManager_GetMediaLazyQueryHookResult = ReturnType<typeof useMediaManager_GetMediaLazyQuery>;
-export type MediaManager_GetMediaQueryResult = Apollo.QueryResult<MediaManager_GetMediaQuery, MediaManager_GetMediaQueryVariables>;
+export function useMediaManager_GetMediaQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    MediaManager_GetMediaQuery,
+    MediaManager_GetMediaQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    MediaManager_GetMediaQuery,
+    MediaManager_GetMediaQueryVariables
+  >(MediaManager_GetMediaDocument, options);
+}
+export function useMediaManager_GetMediaLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    MediaManager_GetMediaQuery,
+    MediaManager_GetMediaQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    MediaManager_GetMediaQuery,
+    MediaManager_GetMediaQueryVariables
+  >(MediaManager_GetMediaDocument, options);
+}
+export type MediaManager_GetMediaQueryHookResult = ReturnType<
+  typeof useMediaManager_GetMediaQuery
+>;
+export type MediaManager_GetMediaLazyQueryHookResult = ReturnType<
+  typeof useMediaManager_GetMediaLazyQuery
+>;
+export type MediaManager_GetMediaQueryResult = Apollo.QueryResult<
+  MediaManager_GetMediaQuery,
+  MediaManager_GetMediaQueryVariables
+>;
 export const MediaCountWidget_GetMediaDocument = gql`
-    query MediaCountWidget_GetMedia($getMediaInput: GetMediaInput!) {
-  getMedia(getMediaInput: $getMediaInput) {
-    stats {
-      total
-      history {
-        _id {
-          MONTH
-        }
+  query MediaCountWidget_GetMedia($getMediaInput: GetMediaInput!) {
+    getMedia(getMediaInput: $getMediaInput) {
+      stats {
         total
+        history {
+          _id {
+            MONTH
+          }
+          total
+        }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useMediaCountWidget_GetMediaQuery__
@@ -1768,25 +2461,51 @@ export const MediaCountWidget_GetMediaDocument = gql`
  *   },
  * });
  */
-export function useMediaCountWidget_GetMediaQuery(baseOptions: Apollo.QueryHookOptions<MediaCountWidget_GetMediaQuery, MediaCountWidget_GetMediaQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MediaCountWidget_GetMediaQuery, MediaCountWidget_GetMediaQueryVariables>(MediaCountWidget_GetMediaDocument, options);
-      }
-export function useMediaCountWidget_GetMediaLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MediaCountWidget_GetMediaQuery, MediaCountWidget_GetMediaQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MediaCountWidget_GetMediaQuery, MediaCountWidget_GetMediaQueryVariables>(MediaCountWidget_GetMediaDocument, options);
-        }
-export type MediaCountWidget_GetMediaQueryHookResult = ReturnType<typeof useMediaCountWidget_GetMediaQuery>;
-export type MediaCountWidget_GetMediaLazyQueryHookResult = ReturnType<typeof useMediaCountWidget_GetMediaLazyQuery>;
-export type MediaCountWidget_GetMediaQueryResult = Apollo.QueryResult<MediaCountWidget_GetMediaQuery, MediaCountWidget_GetMediaQueryVariables>;
-export const CreateUserDocument = gql`
-    mutation CreateUser($createUserInput: CreateUserInput!) {
-  createUser(createUserInput: $createUserInput) {
-    _id
-  }
+export function useMediaCountWidget_GetMediaQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    MediaCountWidget_GetMediaQuery,
+    MediaCountWidget_GetMediaQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    MediaCountWidget_GetMediaQuery,
+    MediaCountWidget_GetMediaQueryVariables
+  >(MediaCountWidget_GetMediaDocument, options);
 }
-    `;
-export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
+export function useMediaCountWidget_GetMediaLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    MediaCountWidget_GetMediaQuery,
+    MediaCountWidget_GetMediaQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    MediaCountWidget_GetMediaQuery,
+    MediaCountWidget_GetMediaQueryVariables
+  >(MediaCountWidget_GetMediaDocument, options);
+}
+export type MediaCountWidget_GetMediaQueryHookResult = ReturnType<
+  typeof useMediaCountWidget_GetMediaQuery
+>;
+export type MediaCountWidget_GetMediaLazyQueryHookResult = ReturnType<
+  typeof useMediaCountWidget_GetMediaLazyQuery
+>;
+export type MediaCountWidget_GetMediaQueryResult = Apollo.QueryResult<
+  MediaCountWidget_GetMediaQuery,
+  MediaCountWidget_GetMediaQueryVariables
+>;
+export const CreateUserDocument = gql`
+  mutation CreateUser($createUserInput: CreateUserInput!) {
+    createUser(createUserInput: $createUserInput) {
+      _id
+    }
+  }
+`;
+export type CreateUserMutationFn = Apollo.MutationFunction<
+  CreateUserMutation,
+  CreateUserMutationVariables
+>;
 
 /**
  * __useCreateUserMutation__
@@ -1805,21 +2524,38 @@ export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, C
  *   },
  * });
  */
-export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
-      }
-export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
-export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
-export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
-export const UserPage_DeleteUserDocument = gql`
-    mutation UserPage_DeleteUser($deleteUsersInput: DeleteUsersInput!) {
-  deleteUsers(deleteUsersInput: $deleteUsersInput) {
-    deletedCount
-  }
+export function useCreateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateUserMutation,
+    CreateUserMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(
+    CreateUserDocument,
+    options,
+  );
 }
-    `;
-export type UserPage_DeleteUserMutationFn = Apollo.MutationFunction<UserPage_DeleteUserMutation, UserPage_DeleteUserMutationVariables>;
+export type CreateUserMutationHookResult = ReturnType<
+  typeof useCreateUserMutation
+>;
+export type CreateUserMutationResult =
+  Apollo.MutationResult<CreateUserMutation>;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
+  CreateUserMutation,
+  CreateUserMutationVariables
+>;
+export const UserPage_DeleteUserDocument = gql`
+  mutation UserPage_DeleteUser($deleteUsersInput: DeleteUsersInput!) {
+    deleteUsers(deleteUsersInput: $deleteUsersInput) {
+      deletedCount
+    }
+  }
+`;
+export type UserPage_DeleteUserMutationFn = Apollo.MutationFunction<
+  UserPage_DeleteUserMutation,
+  UserPage_DeleteUserMutationVariables
+>;
 
 /**
  * __useUserPage_DeleteUserMutation__
@@ -1838,30 +2574,47 @@ export type UserPage_DeleteUserMutationFn = Apollo.MutationFunction<UserPage_Del
  *   },
  * });
  */
-export function useUserPage_DeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<UserPage_DeleteUserMutation, UserPage_DeleteUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UserPage_DeleteUserMutation, UserPage_DeleteUserMutationVariables>(UserPage_DeleteUserDocument, options);
-      }
-export type UserPage_DeleteUserMutationHookResult = ReturnType<typeof useUserPage_DeleteUserMutation>;
-export type UserPage_DeleteUserMutationResult = Apollo.MutationResult<UserPage_DeleteUserMutation>;
-export type UserPage_DeleteUserMutationOptions = Apollo.BaseMutationOptions<UserPage_DeleteUserMutation, UserPage_DeleteUserMutationVariables>;
+export function useUserPage_DeleteUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UserPage_DeleteUserMutation,
+    UserPage_DeleteUserMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UserPage_DeleteUserMutation,
+    UserPage_DeleteUserMutationVariables
+  >(UserPage_DeleteUserDocument, options);
+}
+export type UserPage_DeleteUserMutationHookResult = ReturnType<
+  typeof useUserPage_DeleteUserMutation
+>;
+export type UserPage_DeleteUserMutationResult =
+  Apollo.MutationResult<UserPage_DeleteUserMutation>;
+export type UserPage_DeleteUserMutationOptions = Apollo.BaseMutationOptions<
+  UserPage_DeleteUserMutation,
+  UserPage_DeleteUserMutationVariables
+>;
 export const UsersPage_InviteUserDocument = gql`
-    mutation UsersPage_InviteUser($inviteUserInput: InviteUserInput!) {
-  inviteUser(inviteUserInput: $inviteUserInput) {
-    _id
-    first_name
-    memberships {
-      role
-      status
+  mutation UsersPage_InviteUser($inviteUserInput: InviteUserInput!) {
+    inviteUser(inviteUserInput: $inviteUserInput) {
       _id
-      account {
+      first_name
+      memberships {
+        role
+        status
         _id
+        account {
+          _id
+        }
       }
     }
   }
-}
-    `;
-export type UsersPage_InviteUserMutationFn = Apollo.MutationFunction<UsersPage_InviteUserMutation, UsersPage_InviteUserMutationVariables>;
+`;
+export type UsersPage_InviteUserMutationFn = Apollo.MutationFunction<
+  UsersPage_InviteUserMutation,
+  UsersPage_InviteUserMutationVariables
+>;
 
 /**
  * __useUsersPage_InviteUserMutation__
@@ -1880,24 +2633,41 @@ export type UsersPage_InviteUserMutationFn = Apollo.MutationFunction<UsersPage_I
  *   },
  * });
  */
-export function useUsersPage_InviteUserMutation(baseOptions?: Apollo.MutationHookOptions<UsersPage_InviteUserMutation, UsersPage_InviteUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UsersPage_InviteUserMutation, UsersPage_InviteUserMutationVariables>(UsersPage_InviteUserDocument, options);
-      }
-export type UsersPage_InviteUserMutationHookResult = ReturnType<typeof useUsersPage_InviteUserMutation>;
-export type UsersPage_InviteUserMutationResult = Apollo.MutationResult<UsersPage_InviteUserMutation>;
-export type UsersPage_InviteUserMutationOptions = Apollo.BaseMutationOptions<UsersPage_InviteUserMutation, UsersPage_InviteUserMutationVariables>;
+export function useUsersPage_InviteUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UsersPage_InviteUserMutation,
+    UsersPage_InviteUserMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UsersPage_InviteUserMutation,
+    UsersPage_InviteUserMutationVariables
+  >(UsersPage_InviteUserDocument, options);
+}
+export type UsersPage_InviteUserMutationHookResult = ReturnType<
+  typeof useUsersPage_InviteUserMutation
+>;
+export type UsersPage_InviteUserMutationResult =
+  Apollo.MutationResult<UsersPage_InviteUserMutation>;
+export type UsersPage_InviteUserMutationOptions = Apollo.BaseMutationOptions<
+  UsersPage_InviteUserMutation,
+  UsersPage_InviteUserMutationVariables
+>;
 export const LoginProvider_LoginUserDocument = gql`
-    mutation LoginProvider_LoginUser {
-  loginUser {
-    token
-    user {
-      _id
+  mutation LoginProvider_LoginUser {
+    loginUser {
+      token
+      user {
+        _id
+      }
     }
   }
-}
-    `;
-export type LoginProvider_LoginUserMutationFn = Apollo.MutationFunction<LoginProvider_LoginUserMutation, LoginProvider_LoginUserMutationVariables>;
+`;
+export type LoginProvider_LoginUserMutationFn = Apollo.MutationFunction<
+  LoginProvider_LoginUserMutation,
+  LoginProvider_LoginUserMutationVariables
+>;
 
 /**
  * __useLoginProvider_LoginUserMutation__
@@ -1915,38 +2685,55 @@ export type LoginProvider_LoginUserMutationFn = Apollo.MutationFunction<LoginPro
  *   },
  * });
  */
-export function useLoginProvider_LoginUserMutation(baseOptions?: Apollo.MutationHookOptions<LoginProvider_LoginUserMutation, LoginProvider_LoginUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LoginProvider_LoginUserMutation, LoginProvider_LoginUserMutationVariables>(LoginProvider_LoginUserDocument, options);
-      }
-export type LoginProvider_LoginUserMutationHookResult = ReturnType<typeof useLoginProvider_LoginUserMutation>;
-export type LoginProvider_LoginUserMutationResult = Apollo.MutationResult<LoginProvider_LoginUserMutation>;
-export type LoginProvider_LoginUserMutationOptions = Apollo.BaseMutationOptions<LoginProvider_LoginUserMutation, LoginProvider_LoginUserMutationVariables>;
+export function useLoginProvider_LoginUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    LoginProvider_LoginUserMutation,
+    LoginProvider_LoginUserMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    LoginProvider_LoginUserMutation,
+    LoginProvider_LoginUserMutationVariables
+  >(LoginProvider_LoginUserDocument, options);
+}
+export type LoginProvider_LoginUserMutationHookResult = ReturnType<
+  typeof useLoginProvider_LoginUserMutation
+>;
+export type LoginProvider_LoginUserMutationResult =
+  Apollo.MutationResult<LoginProvider_LoginUserMutation>;
+export type LoginProvider_LoginUserMutationOptions = Apollo.BaseMutationOptions<
+  LoginProvider_LoginUserMutation,
+  LoginProvider_LoginUserMutationVariables
+>;
 export const UserPage_UpdateUserDocument = gql`
-    mutation UserPage_UpdateUser($updateUserInput: UpdateUserInput!) {
-  updateUser(updateUserInput: $updateUserInput) {
-    _id
-    email
-    first_name
-    last_name
-    about
-    address {
-      city
-      lineTwo
-      lineOne
-      state
-      zip
-    }
-    phone
-    image {
+  mutation UserPage_UpdateUser($updateUserInput: UpdateUserInput!) {
+    updateUser(updateUserInput: $updateUserInput) {
       _id
-      path
-      title
+      email
+      first_name
+      last_name
+      about
+      address {
+        city
+        lineTwo
+        lineOne
+        state
+        zip
+      }
+      phone
+      image {
+        _id
+        path
+        title
+      }
     }
   }
-}
-    `;
-export type UserPage_UpdateUserMutationFn = Apollo.MutationFunction<UserPage_UpdateUserMutation, UserPage_UpdateUserMutationVariables>;
+`;
+export type UserPage_UpdateUserMutationFn = Apollo.MutationFunction<
+  UserPage_UpdateUserMutation,
+  UserPage_UpdateUserMutationVariables
+>;
 
 /**
  * __useUserPage_UpdateUserMutation__
@@ -1965,26 +2752,40 @@ export type UserPage_UpdateUserMutationFn = Apollo.MutationFunction<UserPage_Upd
  *   },
  * });
  */
-export function useUserPage_UpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<UserPage_UpdateUserMutation, UserPage_UpdateUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UserPage_UpdateUserMutation, UserPage_UpdateUserMutationVariables>(UserPage_UpdateUserDocument, options);
-      }
-export type UserPage_UpdateUserMutationHookResult = ReturnType<typeof useUserPage_UpdateUserMutation>;
-export type UserPage_UpdateUserMutationResult = Apollo.MutationResult<UserPage_UpdateUserMutation>;
-export type UserPage_UpdateUserMutationOptions = Apollo.BaseMutationOptions<UserPage_UpdateUserMutation, UserPage_UpdateUserMutationVariables>;
+export function useUserPage_UpdateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UserPage_UpdateUserMutation,
+    UserPage_UpdateUserMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UserPage_UpdateUserMutation,
+    UserPage_UpdateUserMutationVariables
+  >(UserPage_UpdateUserDocument, options);
+}
+export type UserPage_UpdateUserMutationHookResult = ReturnType<
+  typeof useUserPage_UpdateUserMutation
+>;
+export type UserPage_UpdateUserMutationResult =
+  Apollo.MutationResult<UserPage_UpdateUserMutation>;
+export type UserPage_UpdateUserMutationOptions = Apollo.BaseMutationOptions<
+  UserPage_UpdateUserMutation,
+  UserPage_UpdateUserMutationVariables
+>;
 export const App_MeDocument = gql`
-    query App_Me {
-  me {
-    _id
-    first_name
-    last_name
-    email
-    image {
-      path
+  query App_Me {
+    me {
+      _id
+      first_name
+      last_name
+      email
+      image {
+        path
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useApp_MeQuery__
@@ -2001,32 +2802,45 @@ export const App_MeDocument = gql`
  *   },
  * });
  */
-export function useApp_MeQuery(baseOptions?: Apollo.QueryHookOptions<App_MeQuery, App_MeQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<App_MeQuery, App_MeQueryVariables>(App_MeDocument, options);
-      }
-export function useApp_MeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<App_MeQuery, App_MeQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<App_MeQuery, App_MeQueryVariables>(App_MeDocument, options);
-        }
+export function useApp_MeQuery(
+  baseOptions?: Apollo.QueryHookOptions<App_MeQuery, App_MeQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<App_MeQuery, App_MeQueryVariables>(
+    App_MeDocument,
+    options,
+  );
+}
+export function useApp_MeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<App_MeQuery, App_MeQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<App_MeQuery, App_MeQueryVariables>(
+    App_MeDocument,
+    options,
+  );
+}
 export type App_MeQueryHookResult = ReturnType<typeof useApp_MeQuery>;
 export type App_MeLazyQueryHookResult = ReturnType<typeof useApp_MeLazyQuery>;
-export type App_MeQueryResult = Apollo.QueryResult<App_MeQuery, App_MeQueryVariables>;
+export type App_MeQueryResult = Apollo.QueryResult<
+  App_MeQuery,
+  App_MeQueryVariables
+>;
 export const UserCountWidget_GetUsersDocument = gql`
-    query UserCountWidget_GetUsers($getUsersInput: GetUsersInput!) {
-  getUsers(getUsersInput: $getUsersInput) {
-    stats {
-      total
-      history {
-        _id {
-          MONTH
-        }
+  query UserCountWidget_GetUsers($getUsersInput: GetUsersInput!) {
+    getUsers(getUsersInput: $getUsersInput) {
+      stats {
         total
+        history {
+          _id {
+            MONTH
+          }
+          total
+        }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useUserCountWidget_GetUsersQuery__
@@ -2044,85 +2858,111 @@ export const UserCountWidget_GetUsersDocument = gql`
  *   },
  * });
  */
-export function useUserCountWidget_GetUsersQuery(baseOptions: Apollo.QueryHookOptions<UserCountWidget_GetUsersQuery, UserCountWidget_GetUsersQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<UserCountWidget_GetUsersQuery, UserCountWidget_GetUsersQueryVariables>(UserCountWidget_GetUsersDocument, options);
-      }
-export function useUserCountWidget_GetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserCountWidget_GetUsersQuery, UserCountWidget_GetUsersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<UserCountWidget_GetUsersQuery, UserCountWidget_GetUsersQueryVariables>(UserCountWidget_GetUsersDocument, options);
-        }
-export type UserCountWidget_GetUsersQueryHookResult = ReturnType<typeof useUserCountWidget_GetUsersQuery>;
-export type UserCountWidget_GetUsersLazyQueryHookResult = ReturnType<typeof useUserCountWidget_GetUsersLazyQuery>;
-export type UserCountWidget_GetUsersQueryResult = Apollo.QueryResult<UserCountWidget_GetUsersQuery, UserCountWidget_GetUsersQueryVariables>;
+export function useUserCountWidget_GetUsersQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    UserCountWidget_GetUsersQuery,
+    UserCountWidget_GetUsersQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    UserCountWidget_GetUsersQuery,
+    UserCountWidget_GetUsersQueryVariables
+  >(UserCountWidget_GetUsersDocument, options);
+}
+export function useUserCountWidget_GetUsersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    UserCountWidget_GetUsersQuery,
+    UserCountWidget_GetUsersQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    UserCountWidget_GetUsersQuery,
+    UserCountWidget_GetUsersQueryVariables
+  >(UserCountWidget_GetUsersDocument, options);
+}
+export type UserCountWidget_GetUsersQueryHookResult = ReturnType<
+  typeof useUserCountWidget_GetUsersQuery
+>;
+export type UserCountWidget_GetUsersLazyQueryHookResult = ReturnType<
+  typeof useUserCountWidget_GetUsersLazyQuery
+>;
+export type UserCountWidget_GetUsersQueryResult = Apollo.QueryResult<
+  UserCountWidget_GetUsersQuery,
+  UserCountWidget_GetUsersQueryVariables
+>;
 export const UserPage_GetUsersDocument = gql`
-    query UserPage_GetUsers($getUsersInput: GetUsersInput!, $membershipsAccountUsersInput: GetUsersInput!) {
-  getUsers(getUsersInput: $getUsersInput) {
-    data {
-      _id
-      first_name
-      last_name
-      email
-      phone
-      about
-      updatedAt
-      createdAt
-      address {
-        lineOne
-        lineTwo
-        zip
-        city
-        state
-        country
+  query UserPage_GetUsers(
+    $getUsersInput: GetUsersInput!
+    $membershipsAccountUsersInput: GetUsersInput!
+  ) {
+    getUsers(getUsersInput: $getUsersInput) {
+      data {
         _id
-      }
-      image {
-        path
-        _id
-      }
-      memberships {
-        _id
-        role
-        status
-        createdAt
+        first_name
+        last_name
+        email
+        phone
+        about
         updatedAt
-        default
-        local {
-          first_name
-          last_name
-          phone
-          about
-          image {
-            _id
-            path
-          }
-          address {
-            lineOne
-            lineTwo
-            city
-            state
-            zip
-            country
-            _id
-          }
-        }
-        account {
+        createdAt
+        address {
+          lineOne
+          lineTwo
+          zip
+          city
+          state
+          country
           _id
-          email
-          users(getUsersInput: $membershipsAccountUsersInput) {
-            data {
+        }
+        image {
+          path
+          _id
+        }
+        memberships {
+          _id
+          role
+          status
+          createdAt
+          updatedAt
+          default
+          local {
+            first_name
+            last_name
+            phone
+            about
+            image {
               _id
-              first_name
-              last_name
-              email
+              path
+            }
+            address {
+              lineOne
+              lineTwo
+              city
+              state
+              zip
+              country
+              _id
+            }
+          }
+          account {
+            _id
+            email
+            users(getUsersInput: $membershipsAccountUsersInput) {
+              data {
+                _id
+                first_name
+                last_name
+                email
+              }
             }
           }
         }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useUserPage_GetUsersQuery__
@@ -2141,29 +2981,52 @@ export const UserPage_GetUsersDocument = gql`
  *   },
  * });
  */
-export function useUserPage_GetUsersQuery(baseOptions: Apollo.QueryHookOptions<UserPage_GetUsersQuery, UserPage_GetUsersQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<UserPage_GetUsersQuery, UserPage_GetUsersQueryVariables>(UserPage_GetUsersDocument, options);
-      }
-export function useUserPage_GetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserPage_GetUsersQuery, UserPage_GetUsersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<UserPage_GetUsersQuery, UserPage_GetUsersQueryVariables>(UserPage_GetUsersDocument, options);
-        }
-export type UserPage_GetUsersQueryHookResult = ReturnType<typeof useUserPage_GetUsersQuery>;
-export type UserPage_GetUsersLazyQueryHookResult = ReturnType<typeof useUserPage_GetUsersLazyQuery>;
-export type UserPage_GetUsersQueryResult = Apollo.QueryResult<UserPage_GetUsersQuery, UserPage_GetUsersQueryVariables>;
+export function useUserPage_GetUsersQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    UserPage_GetUsersQuery,
+    UserPage_GetUsersQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    UserPage_GetUsersQuery,
+    UserPage_GetUsersQueryVariables
+  >(UserPage_GetUsersDocument, options);
+}
+export function useUserPage_GetUsersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    UserPage_GetUsersQuery,
+    UserPage_GetUsersQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    UserPage_GetUsersQuery,
+    UserPage_GetUsersQueryVariables
+  >(UserPage_GetUsersDocument, options);
+}
+export type UserPage_GetUsersQueryHookResult = ReturnType<
+  typeof useUserPage_GetUsersQuery
+>;
+export type UserPage_GetUsersLazyQueryHookResult = ReturnType<
+  typeof useUserPage_GetUsersLazyQuery
+>;
+export type UserPage_GetUsersQueryResult = Apollo.QueryResult<
+  UserPage_GetUsersQuery,
+  UserPage_GetUsersQueryVariables
+>;
 export const UserSelect_GetUsersDocument = gql`
-    query UserSelect_GetUsers($getUsersInput: GetUsersInput!) {
-  getUsers(getUsersInput: $getUsersInput) {
-    data {
-      _id
-      email
-      first_name
-      last_name
+  query UserSelect_GetUsers($getUsersInput: GetUsersInput!) {
+    getUsers(getUsersInput: $getUsersInput) {
+      data {
+        _id
+        email
+        first_name
+        last_name
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useUserSelect_GetUsersQuery__
@@ -2181,39 +3044,62 @@ export const UserSelect_GetUsersDocument = gql`
  *   },
  * });
  */
-export function useUserSelect_GetUsersQuery(baseOptions: Apollo.QueryHookOptions<UserSelect_GetUsersQuery, UserSelect_GetUsersQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<UserSelect_GetUsersQuery, UserSelect_GetUsersQueryVariables>(UserSelect_GetUsersDocument, options);
-      }
-export function useUserSelect_GetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserSelect_GetUsersQuery, UserSelect_GetUsersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<UserSelect_GetUsersQuery, UserSelect_GetUsersQueryVariables>(UserSelect_GetUsersDocument, options);
-        }
-export type UserSelect_GetUsersQueryHookResult = ReturnType<typeof useUserSelect_GetUsersQuery>;
-export type UserSelect_GetUsersLazyQueryHookResult = ReturnType<typeof useUserSelect_GetUsersLazyQuery>;
-export type UserSelect_GetUsersQueryResult = Apollo.QueryResult<UserSelect_GetUsersQuery, UserSelect_GetUsersQueryVariables>;
+export function useUserSelect_GetUsersQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    UserSelect_GetUsersQuery,
+    UserSelect_GetUsersQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    UserSelect_GetUsersQuery,
+    UserSelect_GetUsersQueryVariables
+  >(UserSelect_GetUsersDocument, options);
+}
+export function useUserSelect_GetUsersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    UserSelect_GetUsersQuery,
+    UserSelect_GetUsersQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    UserSelect_GetUsersQuery,
+    UserSelect_GetUsersQueryVariables
+  >(UserSelect_GetUsersDocument, options);
+}
+export type UserSelect_GetUsersQueryHookResult = ReturnType<
+  typeof useUserSelect_GetUsersQuery
+>;
+export type UserSelect_GetUsersLazyQueryHookResult = ReturnType<
+  typeof useUserSelect_GetUsersLazyQuery
+>;
+export type UserSelect_GetUsersQueryResult = Apollo.QueryResult<
+  UserSelect_GetUsersQuery,
+  UserSelect_GetUsersQueryVariables
+>;
 export const UsersPage_GetUsersDocument = gql`
-    query UsersPage_GetUsers($getUsersInput: GetUsersInput!) {
-  getUsers(getUsersInput: $getUsersInput) {
-    stats {
-      total
-      remaining
-      cursor
-    }
-    data {
-      _id
-      first_name
-      last_name
-      email
-      phone
-      image {
-        path
+  query UsersPage_GetUsers($getUsersInput: GetUsersInput!) {
+    getUsers(getUsersInput: $getUsersInput) {
+      stats {
+        total
+        remaining
+        cursor
+      }
+      data {
         _id
+        first_name
+        last_name
+        email
+        phone
+        image {
+          path
+          _id
+        }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useUsersPage_GetUsersQuery__
@@ -2231,14 +3117,37 @@ export const UsersPage_GetUsersDocument = gql`
  *   },
  * });
  */
-export function useUsersPage_GetUsersQuery(baseOptions: Apollo.QueryHookOptions<UsersPage_GetUsersQuery, UsersPage_GetUsersQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<UsersPage_GetUsersQuery, UsersPage_GetUsersQueryVariables>(UsersPage_GetUsersDocument, options);
-      }
-export function useUsersPage_GetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UsersPage_GetUsersQuery, UsersPage_GetUsersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<UsersPage_GetUsersQuery, UsersPage_GetUsersQueryVariables>(UsersPage_GetUsersDocument, options);
-        }
-export type UsersPage_GetUsersQueryHookResult = ReturnType<typeof useUsersPage_GetUsersQuery>;
-export type UsersPage_GetUsersLazyQueryHookResult = ReturnType<typeof useUsersPage_GetUsersLazyQuery>;
-export type UsersPage_GetUsersQueryResult = Apollo.QueryResult<UsersPage_GetUsersQuery, UsersPage_GetUsersQueryVariables>;
+export function useUsersPage_GetUsersQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    UsersPage_GetUsersQuery,
+    UsersPage_GetUsersQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    UsersPage_GetUsersQuery,
+    UsersPage_GetUsersQueryVariables
+  >(UsersPage_GetUsersDocument, options);
+}
+export function useUsersPage_GetUsersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    UsersPage_GetUsersQuery,
+    UsersPage_GetUsersQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    UsersPage_GetUsersQuery,
+    UsersPage_GetUsersQueryVariables
+  >(UsersPage_GetUsersDocument, options);
+}
+export type UsersPage_GetUsersQueryHookResult = ReturnType<
+  typeof useUsersPage_GetUsersQuery
+>;
+export type UsersPage_GetUsersLazyQueryHookResult = ReturnType<
+  typeof useUsersPage_GetUsersLazyQuery
+>;
+export type UsersPage_GetUsersQueryResult = Apollo.QueryResult<
+  UsersPage_GetUsersQuery,
+  UsersPage_GetUsersQueryVariables
+>;

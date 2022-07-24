@@ -11,6 +11,7 @@ import {
   useMediaCountWidget_GetMediaQuery,
 } from 'src/types/generated';
 import dayjs from 'dayjs';
+import { ACCOUNT_COUNT_WIDGET_GET_ACCOUNTS } from 'src/apollo/providers/accounts/queries/get-accounts-provider/operations';
 
 const Dashboard = () => (
   <CRow>
@@ -18,7 +19,36 @@ const Dashboard = () => (
       <WelcomeCard />
     </CCol>
     <CCol lg={4}>
-      <AccountCountWidget />
+      <Providers.Accounts.Queries.GetAccountsProvider
+        query={{
+          documentNode: ACCOUNT_COUNT_WIDGET_GET_ACCOUNTS,
+          variables: {
+            getAccountsInput: {
+              config: {
+                history: { interval: [HistoryFilterIntervalEnum.Month] },
+              },
+              query: {
+                createdAt: [
+                  {
+                    filterBy: DateFilterByEnum.Gte,
+                    date: dayjs(`1/1/${dayjs().year()}`).toDate(),
+                    groups: ['account_widget.and'],
+                    operator: OperatorFieldConfigEnum.And,
+                  },
+                  {
+                    filterBy: DateFilterByEnum.Lt,
+                    date: dayjs(`1/1/${dayjs().year() + 1}`).toDate(),
+                    groups: ['account_widget.and'],
+                    operator: OperatorFieldConfigEnum.And,
+                  },
+                ],
+              },
+            },
+          },
+        }}
+      >
+        <AccountCountWidget />
+      </Providers.Accounts.Queries.GetAccountsProvider>
       <UserCountWidget />
       <Providers.Media.Queries.GetMediaProvider
         queryHook={useMediaCountWidget_GetMediaQuery}

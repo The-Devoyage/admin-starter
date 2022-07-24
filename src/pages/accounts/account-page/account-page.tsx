@@ -2,6 +2,7 @@ import { CRow } from '@coreui/react';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Providers } from 'src/apollo';
+import { ACCOUNT_PAGE_GET_ACCOUNTS } from 'src/apollo/providers/accounts/queries/get-accounts-provider/operations';
 import { Utils } from 'src/common';
 import { StringFilterByEnum } from 'src/types/generated';
 import { AccountPageBottom, AccountPageTop } from './views';
@@ -24,21 +25,33 @@ const AccountPage = () => {
   }
 
   return (
-    <Providers.Accounts.Queries.AccountPageProvider
-      getAccountsInput={{
-        query: {
-          _id: [{ string: account_id, filterBy: StringFilterByEnum.Objectid }],
+    <Providers.Accounts.Queries.GetAccountsProvider
+      query={{
+        documentNode: ACCOUNT_PAGE_GET_ACCOUNTS,
+        variables: {
+          getAccountsInput: {
+            query: {
+              _id: [
+                { string: account_id, filterBy: StringFilterByEnum.Objectid },
+              ],
+            },
+          },
+          getUsersInput: {
+            query: {},
+            config: {
+              pagination: { limit: 100 },
+            },
+          },
         },
       }}
-      getUsersInput={{ query: {}, config: { pagination: { limit: 100 } } }}
     >
       <CRow className="mb-3">
-        <AccountPageTop />
+        <AccountPageTop account_id={account_id} />
       </CRow>
       <CRow className="mb-3">
-        <AccountPageBottom />
+        <AccountPageBottom account_id={account_id} />
       </CRow>
-    </Providers.Accounts.Queries.AccountPageProvider>
+    </Providers.Accounts.Queries.GetAccountsProvider>
   );
 };
 
