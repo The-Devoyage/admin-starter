@@ -27,38 +27,42 @@ export const RegisterFormContent: FC<RegisterFormContentProps> = ({
         disabled={loading}
       />
     </CCol>
-    <CCol lg={12} className="mb-3">
-      <CFormLabel>Password</CFormLabel>
-      <CFormInput
-        placeholder="*****"
-        type="password"
-        required
-        name="password"
-        value={form?.values.password ?? undefined}
-        onChange={form?.handleChange}
-        feedbackInvalid={form?.errors.password}
-        disabled={loading || disablePasswords}
-        invalid={!!form?.errors.password}
-      />
-    </CCol>
-    <CCol lg={12} className="mb-3">
-      <CFormLabel>Password Again</CFormLabel>
-      <CFormInput
-        placeholder="*****"
-        type="password"
-        required
-        feedbackInvalid={form?.errors.password}
-        name="password2"
-        onChange={(e) => {
-          if (e.currentTarget.value !== form?.values.password) {
-            form?.setErrors({ password: 'Passwords do not match.' });
-          } else {
-            form?.setErrors({});
-          }
-        }}
-        disabled={loading || disablePasswords}
-        invalid={!!form?.errors.password}
-      />
-    </CCol>
+    {!disablePasswords && (
+      <>
+        <CCol lg={12} className="mb-3">
+          <CFormLabel>Password</CFormLabel>
+          <CFormInput
+            placeholder="*****"
+            type="password"
+            required
+            name="password"
+            value={form?.values.password ?? undefined}
+            onChange={form?.handleChange}
+            feedbackInvalid={form?.errors.password}
+            disabled={loading || disablePasswords}
+            invalid={!!form?.errors.password}
+          />
+        </CCol>
+        <CCol lg={12} className="mb-3">
+          <CFormLabel>Password Again</CFormLabel>
+          <CFormInput
+            placeholder="*****"
+            type="password"
+            required
+            feedbackInvalid={form?.errors.password}
+            name="password2"
+            onChange={(e) => {
+              if (e.currentTarget.value !== form?.values.password) {
+                form?.setErrors({ password: 'Passwords do not match.' });
+              } else {
+                form?.setErrors({});
+              }
+            }}
+            disabled={loading || disablePasswords}
+            invalid={!!form?.errors.password}
+          />
+        </CCol>
+      </>
+    )}
   </CRow>
 );

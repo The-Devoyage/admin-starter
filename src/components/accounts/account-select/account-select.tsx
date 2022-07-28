@@ -94,7 +94,7 @@ const AccountSelectInput: FC<AccountSelectProps> = ({
       name="account"
       placeholder="Account Owner"
       options={accounts.map((a) => {
-        const accountOwner = utils.getAccountOwner(a._id);
+        const accountOwner = utils.getDefaultUser(a._id);
         return {
           label: `${Utils.Users.determineName(a, accountOwner)}'s account`,
           value: a._id,
@@ -112,7 +112,7 @@ const AccountSelectInput: FC<AccountSelectProps> = ({
           value: value?._id,
           label: `${Utils.Users.determineName(
             accounts.find((a) => a._id === value?._id) ?? null,
-            utils.getAccountOwner(
+            utils.getDefaultUser(
               accounts.find((a) => a._id === value?._id)?._id ?? '',
             ),
           )}'s Account`,

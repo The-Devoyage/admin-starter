@@ -1,6 +1,8 @@
 import {
   CAlert,
   CAlertHeading,
+  CContainer,
+  CSpinner,
   CTable,
   CTableBody,
   CTableDataCell,
@@ -10,13 +12,23 @@ import {
 } from '@coreui/react';
 import { FC } from 'react';
 import { Utils } from 'src/common';
-import { AccountPage_GetAccountsQuery } from 'src/types/generated';
+import { Account, Membership, User } from 'src/types/generated';
 import { useNavigate } from 'react-router-dom';
 import CIcon from '@coreui/icons-react';
 
 interface AccountUsersListProps {
   loading: boolean;
-  account: AccountPage_GetAccountsQuery['getAccounts']['data'][0] | null;
+  account:
+    | (Pick<Account, '_id' | 'email'> & {
+        users: {
+          data: (Pick<User, '_id' | 'email' | 'first_name' | 'last_name'> & {
+            memberships: (Pick<Membership, 'status'> & {
+              account: Pick<Account, '_id'>;
+            })[];
+          })[];
+        };
+      })
+    | null;
 }
 
 export const AccountUsersList: FC<AccountUsersListProps> = ({
@@ -27,7 +39,11 @@ export const AccountUsersList: FC<AccountUsersListProps> = ({
   const users = account?.users.data;
 
   if (loading) {
-    return null;
+    return (
+      <CContainer className="d-flex justify-content-center">
+        <CSpinner />
+      </CContainer>
+    );
   }
 
   if (!users?.length) {

@@ -15,7 +15,7 @@ export const RegisterCard = () => {
   const navigate = useNavigate();
 
   return (
-    <Providers.Accounts.Mutations.RegisterProviderContext.Consumer>
+    <Providers.Accounts.Mutations.RegisterAccountProviderContext.Consumer>
       {({ form, loading }) => (
         <CForm
           onSubmit={(e) => {
@@ -50,6 +50,6 @@ export const RegisterCard = () => {
           </CCard>
         </CForm>
       )}
-    </Providers.Accounts.Mutations.RegisterProviderContext.Consumer>
+    </Providers.Accounts.Mutations.RegisterAccountProviderContext.Consumer>
   );
 };

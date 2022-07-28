@@ -4,3 +4,4 @@ export * from './format';
 export * from './validate';
 export * from './memberships';
 export * from './users';
+export * from './compose';

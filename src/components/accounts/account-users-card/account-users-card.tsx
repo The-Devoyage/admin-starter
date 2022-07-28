@@ -6,38 +6,41 @@ import {
   CCardHeader,
 } from '@coreui/react';
 import { FC } from 'react';
-import { Providers } from 'src/apollo';
-import { useGetAccountsContext } from 'src/apollo/providers/accounts/queries';
-import { Account, AccountPage_GetAccountsQuery } from 'src/types/generated';
+import { Account, Membership, User } from 'src/types/generated';
 import { AccountUsersList } from '../account-users-list';
 
 interface AccountUsersCardProps {
-  account_id: Account['_id'];
+  account:
+    | (Pick<Account, '_id' | 'email'> & {
+        users: {
+          data: (Pick<User, '_id' | 'email' | 'first_name' | 'last_name'> & {
+            memberships: (Pick<Membership, 'status'> & {
+              account: Pick<Account, '_id'>;
+            })[];
+          })[];
+        };
+      })
+    | null;
+  loading: boolean;
+  setInviteUserModalVisible: (b: boolean) => void;
 }
 
-export const AccountUsersCard: FC<AccountUsersCardProps> = ({ account_id }) => {
-  const { loading, utils } =
-    useGetAccountsContext<
-      AccountPage_GetAccountsQuery['getAccounts']['data'][0]
-    >();
-
-  const account = utils.getAccount(account_id);
-
+export const AccountUsersCard: FC<AccountUsersCardProps> = ({
+  account,
+  loading,
+  setInviteUserModalVisible,
+}) => {
   return (
-    <Providers.Users.Mutations.InviteUserProviderContext.Consumer>
-      {({ setInviteUserModalVisible }) => (
-        <CCard>
-          <CCardHeader>Account Users</CCardHeader>
-          <CCardBody>
-            <AccountUsersList account={account} loading={loading} />
-          </CCardBody>
-          <CCardFooter className="d-flex justify-content-end">
-            <CButton onClick={() => setInviteUserModalVisible(true)}>
-              Invite User
-            </CButton>
-          </CCardFooter>
-        </CCard>
-      )}
-    </Providers.Users.Mutations.InviteUserProviderContext.Consumer>
+    <CCard>
+      <CCardHeader>Account Users</CCardHeader>
+      <CCardBody>
+        <AccountUsersList account={account} loading={loading} />
+      </CCardBody>
+      <CCardFooter className="d-flex justify-content-end">
+        <CButton onClick={() => setInviteUserModalVisible(true)}>
+          Invite User
+        </CButton>
+      </CCardFooter>
+    </CCard>
   );
 };

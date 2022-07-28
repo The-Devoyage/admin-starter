@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const ACCOUNTS_LIST_GET_ACCOUNTS = gql`
-  query AccountsList_GetAccounts(
+export const ACCOUNTS_PAGE_GET_ACCOUNTS = gql`
+  query AccountsPage_GetAccounts(
     $getAccountsInput: GetAccountsInput!
     $getUsersInput: GetUsersInput!
   ) {

@@ -1,0 +1,25 @@
+import { FC, ReactNode } from 'react';
+import { Utils } from 'src/common';
+import { AccountsPageProvider } from './accounts-page-provider';
+import { GetAccountsProvider } from './get-accounts-provider';
+import { RegisterAccountProvider } from './register-account-provider';
+
+interface AccountsPageRootProviderProps {
+  children: ReactNode;
+}
+
+export const AccountsPageRootProvider: FC<AccountsPageRootProviderProps> = ({
+  children,
+}) => {
+  return (
+    <Utils.Compose
+      components={[
+        GetAccountsProvider,
+        RegisterAccountProvider,
+        AccountsPageProvider,
+      ]}
+    >
+      {children}
+    </Utils.Compose>
+  );
+};

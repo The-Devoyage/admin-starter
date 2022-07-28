@@ -20,9 +20,11 @@ import styled from 'styled-components';
 import { Stats } from 'src/types/generated';
 import { Loading } from 'src/common/loading';
 
+//TODO: Separate this file into multiple components
 interface HeadCell {
   id: string;
   cell: ReactNode | string;
+  className?: string;
 }
 
 interface PaginatedTableProps {
@@ -55,7 +57,9 @@ export const PaginatedTableHead: FC<{ headCells: HeadCell[] }> = ({
   <CTableHead>
     <CTableRow>
       {headCells.map((h) => (
-        <CTableHeaderCell key={h.id}>{h.cell}</CTableHeaderCell>
+        <CTableHeaderCell key={h.id} className={h.className}>
+          {h.cell}
+        </CTableHeaderCell>
       ))}
     </CTableRow>
   </CTableHead>

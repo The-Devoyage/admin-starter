@@ -1,6 +1,5 @@
 import { cilPlus } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
-import { Providers } from 'src/apollo';
 import {
   PaginatedTable,
   PaginatedTableDataCell,
@@ -8,76 +7,80 @@ import {
 } from 'src/common';
 import { useNavigate } from 'react-router-dom';
 import { CBadge, CButton, CCard, CCardBody, CCardFooter } from '@coreui/react';
-import { useGetAccountsContext } from 'src/apollo/providers/accounts/queries';
-import { AccountsPage_GetAccountsQuery } from 'src/types/generated';
+import { FC } from 'react';
+import { Account, GetUsersResponse, Stats } from 'src/types/generated';
 
-export const AccountsList = () => {
+interface AccountsListProps {
+  loading: boolean;
+  stats?: Stats;
+  handleSearch: (v: string) => void;
+  handleFetchMore: () => void;
+  setCreateAccountModalVisible: (v: boolean) => void;
+  accounts: (Pick<Account, '_id' | 'email' | 'createdAt'> & {
+    users: Pick<GetUsersResponse, 'stats'>;
+  })[];
+}
+
+export const AccountsList: FC<AccountsListProps> = ({
+  loading,
+  stats,
+  handleSearch,
+  handleFetchMore,
+  setCreateAccountModalVisible,
+  accounts,
+}) => {
   const navigate = useNavigate();
-  const { accounts, loading, stats, handleSearch, handleFetchMore } =
-    useGetAccountsContext<
-      AccountsPage_GetAccountsQuery['getAccounts']['data'][0]
-    >();
 
   return (
-    <Providers.Accounts.Mutations.RegisterProviderContext.Consumer>
-      {({ setCreateAccountModalVisible }) => (
-        <CCard className="w-100 d-flex flex-grow-1">
-          <CCardBody
-            className="h-100 d-flex flex-column"
-            style={{ height: 200 }}
-          >
-            <PaginatedTable
-              head={[
-                { cell: 'ID', id: 'id' },
-                { cell: 'Email', id: 'email' },
-                { cell: 'Users', id: 'users' },
-                { cell: 'Created', id: 'created' },
-              ]}
-              loading={loading}
-              foot={false}
-              stats={stats}
-              title="Accounts"
-              actions={{
-                onHandleSearch: handleSearch,
-                onRequestMore: handleFetchMore,
-                onHandleAction: () => setCreateAccountModalVisible(true),
-                actionButtonLabel: <CIcon icon={cilPlus} />,
-              }}
-              body={accounts.map((a) => (
-                <PaginatedTableRow
-                  key={a._id}
-                  role="button"
-                  onClick={() =>
-                    navigate(`/accounts/account?account_id=${a._id}`)
-                  }
-                >
-                  <PaginatedTableDataCell>{a._id}</PaginatedTableDataCell>
-                  <PaginatedTableDataCell>{a.email}</PaginatedTableDataCell>
-                  <PaginatedTableDataCell>
-                    {a.users.stats.total ?? '--'}
-                  </PaginatedTableDataCell>
-                  <PaginatedTableDataCell>
-                    {new Date(a.createdAt).toDateString()}
-                  </PaginatedTableDataCell>
-                </PaginatedTableRow>
-              ))}
-            />
-          </CCardBody>
-          <CCardFooter className="d-flex justify-content-between">
-            <CBadge color="secondary" className="align-self-center">
-              {`${(stats?.total ?? 0) - (stats?.remaining ?? 0)}/${
-                stats?.total ?? 0
-              }`}
-            </CBadge>
-            <CButton
-              onClick={() => handleFetchMore()}
-              disabled={!stats?.remaining}
+    <CCard className="w-100 d-flex flex-grow-1">
+      <CCardBody className="d-flex flex-column" style={{ height: '200px' }}>
+        <PaginatedTable
+          head={[
+            { cell: 'ID', id: 'id', className: 'd-none d-lg-block' },
+            { cell: 'Email', id: 'email' },
+            { cell: 'Created', id: 'created', className: 'd-none d-lg-block' },
+            { cell: 'Users', id: 'users', className: 'text-center' },
+          ]}
+          loading={loading}
+          foot={false}
+          stats={stats}
+          title="Accounts"
+          actions={{
+            onHandleSearch: handleSearch,
+            onRequestMore: handleFetchMore,
+            onHandleAction: () => setCreateAccountModalVisible(true),
+            actionButtonLabel: <CIcon icon={cilPlus} />,
+          }}
+          body={accounts.map((a) => (
+            <PaginatedTableRow
+              key={a._id}
+              role="button"
+              onClick={() => navigate(`/accounts/account?account_id=${a._id}`)}
             >
-              More
-            </CButton>
-          </CCardFooter>
-        </CCard>
-      )}
-    </Providers.Accounts.Mutations.RegisterProviderContext.Consumer>
+              <PaginatedTableDataCell className="d-none d-lg-block">
+                {a._id}
+              </PaginatedTableDataCell>
+              <PaginatedTableDataCell>{a.email}</PaginatedTableDataCell>
+              <PaginatedTableDataCell className="d-none d-lg-block">
+                {new Date(a.createdAt).toDateString()}
+              </PaginatedTableDataCell>
+              <PaginatedTableDataCell className="text-center">
+                {a.users.stats.total ?? '--'}
+              </PaginatedTableDataCell>
+            </PaginatedTableRow>
+          ))}
+        />
+      </CCardBody>
+      <CCardFooter className="d-flex justify-content-between">
+        <CBadge color="secondary" className="align-self-center">
+          {`${(stats?.total ?? 0) - (stats?.remaining ?? 0)}/${
+            stats?.total ?? 0
+          }`}
+        </CBadge>
+        <CButton onClick={() => handleFetchMore()} disabled={!stats?.remaining}>
+          More
+        </CButton>
+      </CCardFooter>
+    </CCard>
   );
 };

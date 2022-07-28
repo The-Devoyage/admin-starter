@@ -1005,15 +1005,6 @@ export type LoginProvider_LoginMutation = {
   };
 };
 
-export type RegisterProvider_RegisterMutationVariables = Exact<{
-  registerInput: RegisterInput;
-}>;
-
-export type RegisterProvider_RegisterMutation = {
-  __typename?: 'Mutation';
-  register: { __typename?: 'Account'; _id: string };
-};
-
 export type ResetActivationCodeProvider_ResetActivationCodeMutationVariables =
   Exact<{
     resetCodeInput: ResetCodeInput;
@@ -1040,155 +1031,6 @@ export type VerifyEmailProvider_VerifyEmailMutationVariables = Exact<{
 export type VerifyEmailProvider_VerifyEmailMutation = {
   __typename?: 'Mutation';
   verifyEmail: { __typename?: 'Account'; _id: string };
-};
-
-export type AccountCountWidget_GetAccountsQueryVariables = Exact<{
-  getAccountsInput: GetAccountsInput;
-}>;
-
-export type AccountCountWidget_GetAccountsQuery = {
-  __typename?: 'Query';
-  getAccounts: {
-    __typename?: 'GetAccountsResponse';
-    stats: {
-      __typename?: 'Stats';
-      total?: number | null;
-      history?: Array<{
-        __typename?: 'HistoricStats';
-        total?: number | null;
-        _id?: { __typename?: 'HistoricStatsId'; MONTH?: number | null } | null;
-      }> | null;
-    };
-  };
-};
-
-export type AccountPage_GetAccountsQueryVariables = Exact<{
-  getAccountsInput: GetAccountsInput;
-  getUsersInput: GetUsersInput;
-}>;
-
-export type AccountPage_GetAccountsQuery = {
-  __typename?: 'Query';
-  getAccounts: {
-    __typename?: 'GetAccountsResponse';
-    data: Array<{
-      __typename?: 'Account';
-      _id: string;
-      email: string;
-      createdAt: Date;
-      updatedAt: Date;
-      activation?: {
-        __typename?: 'Activation';
-        code?: string | null;
-        limit: Date;
-        verified: boolean;
-      } | null;
-      users: {
-        __typename?: 'GetUsersResponse';
-        stats: { __typename?: 'Stats'; total?: number | null };
-        data: Array<{
-          __typename?: 'User';
-          _id: string;
-          email: string;
-          first_name?: string | null;
-          last_name?: string | null;
-          updatedAt: Date;
-          about?: string | null;
-          image?: { __typename?: 'Media'; path: string; _id: string } | null;
-          memberships: Array<{
-            __typename?: 'Membership';
-            _id: string;
-            default: boolean;
-            status?: MembershipStatusEnum | null;
-            account: { __typename?: 'Account'; _id: string };
-          }>;
-        }>;
-      };
-    }>;
-  };
-};
-
-export type AccountSelect_GetAccountsQueryVariables = Exact<{
-  getAccountsInput: GetAccountsInput;
-  getUsersInput: GetUsersInput;
-}>;
-
-export type AccountSelect_GetAccountsQuery = {
-  __typename?: 'Query';
-  getAccounts: {
-    __typename?: 'GetAccountsResponse';
-    data: Array<{
-      __typename?: 'Account';
-      _id: string;
-      email: string;
-      users: {
-        __typename?: 'GetUsersResponse';
-        data: Array<{
-          __typename?: 'User';
-          _id: string;
-          first_name?: string | null;
-          last_name?: string | null;
-          email: string;
-        }>;
-      };
-    }>;
-  };
-};
-
-export type AccountsPage_GetAccountsQueryVariables = Exact<{
-  getAccountsInput: GetAccountsInput;
-  getUsersInput: GetUsersInput;
-}>;
-
-export type AccountsPage_GetAccountsQuery = {
-  __typename?: 'Query';
-  getAccounts: {
-    __typename?: 'GetAccountsResponse';
-    stats: {
-      __typename?: 'Stats';
-      total?: number | null;
-      remaining?: number | null;
-      cursor?: Date | null;
-    };
-    data: Array<{
-      __typename?: 'Account';
-      _id: string;
-      email: string;
-      createdAt: Date;
-      users: {
-        __typename?: 'GetUsersResponse';
-        stats: { __typename?: 'Stats'; total?: number | null };
-      };
-    }>;
-  };
-};
-
-export type AccountsList_GetAccountsQueryVariables = Exact<{
-  getAccountsInput: GetAccountsInput;
-  getUsersInput: GetUsersInput;
-}>;
-
-export type AccountsList_GetAccountsQuery = {
-  __typename?: 'Query';
-  getAccounts: {
-    __typename?: 'GetAccountsResponse';
-    stats: {
-      __typename?: 'Stats';
-      total?: number | null;
-      remaining?: number | null;
-      cursor?: Date | null;
-    };
-    data: Array<{
-      __typename?: 'Account';
-      _id: string;
-      email: string;
-      createdAt: Date;
-      users: {
-        __typename?: 'GetUsersResponse';
-        stats: { __typename?: 'Stats'; total?: number | null };
-      };
-    }>;
-  };
 };
 
 export type CreateMediaMutationVariables = Exact<{
@@ -1529,6 +1371,151 @@ export type UsersPage_GetUsersQuery = {
   };
 };
 
+export type AccountSelect_GetAccountsQueryVariables = Exact<{
+  getAccountsInput: GetAccountsInput;
+  getUsersInput: GetUsersInput;
+}>;
+
+export type AccountSelect_GetAccountsQuery = {
+  __typename?: 'Query';
+  getAccounts: {
+    __typename?: 'GetAccountsResponse';
+    data: Array<{
+      __typename?: 'Account';
+      _id: string;
+      email: string;
+      users: {
+        __typename?: 'GetUsersResponse';
+        data: Array<{
+          __typename?: 'User';
+          _id: string;
+          first_name?: string | null;
+          last_name?: string | null;
+          email: string;
+          memberships: Array<{
+            __typename?: 'Membership';
+            _id: string;
+            default: boolean;
+            account: { __typename?: 'Account'; _id: string };
+          }>;
+        }>;
+      };
+    }>;
+  };
+};
+
+export type AccountPage_GetAccountsQueryVariables = Exact<{
+  getAccountsInput: GetAccountsInput;
+  getUsersInput: GetUsersInput;
+}>;
+
+export type AccountPage_GetAccountsQuery = {
+  __typename?: 'Query';
+  getAccounts: {
+    __typename?: 'GetAccountsResponse';
+    data: Array<{
+      __typename?: 'Account';
+      _id: string;
+      email: string;
+      createdAt: Date;
+      updatedAt: Date;
+      activation?: {
+        __typename?: 'Activation';
+        code?: string | null;
+        limit: Date;
+        verified: boolean;
+      } | null;
+      users: {
+        __typename?: 'GetUsersResponse';
+        stats: { __typename?: 'Stats'; total?: number | null };
+        data: Array<{
+          __typename?: 'User';
+          _id: string;
+          email: string;
+          first_name?: string | null;
+          last_name?: string | null;
+          updatedAt: Date;
+          about?: string | null;
+          image?: { __typename?: 'Media'; path: string; _id: string } | null;
+          memberships: Array<{
+            __typename?: 'Membership';
+            _id: string;
+            default: boolean;
+            status?: MembershipStatusEnum | null;
+            account: { __typename?: 'Account'; _id: string };
+          }>;
+        }>;
+      };
+    }>;
+  };
+};
+
+export type AccountsPage_RegisterAccountMutationVariables = Exact<{
+  registerInput: RegisterInput;
+}>;
+
+export type AccountsPage_RegisterAccountMutation = {
+  __typename?: 'Mutation';
+  register: { __typename?: 'Account'; _id: string };
+};
+
+export type AccountsList_GetAccountsQueryVariables = Exact<{
+  getAccountsInput: GetAccountsInput;
+  getUsersInput: GetUsersInput;
+}>;
+
+export type AccountsList_GetAccountsQuery = {
+  __typename?: 'Query';
+  getAccounts: {
+    __typename?: 'GetAccountsResponse';
+    stats: {
+      __typename?: 'Stats';
+      total?: number | null;
+      remaining?: number | null;
+      cursor?: Date | null;
+    };
+    data: Array<{
+      __typename?: 'Account';
+      _id: string;
+      email: string;
+      createdAt: Date;
+      users: {
+        __typename?: 'GetUsersResponse';
+        stats: { __typename?: 'Stats'; total?: number | null };
+      };
+    }>;
+  };
+};
+
+export type RegisterPage_RegisterAccountMutationVariables = Exact<{
+  registerInput: RegisterInput;
+}>;
+
+export type RegisterPage_RegisterAccountMutation = {
+  __typename?: 'Mutation';
+  register: { __typename?: 'Account'; _id: string };
+};
+
+export type AccountCountWidget_GetAccountsQueryVariables = Exact<{
+  getAccountsInput: GetAccountsInput;
+}>;
+
+export type AccountCountWidget_GetAccountsQuery = {
+  __typename?: 'Query';
+  getAccounts: {
+    __typename?: 'GetAccountsResponse';
+    stats: {
+      __typename?: 'Stats';
+      total?: number | null;
+      history?: Array<{
+        __typename?: 'HistoricStats';
+        total?: number | null;
+        _id?: { __typename?: 'HistoricStatsId'; MONTH?: number | null } | null;
+      }> | null;
+    };
+  };
+};
+
 export const LoginProvider_LoginDocument = gql`
   mutation LoginProvider_Login($loginInput: LoginInput!) {
     login(loginInput: $loginInput) {
@@ -1583,57 +1570,6 @@ export type LoginProvider_LoginMutationOptions = Apollo.BaseMutationOptions<
   LoginProvider_LoginMutation,
   LoginProvider_LoginMutationVariables
 >;
-export const RegisterProvider_RegisterDocument = gql`
-  mutation RegisterProvider_Register($registerInput: RegisterInput!) {
-    register(registerInput: $registerInput) {
-      _id
-    }
-  }
-`;
-export type RegisterProvider_RegisterMutationFn = Apollo.MutationFunction<
-  RegisterProvider_RegisterMutation,
-  RegisterProvider_RegisterMutationVariables
->;
-
-/**
- * __useRegisterProvider_RegisterMutation__
- *
- * To run a mutation, you first call `useRegisterProvider_RegisterMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRegisterProvider_RegisterMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [registerProviderRegisterMutation, { data, loading, error }] = useRegisterProvider_RegisterMutation({
- *   variables: {
- *      registerInput: // value for 'registerInput'
- *   },
- * });
- */
-export function useRegisterProvider_RegisterMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    RegisterProvider_RegisterMutation,
-    RegisterProvider_RegisterMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    RegisterProvider_RegisterMutation,
-    RegisterProvider_RegisterMutationVariables
-  >(RegisterProvider_RegisterDocument, options);
-}
-export type RegisterProvider_RegisterMutationHookResult = ReturnType<
-  typeof useRegisterProvider_RegisterMutation
->;
-export type RegisterProvider_RegisterMutationResult =
-  Apollo.MutationResult<RegisterProvider_RegisterMutation>;
-export type RegisterProvider_RegisterMutationOptions =
-  Apollo.BaseMutationOptions<
-    RegisterProvider_RegisterMutation,
-    RegisterProvider_RegisterMutationVariables
-  >;
 export const ResetActivationCodeProvider_ResetActivationCodeDocument = gql`
   mutation ResetActivationCodeProvider_ResetActivationCode(
     $resetCodeInput: ResetCodeInput!
@@ -1794,394 +1730,6 @@ export type VerifyEmailProvider_VerifyEmailMutationOptions =
     VerifyEmailProvider_VerifyEmailMutation,
     VerifyEmailProvider_VerifyEmailMutationVariables
   >;
-export const AccountCountWidget_GetAccountsDocument = gql`
-  query AccountCountWidget_GetAccounts($getAccountsInput: GetAccountsInput!) {
-    getAccounts(getAccountsInput: $getAccountsInput) {
-      stats {
-        total
-        history {
-          _id {
-            MONTH
-          }
-          total
-        }
-      }
-    }
-  }
-`;
-
-/**
- * __useAccountCountWidget_GetAccountsQuery__
- *
- * To run a query within a React component, call `useAccountCountWidget_GetAccountsQuery` and pass it any options that fit your needs.
- * When your component renders, `useAccountCountWidget_GetAccountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAccountCountWidget_GetAccountsQuery({
- *   variables: {
- *      getAccountsInput: // value for 'getAccountsInput'
- *   },
- * });
- */
-export function useAccountCountWidget_GetAccountsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    AccountCountWidget_GetAccountsQuery,
-    AccountCountWidget_GetAccountsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    AccountCountWidget_GetAccountsQuery,
-    AccountCountWidget_GetAccountsQueryVariables
-  >(AccountCountWidget_GetAccountsDocument, options);
-}
-export function useAccountCountWidget_GetAccountsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    AccountCountWidget_GetAccountsQuery,
-    AccountCountWidget_GetAccountsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    AccountCountWidget_GetAccountsQuery,
-    AccountCountWidget_GetAccountsQueryVariables
-  >(AccountCountWidget_GetAccountsDocument, options);
-}
-export type AccountCountWidget_GetAccountsQueryHookResult = ReturnType<
-  typeof useAccountCountWidget_GetAccountsQuery
->;
-export type AccountCountWidget_GetAccountsLazyQueryHookResult = ReturnType<
-  typeof useAccountCountWidget_GetAccountsLazyQuery
->;
-export type AccountCountWidget_GetAccountsQueryResult = Apollo.QueryResult<
-  AccountCountWidget_GetAccountsQuery,
-  AccountCountWidget_GetAccountsQueryVariables
->;
-export const AccountPage_GetAccountsDocument = gql`
-  query AccountPage_GetAccounts(
-    $getAccountsInput: GetAccountsInput!
-    $getUsersInput: GetUsersInput!
-  ) {
-    getAccounts(getAccountsInput: $getAccountsInput) {
-      data {
-        _id
-        email
-        createdAt
-        updatedAt
-        activation {
-          code
-          limit
-          verified
-        }
-        users(getUsersInput: $getUsersInput) {
-          stats {
-            total
-          }
-          data {
-            _id
-            email
-            first_name
-            last_name
-            updatedAt
-            about
-            image {
-              path
-              _id
-            }
-            memberships {
-              _id
-              default
-              status
-              account {
-                _id
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-/**
- * __useAccountPage_GetAccountsQuery__
- *
- * To run a query within a React component, call `useAccountPage_GetAccountsQuery` and pass it any options that fit your needs.
- * When your component renders, `useAccountPage_GetAccountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAccountPage_GetAccountsQuery({
- *   variables: {
- *      getAccountsInput: // value for 'getAccountsInput'
- *      getUsersInput: // value for 'getUsersInput'
- *   },
- * });
- */
-export function useAccountPage_GetAccountsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    AccountPage_GetAccountsQuery,
-    AccountPage_GetAccountsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    AccountPage_GetAccountsQuery,
-    AccountPage_GetAccountsQueryVariables
-  >(AccountPage_GetAccountsDocument, options);
-}
-export function useAccountPage_GetAccountsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    AccountPage_GetAccountsQuery,
-    AccountPage_GetAccountsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    AccountPage_GetAccountsQuery,
-    AccountPage_GetAccountsQueryVariables
-  >(AccountPage_GetAccountsDocument, options);
-}
-export type AccountPage_GetAccountsQueryHookResult = ReturnType<
-  typeof useAccountPage_GetAccountsQuery
->;
-export type AccountPage_GetAccountsLazyQueryHookResult = ReturnType<
-  typeof useAccountPage_GetAccountsLazyQuery
->;
-export type AccountPage_GetAccountsQueryResult = Apollo.QueryResult<
-  AccountPage_GetAccountsQuery,
-  AccountPage_GetAccountsQueryVariables
->;
-export const AccountSelect_GetAccountsDocument = gql`
-  query AccountSelect_GetAccounts(
-    $getAccountsInput: GetAccountsInput!
-    $getUsersInput: GetUsersInput!
-  ) {
-    getAccounts(getAccountsInput: $getAccountsInput) {
-      data {
-        _id
-        email
-        users(getUsersInput: $getUsersInput) {
-          data {
-            _id
-            first_name
-            last_name
-            email
-          }
-        }
-      }
-    }
-  }
-`;
-
-/**
- * __useAccountSelect_GetAccountsQuery__
- *
- * To run a query within a React component, call `useAccountSelect_GetAccountsQuery` and pass it any options that fit your needs.
- * When your component renders, `useAccountSelect_GetAccountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAccountSelect_GetAccountsQuery({
- *   variables: {
- *      getAccountsInput: // value for 'getAccountsInput'
- *      getUsersInput: // value for 'getUsersInput'
- *   },
- * });
- */
-export function useAccountSelect_GetAccountsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    AccountSelect_GetAccountsQuery,
-    AccountSelect_GetAccountsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    AccountSelect_GetAccountsQuery,
-    AccountSelect_GetAccountsQueryVariables
-  >(AccountSelect_GetAccountsDocument, options);
-}
-export function useAccountSelect_GetAccountsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    AccountSelect_GetAccountsQuery,
-    AccountSelect_GetAccountsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    AccountSelect_GetAccountsQuery,
-    AccountSelect_GetAccountsQueryVariables
-  >(AccountSelect_GetAccountsDocument, options);
-}
-export type AccountSelect_GetAccountsQueryHookResult = ReturnType<
-  typeof useAccountSelect_GetAccountsQuery
->;
-export type AccountSelect_GetAccountsLazyQueryHookResult = ReturnType<
-  typeof useAccountSelect_GetAccountsLazyQuery
->;
-export type AccountSelect_GetAccountsQueryResult = Apollo.QueryResult<
-  AccountSelect_GetAccountsQuery,
-  AccountSelect_GetAccountsQueryVariables
->;
-export const AccountsPage_GetAccountsDocument = gql`
-  query AccountsPage_GetAccounts(
-    $getAccountsInput: GetAccountsInput!
-    $getUsersInput: GetUsersInput!
-  ) {
-    getAccounts(getAccountsInput: $getAccountsInput) {
-      stats {
-        total
-        remaining
-        cursor
-      }
-      data {
-        _id
-        email
-        createdAt
-        users(getUsersInput: $getUsersInput) {
-          stats {
-            total
-          }
-        }
-      }
-    }
-  }
-`;
-
-/**
- * __useAccountsPage_GetAccountsQuery__
- *
- * To run a query within a React component, call `useAccountsPage_GetAccountsQuery` and pass it any options that fit your needs.
- * When your component renders, `useAccountsPage_GetAccountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAccountsPage_GetAccountsQuery({
- *   variables: {
- *      getAccountsInput: // value for 'getAccountsInput'
- *      getUsersInput: // value for 'getUsersInput'
- *   },
- * });
- */
-export function useAccountsPage_GetAccountsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    AccountsPage_GetAccountsQuery,
-    AccountsPage_GetAccountsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    AccountsPage_GetAccountsQuery,
-    AccountsPage_GetAccountsQueryVariables
-  >(AccountsPage_GetAccountsDocument, options);
-}
-export function useAccountsPage_GetAccountsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    AccountsPage_GetAccountsQuery,
-    AccountsPage_GetAccountsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    AccountsPage_GetAccountsQuery,
-    AccountsPage_GetAccountsQueryVariables
-  >(AccountsPage_GetAccountsDocument, options);
-}
-export type AccountsPage_GetAccountsQueryHookResult = ReturnType<
-  typeof useAccountsPage_GetAccountsQuery
->;
-export type AccountsPage_GetAccountsLazyQueryHookResult = ReturnType<
-  typeof useAccountsPage_GetAccountsLazyQuery
->;
-export type AccountsPage_GetAccountsQueryResult = Apollo.QueryResult<
-  AccountsPage_GetAccountsQuery,
-  AccountsPage_GetAccountsQueryVariables
->;
-export const AccountsList_GetAccountsDocument = gql`
-  query AccountsList_GetAccounts(
-    $getAccountsInput: GetAccountsInput!
-    $getUsersInput: GetUsersInput!
-  ) {
-    getAccounts(getAccountsInput: $getAccountsInput) {
-      stats {
-        total
-        remaining
-        cursor
-      }
-      data {
-        _id
-        email
-        createdAt
-        users(getUsersInput: $getUsersInput) {
-          stats {
-            total
-          }
-        }
-      }
-    }
-  }
-`;
-
-/**
- * __useAccountsList_GetAccountsQuery__
- *
- * To run a query within a React component, call `useAccountsList_GetAccountsQuery` and pass it any options that fit your needs.
- * When your component renders, `useAccountsList_GetAccountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAccountsList_GetAccountsQuery({
- *   variables: {
- *      getAccountsInput: // value for 'getAccountsInput'
- *      getUsersInput: // value for 'getUsersInput'
- *   },
- * });
- */
-export function useAccountsList_GetAccountsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    AccountsList_GetAccountsQuery,
-    AccountsList_GetAccountsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    AccountsList_GetAccountsQuery,
-    AccountsList_GetAccountsQueryVariables
-  >(AccountsList_GetAccountsDocument, options);
-}
-export function useAccountsList_GetAccountsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    AccountsList_GetAccountsQuery,
-    AccountsList_GetAccountsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    AccountsList_GetAccountsQuery,
-    AccountsList_GetAccountsQueryVariables
-  >(AccountsList_GetAccountsDocument, options);
-}
-export type AccountsList_GetAccountsQueryHookResult = ReturnType<
-  typeof useAccountsList_GetAccountsQuery
->;
-export type AccountsList_GetAccountsLazyQueryHookResult = ReturnType<
-  typeof useAccountsList_GetAccountsLazyQuery
->;
-export type AccountsList_GetAccountsQueryResult = Apollo.QueryResult<
-  AccountsList_GetAccountsQuery,
-  AccountsList_GetAccountsQueryVariables
->;
 export const CreateMediaDocument = gql`
   mutation CreateMedia($createMediaInput: CreateMediaInput!) {
     createMedia(createMediaInput: $createMediaInput) {
@@ -3150,4 +2698,425 @@ export type UsersPage_GetUsersLazyQueryHookResult = ReturnType<
 export type UsersPage_GetUsersQueryResult = Apollo.QueryResult<
   UsersPage_GetUsersQuery,
   UsersPage_GetUsersQueryVariables
+>;
+export const AccountSelect_GetAccountsDocument = gql`
+  query AccountSelect_GetAccounts(
+    $getAccountsInput: GetAccountsInput!
+    $getUsersInput: GetUsersInput!
+  ) {
+    getAccounts(getAccountsInput: $getAccountsInput) {
+      data {
+        _id
+        email
+        users(getUsersInput: $getUsersInput) {
+          data {
+            _id
+            first_name
+            last_name
+            email
+            memberships {
+              _id
+              default
+              account {
+                _id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useAccountSelect_GetAccountsQuery__
+ *
+ * To run a query within a React component, call `useAccountSelect_GetAccountsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAccountSelect_GetAccountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAccountSelect_GetAccountsQuery({
+ *   variables: {
+ *      getAccountsInput: // value for 'getAccountsInput'
+ *      getUsersInput: // value for 'getUsersInput'
+ *   },
+ * });
+ */
+export function useAccountSelect_GetAccountsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    AccountSelect_GetAccountsQuery,
+    AccountSelect_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    AccountSelect_GetAccountsQuery,
+    AccountSelect_GetAccountsQueryVariables
+  >(AccountSelect_GetAccountsDocument, options);
+}
+export function useAccountSelect_GetAccountsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AccountSelect_GetAccountsQuery,
+    AccountSelect_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    AccountSelect_GetAccountsQuery,
+    AccountSelect_GetAccountsQueryVariables
+  >(AccountSelect_GetAccountsDocument, options);
+}
+export type AccountSelect_GetAccountsQueryHookResult = ReturnType<
+  typeof useAccountSelect_GetAccountsQuery
+>;
+export type AccountSelect_GetAccountsLazyQueryHookResult = ReturnType<
+  typeof useAccountSelect_GetAccountsLazyQuery
+>;
+export type AccountSelect_GetAccountsQueryResult = Apollo.QueryResult<
+  AccountSelect_GetAccountsQuery,
+  AccountSelect_GetAccountsQueryVariables
+>;
+export const AccountPage_GetAccountsDocument = gql`
+  query AccountPage_GetAccounts(
+    $getAccountsInput: GetAccountsInput!
+    $getUsersInput: GetUsersInput!
+  ) {
+    getAccounts(getAccountsInput: $getAccountsInput) {
+      data {
+        _id
+        email
+        createdAt
+        updatedAt
+        activation {
+          code
+          limit
+          verified
+        }
+        users(getUsersInput: $getUsersInput) {
+          stats {
+            total
+          }
+          data {
+            _id
+            email
+            first_name
+            last_name
+            updatedAt
+            about
+            image {
+              path
+              _id
+            }
+            memberships {
+              _id
+              default
+              status
+              account {
+                _id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useAccountPage_GetAccountsQuery__
+ *
+ * To run a query within a React component, call `useAccountPage_GetAccountsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAccountPage_GetAccountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAccountPage_GetAccountsQuery({
+ *   variables: {
+ *      getAccountsInput: // value for 'getAccountsInput'
+ *      getUsersInput: // value for 'getUsersInput'
+ *   },
+ * });
+ */
+export function useAccountPage_GetAccountsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    AccountPage_GetAccountsQuery,
+    AccountPage_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    AccountPage_GetAccountsQuery,
+    AccountPage_GetAccountsQueryVariables
+  >(AccountPage_GetAccountsDocument, options);
+}
+export function useAccountPage_GetAccountsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AccountPage_GetAccountsQuery,
+    AccountPage_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    AccountPage_GetAccountsQuery,
+    AccountPage_GetAccountsQueryVariables
+  >(AccountPage_GetAccountsDocument, options);
+}
+export type AccountPage_GetAccountsQueryHookResult = ReturnType<
+  typeof useAccountPage_GetAccountsQuery
+>;
+export type AccountPage_GetAccountsLazyQueryHookResult = ReturnType<
+  typeof useAccountPage_GetAccountsLazyQuery
+>;
+export type AccountPage_GetAccountsQueryResult = Apollo.QueryResult<
+  AccountPage_GetAccountsQuery,
+  AccountPage_GetAccountsQueryVariables
+>;
+export const AccountsPage_RegisterAccountDocument = gql`
+  mutation AccountsPage_RegisterAccount($registerInput: RegisterInput!) {
+    register(registerInput: $registerInput) {
+      _id
+    }
+  }
+`;
+export type AccountsPage_RegisterAccountMutationFn = Apollo.MutationFunction<
+  AccountsPage_RegisterAccountMutation,
+  AccountsPage_RegisterAccountMutationVariables
+>;
+
+/**
+ * __useAccountsPage_RegisterAccountMutation__
+ *
+ * To run a mutation, you first call `useAccountsPage_RegisterAccountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAccountsPage_RegisterAccountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [accountsPageRegisterAccountMutation, { data, loading, error }] = useAccountsPage_RegisterAccountMutation({
+ *   variables: {
+ *      registerInput: // value for 'registerInput'
+ *   },
+ * });
+ */
+export function useAccountsPage_RegisterAccountMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AccountsPage_RegisterAccountMutation,
+    AccountsPage_RegisterAccountMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    AccountsPage_RegisterAccountMutation,
+    AccountsPage_RegisterAccountMutationVariables
+  >(AccountsPage_RegisterAccountDocument, options);
+}
+export type AccountsPage_RegisterAccountMutationHookResult = ReturnType<
+  typeof useAccountsPage_RegisterAccountMutation
+>;
+export type AccountsPage_RegisterAccountMutationResult =
+  Apollo.MutationResult<AccountsPage_RegisterAccountMutation>;
+export type AccountsPage_RegisterAccountMutationOptions =
+  Apollo.BaseMutationOptions<
+    AccountsPage_RegisterAccountMutation,
+    AccountsPage_RegisterAccountMutationVariables
+  >;
+export const AccountsList_GetAccountsDocument = gql`
+  query AccountsList_GetAccounts(
+    $getAccountsInput: GetAccountsInput!
+    $getUsersInput: GetUsersInput!
+  ) {
+    getAccounts(getAccountsInput: $getAccountsInput) {
+      stats {
+        total
+        remaining
+        cursor
+      }
+      data {
+        _id
+        email
+        createdAt
+        users(getUsersInput: $getUsersInput) {
+          stats {
+            total
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useAccountsList_GetAccountsQuery__
+ *
+ * To run a query within a React component, call `useAccountsList_GetAccountsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAccountsList_GetAccountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAccountsList_GetAccountsQuery({
+ *   variables: {
+ *      getAccountsInput: // value for 'getAccountsInput'
+ *      getUsersInput: // value for 'getUsersInput'
+ *   },
+ * });
+ */
+export function useAccountsList_GetAccountsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    AccountsList_GetAccountsQuery,
+    AccountsList_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    AccountsList_GetAccountsQuery,
+    AccountsList_GetAccountsQueryVariables
+  >(AccountsList_GetAccountsDocument, options);
+}
+export function useAccountsList_GetAccountsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AccountsList_GetAccountsQuery,
+    AccountsList_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    AccountsList_GetAccountsQuery,
+    AccountsList_GetAccountsQueryVariables
+  >(AccountsList_GetAccountsDocument, options);
+}
+export type AccountsList_GetAccountsQueryHookResult = ReturnType<
+  typeof useAccountsList_GetAccountsQuery
+>;
+export type AccountsList_GetAccountsLazyQueryHookResult = ReturnType<
+  typeof useAccountsList_GetAccountsLazyQuery
+>;
+export type AccountsList_GetAccountsQueryResult = Apollo.QueryResult<
+  AccountsList_GetAccountsQuery,
+  AccountsList_GetAccountsQueryVariables
+>;
+export const RegisterPage_RegisterAccountDocument = gql`
+  mutation RegisterPage_RegisterAccount($registerInput: RegisterInput!) {
+    register(registerInput: $registerInput) {
+      _id
+    }
+  }
+`;
+export type RegisterPage_RegisterAccountMutationFn = Apollo.MutationFunction<
+  RegisterPage_RegisterAccountMutation,
+  RegisterPage_RegisterAccountMutationVariables
+>;
+
+/**
+ * __useRegisterPage_RegisterAccountMutation__
+ *
+ * To run a mutation, you first call `useRegisterPage_RegisterAccountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRegisterPage_RegisterAccountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [registerPageRegisterAccountMutation, { data, loading, error }] = useRegisterPage_RegisterAccountMutation({
+ *   variables: {
+ *      registerInput: // value for 'registerInput'
+ *   },
+ * });
+ */
+export function useRegisterPage_RegisterAccountMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RegisterPage_RegisterAccountMutation,
+    RegisterPage_RegisterAccountMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    RegisterPage_RegisterAccountMutation,
+    RegisterPage_RegisterAccountMutationVariables
+  >(RegisterPage_RegisterAccountDocument, options);
+}
+export type RegisterPage_RegisterAccountMutationHookResult = ReturnType<
+  typeof useRegisterPage_RegisterAccountMutation
+>;
+export type RegisterPage_RegisterAccountMutationResult =
+  Apollo.MutationResult<RegisterPage_RegisterAccountMutation>;
+export type RegisterPage_RegisterAccountMutationOptions =
+  Apollo.BaseMutationOptions<
+    RegisterPage_RegisterAccountMutation,
+    RegisterPage_RegisterAccountMutationVariables
+  >;
+export const AccountCountWidget_GetAccountsDocument = gql`
+  query AccountCountWidget_GetAccounts($getAccountsInput: GetAccountsInput!) {
+    getAccounts(getAccountsInput: $getAccountsInput) {
+      stats {
+        total
+        history {
+          _id {
+            MONTH
+          }
+          total
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useAccountCountWidget_GetAccountsQuery__
+ *
+ * To run a query within a React component, call `useAccountCountWidget_GetAccountsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAccountCountWidget_GetAccountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAccountCountWidget_GetAccountsQuery({
+ *   variables: {
+ *      getAccountsInput: // value for 'getAccountsInput'
+ *   },
+ * });
+ */
+export function useAccountCountWidget_GetAccountsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    AccountCountWidget_GetAccountsQuery,
+    AccountCountWidget_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    AccountCountWidget_GetAccountsQuery,
+    AccountCountWidget_GetAccountsQueryVariables
+  >(AccountCountWidget_GetAccountsDocument, options);
+}
+export function useAccountCountWidget_GetAccountsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AccountCountWidget_GetAccountsQuery,
+    AccountCountWidget_GetAccountsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    AccountCountWidget_GetAccountsQuery,
+    AccountCountWidget_GetAccountsQueryVariables
+  >(AccountCountWidget_GetAccountsDocument, options);
+}
+export type AccountCountWidget_GetAccountsQueryHookResult = ReturnType<
+  typeof useAccountCountWidget_GetAccountsQuery
+>;
+export type AccountCountWidget_GetAccountsLazyQueryHookResult = ReturnType<
+  typeof useAccountCountWidget_GetAccountsLazyQuery
+>;
+export type AccountCountWidget_GetAccountsQueryResult = Apollo.QueryResult<
+  AccountCountWidget_GetAccountsQuery,
+  AccountCountWidget_GetAccountsQueryVariables
 >;

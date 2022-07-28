@@ -15,6 +15,7 @@ import { Utils } from 'src/common';
 import { UserPage_GetUsersQuery } from 'src/types/generated';
 import { MembershipsListLoading } from './memberships-list-loading';
 
+//TODO: Specifity Type Here
 interface MembershipsListProps {
   memberships: UserPage_GetUsersQuery['getUsers']['data'][0]['memberships'];
   loading: boolean;
@@ -24,15 +25,6 @@ export const MembershipsList: FC<MembershipsListProps> = ({
   memberships,
   loading,
 }) => {
-  const getAccountOwner = (
-    membership: UserPage_GetUsersQuery['getUsers']['data'][0]['memberships'][0],
-  ) => {
-    const accountOwner:
-      | UserPage_GetUsersQuery['getUsers']['data'][0]['memberships'][0]['account']['users']['data'][0]
-      | null = membership.account.users.data[0] ?? null;
-    return accountOwner;
-  };
-
   if (loading) {
     return <MembershipsListLoading />;
   }
@@ -86,7 +78,7 @@ export const MembershipsList: FC<MembershipsListProps> = ({
                 </CTableDataCell>
                 <CTableDataCell>{m.account._id}</CTableDataCell>
                 <CTableDataCell style={{ textTransform: 'capitalize' }}>
-                  {Utils.Users.determineName(m.account, getAccountOwner(m))}
+                  {Utils.Users.determineName(m.account, null)}
                 </CTableDataCell>
                 <CTableDataCell style={{ textTransform: 'capitalize' }}>
                   {Utils.Memberships.determineRoleName(m.role)}

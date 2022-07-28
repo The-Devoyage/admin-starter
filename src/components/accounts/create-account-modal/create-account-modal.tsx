@@ -5,33 +5,45 @@ import {
   CModalBody,
   CModalFooter,
   CModalHeader,
+  CSpinner,
 } from '@coreui/react';
-import { Providers } from 'src/apollo';
+import { FormikProps } from 'formik';
+import { FC } from 'react';
 import { RegisterFormContent } from 'src/components/auth/register';
+import { RegisterInput } from 'src/types/generated';
 
-export const CreateAccountModal = () => (
-  <Providers.Accounts.Mutations.RegisterProviderContext.Consumer>
-    {({ createAccountModalVisible, setCreateAccountModalVisible, form }) => (
-      <CModal
-        visible={createAccountModalVisible}
-        onClose={() => setCreateAccountModalVisible(false)}
+interface CreateAccountModalProps {
+  visible: boolean;
+  setVisible: (b: boolean) => void;
+  form: FormikProps<RegisterInput> | null;
+  loading: boolean;
+}
+
+export const CreateAccountModal: FC<CreateAccountModalProps> = ({
+  visible,
+  setVisible,
+  form,
+  loading,
+}) => {
+  return (
+    <CModal visible={visible} onClose={() => setVisible(false)}>
+      <CModalHeader>Create Account</CModalHeader>
+      <CForm
+        onSubmit={(e) => {
+          e.preventDefault();
+          form?.submitForm();
+          setVisible(false);
+        }}
       >
-        <CModalHeader>Create Account</CModalHeader>
-        <CForm
-          onSubmit={(e) => {
-            e.preventDefault();
-            form?.submitForm();
-            setCreateAccountModalVisible(false);
-          }}
-        >
-          <CModalBody>
-            <RegisterFormContent form={form} disablePasswords />
-          </CModalBody>
-          <CModalFooter className="d-flex justify-content-end">
-            <CButton type="submit">Create Account</CButton>
-          </CModalFooter>
-        </CForm>
-      </CModal>
-    )}
-  </Providers.Accounts.Mutations.RegisterProviderContext.Consumer>
-);
+        <CModalBody>
+          <RegisterFormContent form={form} disablePasswords />
+        </CModalBody>
+        <CModalFooter className="d-flex justify-content-end">
+          <CButton type="submit" disabled={loading || !form?.dirty}>
+            {loading ? <CSpinner size="sm" /> : 'Create'}
+          </CButton>
+        </CModalFooter>
+      </CForm>
+    </CModal>
+  );
+};

@@ -1,22 +1,19 @@
 import { CCol } from '@coreui/react';
-import { FC } from 'react';
+import { useContext } from 'react';
 import { Providers } from 'src/apollo';
 import { useGetAccountsContext } from 'src/apollo/providers/accounts/queries';
 import { AccountOverviewCard } from 'src/components/accounts';
-import { CreateUserModal } from 'src/components/users';
-import { Account, AccountPage_GetAccountsQuery } from 'src/types/generated';
+import { AccountPage_GetAccountsQuery } from 'src/types/generated';
+import { AccountPageContext } from '../provider';
 
-interface AccountPageTopProps {
-  account_id: Account['_id'];
-}
-
-export const AccountPageTop: FC<AccountPageTopProps> = ({ account_id }) => {
+export const AccountPageTop = () => {
   const { loading, utils } =
     useGetAccountsContext<
       AccountPage_GetAccountsQuery['getAccounts']['data'][0]
     >();
-  const account = utils.getAccount(account_id);
-  const defaultUser = utils.getDefaultUser(account_id);
+  const { account_id } = useContext(AccountPageContext);
+  const account = utils.getAccount(account_id!);
+  const defaultUser = utils.getDefaultUser(account_id!);
 
   return (
     <Providers.Users.Mutations.CreateUserProvider
@@ -37,7 +34,6 @@ export const AccountPageTop: FC<AccountPageTopProps> = ({ account_id }) => {
           defaultUser={defaultUser}
           loading={loading}
         />
-        <CreateUserModal />
       </CCol>
     </Providers.Users.Mutations.CreateUserProvider>
   );

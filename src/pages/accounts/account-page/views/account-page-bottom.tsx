@@ -1,70 +1,40 @@
-import { CCol, CRow } from '@coreui/react';
-import { FC } from 'react';
+import { CCol } from '@coreui/react';
+import { useContext } from 'react';
 import { Providers } from 'src/apollo';
 import { useGetAccountsContext } from 'src/apollo/providers/accounts/queries';
 import {
   AccountActivationCard,
   AccountUsersCard,
 } from 'src/components/accounts';
-import { InviteUserModal } from 'src/components/users';
-import { Account, AccountPage_GetAccountsQuery } from 'src/types/generated';
+import { AccountPage_GetAccountsQuery } from 'src/types/generated';
+import { AccountPageContext } from '../provider';
 
-interface AccountPageBottomProps {
-  account_id: Account['_id'];
-}
-
-export const AccountPageBottom: FC<AccountPageBottomProps> = ({
-  account_id,
-}) => {
+export const AccountPageBottom = () => {
   const { loading, utils } =
     useGetAccountsContext<
       AccountPage_GetAccountsQuery['getAccounts']['data'][0]
     >();
-  const account = utils.getAccount(account_id);
+  const { account_id, setInviteUserModalVisible } =
+    useContext(AccountPageContext);
+  const account = utils.getAccount(account_id!);
 
   return (
-    <Providers.Users.Mutations.InviteUserProvider
-      inviteUserInput={{
-        query: {
-          _id: [],
-        },
-        payload: {
-          memberships: {
-            account: account?._id!,
-            local: {
-              first_name: '',
-              last_name: '',
-              about: '',
-              image: undefined,
-              phone: '',
-              address: {
-                zip: '',
-                city: '',
-                state: '',
-                lineOne: '',
-                lineTwo: '',
-              },
-            },
-          },
-        },
-      }}
+    <Providers.Accounts.Mutations.ResetActivationCodeProvider
+      resetCodeInput={{ email: account?.email ?? '' }}
     >
-      <Providers.Accounts.Mutations.ResetActivationCodeProvider
-        resetCodeInput={{ email: account?.email ?? '' }}
-      >
-        <CRow>
-          <CCol>
-            <AccountUsersCard account_id={account_id} />
-          </CCol>
-          <CCol>
-            <AccountActivationCard
-              activation={account?.activation}
-              loading={loading}
-            />
-          </CCol>
-        </CRow>
-        <InviteUserModal />
-      </Providers.Accounts.Mutations.ResetActivationCodeProvider>
-    </Providers.Users.Mutations.InviteUserProvider>
+      <CCol sm={6} className="mb-3">
+        <AccountUsersCard
+          account={account}
+          loading={loading}
+          setInviteUserModalVisible={setInviteUserModalVisible}
+        />
+      </CCol>
+      <CCol sm={6} className="mb-3">
+        <AccountActivationCard
+          activation={account?.activation}
+          loading={loading}
+        />
+      </CCol>
+    </Providers.Accounts.Mutations.ResetActivationCodeProvider>
   );
 };

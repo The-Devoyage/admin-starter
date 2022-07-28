@@ -10,10 +10,10 @@ import { FC } from 'react';
 import { Providers } from 'src/apollo';
 import { Utils } from 'src/common';
 import { VerifyButton } from 'src/common/buttons';
-import { AccountPage_GetAccountsQuery } from 'src/types/generated';
+import { Activation } from 'src/types/generated';
 
 interface AccountActivationCardProps {
-  activation: AccountPage_GetAccountsQuery['getAccounts']['data'][0]['activation'];
+  activation?: Activation | null;
   loading: boolean;
 }
 

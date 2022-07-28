@@ -7,9 +7,8 @@ import {
   StringFilterByEnum,
   Stats,
   Account,
-  User,
 } from 'src/types/generated';
-import * as Apollo from '@apollo/client';
+import { DocumentNode } from '@apollo/client';
 import { DeepPartial, getProperty } from 'src/apollo/utils';
 
 type AccountBase = DeepPartial<Account>;
@@ -21,10 +20,13 @@ interface IGetAccountsContext<A extends AccountBase> {
   handleSearch: (v: string) => void;
   stats?: Stats;
   utils: {
-    getAccount: (account_id: Account['_id']) => Account | null;
-    getAccountUsers: (account_id: Account['_id']) => User[] | null;
-    getDefaultUser: (account_id: Account['_id']) => User | null;
-    getAccountOwner: (account_id: Account['_id']) => User | null;
+    getAccount: (account_id: Account['_id']) => A | null;
+    getAccountUsers: (
+      account_id: Account['_id'],
+    ) => NonNullable<A['users']>['data'] | null;
+    getDefaultUser: (
+      account_id: Account['_id'],
+    ) => NonNullable<NonNullable<A['users']>['data']>[0] | null;
   };
 }
 
@@ -36,7 +38,6 @@ const GetAccountsContext = createContext<IGetAccountsContext<AccountBase>>({
   utils: {
     getAccount: () => null,
     getDefaultUser: () => null,
-    getAccountOwner: () => null,
     getAccountUsers: () => null,
   },
 });
@@ -56,7 +57,7 @@ export const useGetAccountsContext = <A extends AccountBase>() => {
 interface GetAccountsProviderProps {
   children: ReactNode;
   query: {
-    documentNode: Apollo.DocumentNode;
+    documentNode: DocumentNode;
     variables: {
       getAccountsInput: GetAccountsInput;
       getUsersInput?: GetUsersInput;
@@ -86,20 +87,13 @@ export const GetAccountsProvider: FC<GetAccountsProviderProps> = ({
 
     const getDefaultUser = (account_id: Account['_id']) => {
       const users = getAccountUsers(account_id);
-      const defaultUser = users?.find((u) =>
-        getProperty(u, 'memberships')?.find(
-          (m) => getProperty(m, '_id') === account_id,
-        ),
+      return (
+        users?.find((u) =>
+          getProperty(u, 'memberships')?.find(
+            (m) => !!getProperty(m, 'default'),
+          ),
+        ) ?? null
       );
-      return defaultUser ?? null;
-    };
-
-    const getAccountOwner = (account_id: Account['_id']) => {
-      const users = getAccountUsers(account_id);
-      const accountOwner = users?.find((u) =>
-        getProperty(u, 'memberships')?.find((m) => !!getProperty(m, 'default')),
-      );
-      return accountOwner ?? null;
     };
 
     const handleFetchMore = () => {
@@ -163,7 +157,6 @@ export const GetAccountsProvider: FC<GetAccountsProviderProps> = ({
         getAccount,
         getAccountUsers,
         getDefaultUser,
-        getAccountOwner,
       },
     };
   }, [loading, stats, fetchMore, accounts, stats, refetch]);
