@@ -1,16 +1,14 @@
 import { FormikProps, FormikHelpers, useFormik } from 'formik';
 import { createContext, useMemo, useContext, ReactNode } from 'react';
-import { Account, RegisterInput } from 'src/types/generated';
+import { RegisterInput } from 'src/types/generated';
 import { useMutation } from '@apollo/client';
-import { DeepPartial } from 'src/apollo/utils';
 import { DocumentNode, ApolloError } from '@apollo/client';
+import { AccountBase } from 'src/apollo/types';
 
-type AccountBase = DeepPartial<Account>;
-
-interface IRegisterAccountProviderContext<A extends AccountBase> {
+interface IRegisterAccountProviderContext<Account extends AccountBase> {
   form: FormikProps<RegisterInput> | null;
   loading: boolean;
-  account: A | null;
+  account: Account | null;
 }
 
 const RegisterAccountProviderContext = createContext<
@@ -21,20 +19,21 @@ const RegisterAccountProviderContext = createContext<
   account: null,
 });
 
-export const useRegisterAccountContext = <A extends AccountBase>() => {
-  const context = useContext<IRegisterAccountProviderContext<A>>(
+export const useRegisterAccountContext = <Account extends AccountBase>() => {
+  const context = useContext<IRegisterAccountProviderContext<Account>>(
     RegisterAccountProviderContext as unknown as React.Context<
-      IRegisterAccountProviderContext<A>
+      IRegisterAccountProviderContext<Account>
     >,
   );
 
   if (!context) {
-    throw new Error('Register provider not found.');
+    throw new Error('Register account provider not found.');
   }
+
   return context;
 };
 
-interface RegisterAccountProviderProps<A extends AccountBase> {
+interface RegisterAccountProviderProps<Account extends AccountBase> {
   children: ReactNode;
   mutation: {
     documentNode: DocumentNode;
@@ -43,7 +42,7 @@ interface RegisterAccountProviderProps<A extends AccountBase> {
     };
     refetchQueries?: { query: DocumentNode }[];
     onCompleted: (
-      data: A,
+      data: Account,
       helpers: FormikHelpers<RegisterInput>,
       reset: () => void,
     ) => void;
@@ -55,17 +54,16 @@ interface RegisterAccountProviderProps<A extends AccountBase> {
   };
 }
 
-export const RegisterAccontProvider = <A extends AccountBase>({
+export const RegisterAccontProvider = <Account extends AccountBase>({
   children,
   mutation,
-}: RegisterAccountProviderProps<A>) => {
+}: RegisterAccountProviderProps<Account>) => {
   const [registerAccount, { loading, reset, data }] = useMutation(
     mutation.documentNode,
     {
       refetchQueries: mutation.refetchQueries ?? [],
     },
   );
-
   const account = data?.register;
 
   const handleRegisterAccount = (
@@ -77,7 +75,7 @@ export const RegisterAccontProvider = <A extends AccountBase>({
         registerInput: { ...values },
       },
       onCompleted: (data) =>
-        mutation.onCompleted(data.register, helpers, reset),
+        mutation.onCompleted(data?.register?.account, helpers, reset),
       onError: (error) => mutation.onError(error, helpers, reset),
     });
   };

@@ -1,31 +1,68 @@
 import { FormikProps, FormikHelpers, useFormik } from 'formik';
-import { FC, createContext, useMemo } from 'react';
-import {
-  LoginInput,
-  useLoginProvider_LoginMutation,
-} from 'src/types/generated';
-import { useNavigate } from 'react-router-dom';
-import { Variables } from 'src/apollo';
-import { Utils } from 'src/common';
+import { createContext, useMemo, useContext, ReactNode } from 'react';
+import { LoginInput } from 'src/types/generated';
+import { AccountBase } from 'src/apollo/types';
+import { DocumentNode, ApolloError, useMutation } from '@apollo/client';
 
-interface ILoginProviderContext {
+interface ILoginAccountProviderContext<Account extends AccountBase> {
   form: FormikProps<LoginInput> | null;
   loading: boolean;
+  account: Account | null;
 }
 
-export const LoginProviderContext = createContext<ILoginProviderContext>({
+const LoginAccountProviderContext = createContext<
+  ILoginAccountProviderContext<AccountBase>
+>({
   form: null,
   loading: false,
+  account: null,
 });
 
-export const LoginProvider: FC<{
-  children: JSX.Element;
-  onComplete?: () => void;
-}> = ({ children, onComplete }) => {
-  const [loginAccount, { loading, reset }] = useLoginProvider_LoginMutation();
+export const useLoginAccountContext = <Account extends AccountBase>() => {
+  const context = useContext<ILoginAccountProviderContext<Account>>(
+    LoginAccountProviderContext as unknown as React.Context<
+      ILoginAccountProviderContext<Account>
+    >,
+  );
 
-  const navigate = useNavigate();
-  const { handleFormError, handleFormSuccess } = Utils.useFormHelpers();
+  if (!context) {
+    throw new Error('Login account provider not found.');
+  }
+
+  return context;
+};
+
+interface LoginAccountProviderProps<Account extends AccountBase> {
+  children: ReactNode;
+  mutation: {
+    documentNode: DocumentNode;
+    variables?: {
+      loginInput: LoginInput;
+    };
+    refetchQueries?: { query: DocumentNode }[];
+    onCompleted: (
+      data: { account: Account; token: string },
+      helpers: FormikHelpers<LoginInput>,
+      reset: () => void,
+    ) => void;
+    onError: (
+      error: ApolloError,
+      helpers: FormikHelpers<LoginInput>,
+      reset: () => void,
+    ) => void;
+  };
+}
+
+export const LoginAccountProvider = <Account extends AccountBase>({
+  children,
+  mutation,
+}: LoginAccountProviderProps<Account>) => {
+  const [loginAccount, { data, loading, reset }] = useMutation(
+    mutation.documentNode,
+    { refetchQueries: mutation.refetchQueries ?? [] },
+  );
+  const account = data?.login?.account;
+  const token = data?.login?.token;
 
   const handleLoginAccount = (
     values: LoginInput,
@@ -35,32 +72,13 @@ export const LoginProvider: FC<{
       variables: {
         loginInput: { ...values },
       },
-      onCompleted: (data) => {
-        localStorage.setItem('token', data.login.token);
-        if (onComplete) {
-          onComplete();
-        } else {
-          handleFormSuccess({
-            reset,
-            helpers,
-            success: {
-              header: 'Login Account',
-              message:
-                'Account Login Successful. Limited access due to missing user login.',
-            },
-          });
-          Variables.Auth.isAuthenticatedVar(true);
-          navigate('/');
-        }
-      },
-      onError: (error) => {
-        localStorage.removeItem('user');
-        handleFormError({
-          error,
-          reset,
+      onCompleted: (data) =>
+        mutation.onCompleted(
+          { account: data?.login?.account, token: data?.login?.token },
           helpers,
-        });
-      },
+          reset,
+        ),
+      onError: (error) => mutation.onError(error, helpers, reset),
     });
   };
 
@@ -69,11 +87,14 @@ export const LoginProvider: FC<{
     onSubmit: (values, helpers) => handleLoginAccount(values, helpers),
   });
 
-  const value = useMemo(() => ({ form, loading }), [form, loading]);
+  const value = useMemo(
+    () => ({ form, loading, account, token }),
+    [form, loading, account, token],
+  );
 
   return (
-    <LoginProviderContext.Provider value={value}>
+    <LoginAccountProviderContext.Provider value={value}>
       {children}
-    </LoginProviderContext.Provider>
+    </LoginAccountProviderContext.Provider>
   );
 };

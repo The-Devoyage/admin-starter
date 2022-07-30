@@ -10,16 +10,14 @@ interface AccountsPageRootProviderProps {
 
 export const AccountsPageRootProvider: FC<AccountsPageRootProviderProps> = ({
   children,
-}) => {
-  return (
-    <Utils.Compose
-      components={[
-        GetAccountsProvider,
-        RegisterAccountProvider,
-        AccountsPageProvider,
-      ]}
-    >
-      {children}
-    </Utils.Compose>
-  );
-};
+}) => (
+  <Utils.Compose
+    components={[
+      GetAccountsProvider,
+      RegisterAccountProvider,
+      AccountsPageProvider,
+    ]}
+  >
+    {children}
+  </Utils.Compose>
+);

@@ -9,9 +9,8 @@ import {
   Account,
 } from 'src/types/generated';
 import { DocumentNode } from '@apollo/client';
-import { DeepPartial, getProperty } from 'src/apollo/utils';
-
-type AccountBase = DeepPartial<Account>;
+import { getProperty } from 'src/apollo/utils';
+import { AccountBase } from 'src/apollo/types';
 
 interface IGetAccountsContext<A extends AccountBase> {
   accounts: A[];
