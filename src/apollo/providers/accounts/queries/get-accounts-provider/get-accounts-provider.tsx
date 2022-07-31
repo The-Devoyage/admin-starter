@@ -159,7 +159,7 @@ export const GetAccountsProvider: FC<GetAccountsProviderProps> = ({
         getDefaultUser,
       },
     };
-  }, [loading, stats, fetchMore, accounts, stats, refetch]);
+  }, [loading, stats, accounts, stats]);
 
   return (
     <GetAccountsContext.Provider value={value}>
