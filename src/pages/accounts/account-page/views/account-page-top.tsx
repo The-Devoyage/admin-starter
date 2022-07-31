@@ -4,7 +4,7 @@ import { Providers } from 'src/apollo';
 import { useGetAccountsContext } from 'src/apollo/providers/accounts/queries';
 import { AccountOverviewCard } from 'src/components/accounts';
 import { AccountPage_GetAccountsQuery } from 'src/types/generated';
-import { AccountPageContext } from '../provider';
+import { AccountPageContext } from '../provider/account-page-provider';
 
 export const AccountPageTop = () => {
   const { loading, utils } =

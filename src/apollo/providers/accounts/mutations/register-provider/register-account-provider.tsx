@@ -40,7 +40,7 @@ interface RegisterAccountProviderProps<Account extends AccountBase> {
     variables?: {
       registerInput: RegisterInput;
     };
-    refetchQueries?: { query: DocumentNode }[];
+    refetchQueries?: string[];
     onCompleted: (
       data: Account,
       helpers: FormikHelpers<RegisterInput>,
@@ -61,7 +61,7 @@ export const RegisterAccontProvider = <Account extends AccountBase>({
   const [registerAccount, { loading, reset, data }] = useMutation(
     mutation.documentNode,
     {
-      refetchQueries: mutation.refetchQueries ?? [],
+      refetchQueries: mutation.refetchQueries,
     },
   );
   const account = data?.register;
@@ -75,8 +75,9 @@ export const RegisterAccontProvider = <Account extends AccountBase>({
         registerInput: { ...values },
       },
       onCompleted: (data) =>
-        mutation.onCompleted(data?.register?.account, helpers, reset),
+        mutation.onCompleted(data?.register, helpers, reset),
       onError: (error) => mutation.onError(error, helpers, reset),
+      refetchQueries: mutation.refetchQueries ?? [],
     });
   };
 

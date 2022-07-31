@@ -13,7 +13,10 @@ export const GetAccountsProvider: FC<GetAccountsProvider> = ({ children }) => {
         documentNode: ACCOUNTS_PAGE_GET_ACCOUNTS,
         variables: {
           getUsersInput: { query: {} },
-          getAccountsInput: { query: {} },
+          getAccountsInput: {
+            query: {},
+            config: { pagination: { limit: 20 } },
+          },
         },
       }}
     >

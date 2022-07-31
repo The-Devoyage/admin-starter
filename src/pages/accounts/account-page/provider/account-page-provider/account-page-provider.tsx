@@ -9,10 +9,9 @@ import {
   useEffect,
 } from 'react';
 import { Providers } from 'src/apollo';
-import { ACCOUNT_PAGE_GET_ACCOUNTS } from './query';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Utils } from 'src/common';
-import { StringFilterByEnum, Account } from 'src/types/generated';
+import { Account } from 'src/types/generated';
 
 interface IAccountPageContext {
   createUserModalVisible: boolean;
@@ -73,55 +72,7 @@ export const AccountPageProvider: FC<AccountPageProviderProps> = ({
 
   return (
     <AccountPageContext.Provider value={value}>
-      <Providers.Accounts.Queries.GetAccountsProvider
-        query={{
-          documentNode: ACCOUNT_PAGE_GET_ACCOUNTS,
-          variables: {
-            getAccountsInput: {
-              query: {
-                _id: [
-                  { string: account_id, filterBy: StringFilterByEnum.Objectid },
-                ],
-              },
-            },
-            getUsersInput: {
-              query: {},
-              config: {
-                pagination: { limit: 100 },
-              },
-            },
-          },
-        }}
-      >
-        <Providers.Users.Mutations.InviteUserProvider
-          inviteUserInput={{
-            query: {
-              _id: [],
-            },
-            payload: {
-              memberships: {
-                account: account_id,
-                local: {
-                  first_name: '',
-                  last_name: '',
-                  about: '',
-                  image: undefined,
-                  phone: '',
-                  address: {
-                    zip: '',
-                    city: '',
-                    state: '',
-                    lineOne: '',
-                    lineTwo: '',
-                  },
-                },
-              },
-            },
-          }}
-        >
-          {children}
-        </Providers.Users.Mutations.InviteUserProvider>
-      </Providers.Accounts.Queries.GetAccountsProvider>
+      {children}
     </AccountPageContext.Provider>
   );
 };

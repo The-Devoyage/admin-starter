@@ -136,8 +136,9 @@ export const GetAccountsProvider: FC<GetAccountsProviderProps> = ({
           getAccountsInput: {
             ...query.variables.getAccountsInput,
             config: {
+              ...query.variables.getAccountsInput.config,
               pagination: {
-                limit: 10,
+                ...query.variables.getAccountsInput.config?.pagination,
               },
             },
           },

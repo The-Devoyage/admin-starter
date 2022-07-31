@@ -13,9 +13,9 @@ export const AccountsPageRootProvider: FC<AccountsPageRootProviderProps> = ({
 }) => (
   <Utils.Compose
     components={[
+      AccountsPageProvider,
       GetAccountsProvider,
       RegisterAccountProvider,
-      AccountsPageProvider,
     ]}
   >
     {children}

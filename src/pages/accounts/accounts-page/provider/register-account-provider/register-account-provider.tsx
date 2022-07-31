@@ -7,6 +7,7 @@ import {
   ACCOUNTS_PAGE_GET_ACCOUNTS,
   ACCOUNTS_PAGE_REGISTER_ACCOUNT,
 } from '../../operations';
+import { getOperationName } from 'apollo-link';
 
 interface RegisterAccountProviderProps {
   children: ReactNode;
@@ -17,6 +18,9 @@ export const RegisterAccountProvider: FC<RegisterAccountProviderProps> = ({
   const navigate = useNavigate();
   const isAuth = Variables.Auth.isAuthenticatedVar();
   const { handleFormSuccess, handleFormError } = useFormHelpers();
+  const refetchQueries = [getOperationName(ACCOUNTS_PAGE_GET_ACCOUNTS)].filter(
+    (q) => q !== null,
+  ) as string[];
 
   return (
     <Providers.Accounts.Mutations.RegisterAccontProvider<
@@ -24,7 +28,7 @@ export const RegisterAccountProvider: FC<RegisterAccountProviderProps> = ({
     >
       mutation={{
         documentNode: ACCOUNTS_PAGE_REGISTER_ACCOUNT,
-        refetchQueries: [{ query: ACCOUNTS_PAGE_GET_ACCOUNTS }],
+        refetchQueries,
         onCompleted: (account, helpers, reset) =>
           handleFormSuccess({
             helpers,

@@ -7,7 +7,7 @@ import {
   AccountUsersCard,
 } from 'src/components/accounts';
 import { AccountPage_GetAccountsQuery } from 'src/types/generated';
-import { AccountPageContext } from '../provider';
+import { AccountPageContext } from '../provider/account-page-provider';
 
 export const AccountPageBottom = () => {
   const { loading, utils } =
