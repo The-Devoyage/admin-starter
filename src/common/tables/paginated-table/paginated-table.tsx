@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import {
   CAlert,
   CAlertHeading,
@@ -19,6 +19,7 @@ import {
 import styled from 'styled-components';
 import { Stats } from 'src/types/generated';
 import { Loading } from 'src/common/loading';
+import { useDebounce } from 'src/common/utils/use-debounce';
 
 //TODO: Separate this file into multiple components
 interface HeadCell {
@@ -96,13 +97,23 @@ export const PaginatedTableFoot: FC<{
 export const PaginatedTableSearch: FC<{
   onChange: (v: string) => void;
   loading: boolean;
-}> = ({ onChange, loading }) => (
-  <CFormInput
-    placeholder="search"
-    disabled={loading}
-    onChange={(e) => onChange(e.currentTarget.value)}
-  />
-);
+}> = ({ onChange, loading }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const debouncedSearch = useDebounce(searchTerm, 500);
+
+  useEffect(() => {
+    onChange(debouncedSearch);
+  }, [debouncedSearch]);
+
+  return (
+    <CFormInput
+      placeholder="search"
+      disabled={loading}
+      onChange={(e) => setSearchTerm(e.currentTarget.value)}
+    />
+  );
+};
 
 export const PaginatedTableActions: FC<{
   actions: PaginatedTableActionsProps;
