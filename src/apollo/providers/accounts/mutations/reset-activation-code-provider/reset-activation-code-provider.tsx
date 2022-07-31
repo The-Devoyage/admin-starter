@@ -1,34 +1,71 @@
 import { FormikProps, FormikHelpers, useFormik } from 'formik';
-import { FC, createContext, useMemo, ReactNode } from 'react';
-import {
-  ResetCodeInput,
-  useResetActivationCodeProvider_ResetActivationCodeMutation,
-} from 'src/types/generated';
-import { useNavigate } from 'react-router-dom';
-import { useFormHelpers } from 'src/common/utils/use-form-helpers';
-import { Variables } from 'src/apollo';
+import { createContext, useMemo, ReactNode, useContext } from 'react';
+import { ResetCodeInput } from 'src/types/generated';
+import { DocumentNode, ApolloError, useMutation } from '@apollo/client';
+import { AccountBase } from 'src/apollo/types';
 
-interface IResetActivationCodeProviderContext {
+interface IResetActivationCodeProviderContext<Account extends AccountBase> {
   form: FormikProps<ResetCodeInput> | null;
   loading: boolean;
+  account: Account | null;
 }
 
-export const ResetActivationCodeProviderContext =
-  createContext<IResetActivationCodeProviderContext>({
-    form: null,
-    loading: false,
-  });
+const ResetActivationCodeProviderContext = createContext<
+  IResetActivationCodeProviderContext<AccountBase>
+>({
+  form: null,
+  loading: false,
+  account: null,
+});
 
-export const ResetActivationCodeProvider: FC<{
+export const useResetActivationCodeContext = <
+  Account extends AccountBase,
+>() => {
+  const context = useContext<IResetActivationCodeProviderContext<Account>>(
+    ResetActivationCodeProviderContext as unknown as React.Context<
+      IResetActivationCodeProviderContext<Account>
+    >,
+  );
+
+  if (!context) {
+    throw new Error('Reset activation code provider not found.');
+  }
+
+  return context;
+};
+
+interface ResetActivationCodeProviderProps<Account extends AccountBase> {
   children: ReactNode;
-  resetCodeInput: ResetCodeInput;
-}> = ({ children, resetCodeInput }) => {
-  const { handleFormSuccess, handleFormError } = useFormHelpers();
-  const navigate = useNavigate();
-  const [resetCode, { loading, reset }] =
-    useResetActivationCodeProvider_ResetActivationCodeMutation({
-      refetchQueries: ['AccountPage_GetAccounts'],
-    });
+  mutation: {
+    documentNode: DocumentNode;
+    variables?: {
+      resetActivationCodeInput: ResetCodeInput;
+    };
+    refetchQueries?: string[];
+    onCompleted: (
+      data: Account,
+      helpers: FormikHelpers<ResetCodeInput>,
+      reset: () => void,
+    ) => void;
+    onError: (
+      error: ApolloError,
+      helpers: FormikHelpers<ResetCodeInput>,
+      reset: () => void,
+    ) => void;
+  };
+}
+
+export const ResetActivationCodeProvider = <Account extends AccountBase>({
+  children,
+  mutation,
+}: ResetActivationCodeProviderProps<Account>) => {
+  const [resetCode, { data, loading, reset }] = useMutation(
+    mutation.documentNode,
+    {
+      refetchQueries: mutation.refetchQueries,
+    },
+  );
+  const account = data?.resetCode;
 
   const handleRegisterAccount = (
     values: ResetCodeInput,
@@ -38,31 +75,23 @@ export const ResetActivationCodeProvider: FC<{
       variables: {
         resetCodeInput: { ...values },
       },
-      onCompleted: () =>
-        handleFormSuccess({
-          helpers,
-          reset,
-          callback: () => {
-            if (!Variables.Auth.isAuthenticatedVar()) {
-              navigate('/login');
-            }
-          },
-          success: {
-            message: 'Email sent with Activation Instructions.',
-            header: 'Code Updated',
-          },
-        }),
-      onError: (error) => handleFormError({ reset, helpers, error }),
+      onCompleted: (data) => mutation.onCompleted(data, helpers, reset),
+      onError: (error) => mutation.onError(error, helpers, reset),
     });
   };
 
   const form = useFormik<ResetCodeInput>({
-    initialValues: resetCodeInput,
+    initialValues: mutation.variables?.resetActivationCodeInput ?? {
+      email: '',
+    },
     onSubmit: handleRegisterAccount,
     enableReinitialize: true,
   });
 
-  const value = useMemo(() => ({ form, loading }), [form, loading]);
+  const value = useMemo(
+    () => ({ form, loading, account }),
+    [form, loading, account],
+  );
 
   return (
     <ResetActivationCodeProviderContext.Provider value={value}>

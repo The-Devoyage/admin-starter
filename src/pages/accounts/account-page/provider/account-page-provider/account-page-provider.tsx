@@ -8,7 +8,6 @@ import {
   ReactNode,
   useEffect,
 } from 'react';
-import { Providers } from 'src/apollo';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Utils } from 'src/common';
 import { Account } from 'src/types/generated';

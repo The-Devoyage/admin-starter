@@ -1,7 +1,7 @@
 import { FC, ReactNode, useContext } from 'react';
 import { Providers } from 'src/apollo';
 import { StringFilterByEnum } from 'src/types/generated';
-import { ACCOUNT_PAGE_GET_ACCOUNTS } from '../../query';
+import { ACCOUNT_PAGE_GET_ACCOUNTS } from '../../operations';
 import { AccountPageContext } from '../account-page-provider';
 
 interface GetAccountsProviderProps {

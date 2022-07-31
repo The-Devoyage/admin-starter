@@ -2,7 +2,7 @@ import { AccountsPage } from './pages';
 import AccountPage from './pages/accounts/account-page/account-page';
 import { LoginPage } from './pages/auth/login-page/login-page';
 import RegisterPage from './pages/auth/register-page/register-page';
-import ResetActivationCodePage from './pages/auth/reset-activation-code-page/reset-activation-code-page';
+import { ResetActivationCodePage } from './pages/auth/reset-activation-code-page/reset-activation-code-page';
 import ResetPasswordPage from './pages/auth/reset-password-page/reset-password-page';
 import VerifyEmailPage from './pages/auth/verify-email-page/verify-email-page';
 import Dashboard from './pages/dashboard/dashboard';

@@ -16,8 +16,11 @@ export const RegisterAccountProvider: FC<RegisterAccountProviderProps> = ({
   children,
 }) => {
   const navigate = useNavigate();
+
   const isAuth = Variables.Auth.isAuthenticatedVar();
+
   const { handleFormSuccess, handleFormError } = useFormHelpers();
+
   const refetchQueries = [getOperationName(ACCOUNTS_PAGE_GET_ACCOUNTS)].filter(
     (q) => q !== null,
   ) as string[];
@@ -47,7 +50,6 @@ export const RegisterAccountProvider: FC<RegisterAccountProviderProps> = ({
               header: 'Success',
             },
           }),
-
         onError: (error, helpers, reset) =>
           handleFormError({ reset, helpers, error }),
       }}

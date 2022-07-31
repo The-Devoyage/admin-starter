@@ -1,6 +1,6 @@
 import { CCol } from '@coreui/react';
 import { useContext } from 'react';
-import { Providers } from 'src/apollo';
+import { useResetActivationCodeContext } from 'src/apollo/providers/accounts/mutations';
 import { useGetAccountsContext } from 'src/apollo/providers/accounts/queries';
 import {
   AccountActivationCard,
@@ -14,14 +14,17 @@ export const AccountPageBottom = () => {
     useGetAccountsContext<
       AccountPage_GetAccountsQuery['getAccounts']['data'][0]
     >();
+
+  const { loading: resettingActivationCode, form } =
+    useResetActivationCodeContext();
+
   const { account_id, setInviteUserModalVisible } =
     useContext(AccountPageContext);
+
   const account = utils.getAccount(account_id!);
 
   return (
-    <Providers.Accounts.Mutations.ResetActivationCodeProvider
-      resetCodeInput={{ email: account?.email ?? '' }}
-    >
+    <>
       <CCol sm={6} className="mb-3">
         <AccountUsersCard
           account={account}
@@ -32,9 +35,10 @@ export const AccountPageBottom = () => {
       <CCol sm={6} className="mb-3">
         <AccountActivationCard
           activation={account?.activation}
-          loading={loading}
+          loading={loading || resettingActivationCode}
+          form={form}
         />
       </CCol>
-    </Providers.Accounts.Mutations.ResetActivationCodeProvider>
+    </>
   );
 };

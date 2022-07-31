@@ -1,15 +1,8 @@
-import { CContainer } from '@coreui/react';
-import { Providers } from 'src/apollo';
-import { Auth } from 'src/components';
+import { ResetActivationCodePageRootProvider } from './provider';
+import { ResetActivationCodePageBody } from './views';
 
-const ResetActivationCodePage = () => (
-  <CContainer>
-    <Providers.Accounts.Mutations.ResetActivationCodeProvider
-      resetCodeInput={{ email: '' }}
-    >
-      <Auth.ResetCode.ResetActivationCodeCard />
-    </Providers.Accounts.Mutations.ResetActivationCodeProvider>
-  </CContainer>
+export const ResetActivationCodePage = () => (
+  <ResetActivationCodePageRootProvider>
+    <ResetActivationCodePageBody />
+  </ResetActivationCodePageRootProvider>
 );
-
-export default ResetActivationCodePage;
