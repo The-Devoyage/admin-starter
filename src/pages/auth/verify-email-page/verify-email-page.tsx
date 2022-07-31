@@ -1,13 +1,8 @@
-import { CContainer } from '@coreui/react';
-import { Providers } from 'src/apollo';
-import { Auth } from 'src/components';
+import { VerifyEmailPageRootProvider } from './provider';
+import { VerifyEmailPageBody } from './views';
 
-const VerifyEmailPage = () => (
-  <CContainer>
-    <Providers.Accounts.Mutations.VerifyEmailProvider>
-      <Auth.VerifyEmail.VerifyEmailCard />
-    </Providers.Accounts.Mutations.VerifyEmailProvider>
-  </CContainer>
+export const VerifyEmailPage = () => (
+  <VerifyEmailPageRootProvider>
+    <VerifyEmailPageBody />
+  </VerifyEmailPageRootProvider>
 );
-
-export default VerifyEmailPage;

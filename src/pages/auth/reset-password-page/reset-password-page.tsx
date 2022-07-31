@@ -1,10 +1,8 @@
 import { ResetPasswordPageRootProvider } from './provider/provider';
 import { ResetPasswordPageBody } from './views';
 
-const ResetPasswordPage = () => (
+export const ResetPasswordPage = () => (
   <ResetPasswordPageRootProvider>
     <ResetPasswordPageBody />
   </ResetPasswordPageRootProvider>
 );
-
-export default ResetPasswordPage;
