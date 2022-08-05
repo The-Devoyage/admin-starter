@@ -2,6 +2,7 @@ import {
   createContext,
   Dispatch,
   FC,
+  ReactNode,
   SetStateAction,
   useMemo,
   useState,
@@ -33,7 +34,7 @@ export interface IUpdateUserProviderContext {
 }
 
 export interface UpdateUserProviderProps {
-  children: JSX.Element;
+  children: ReactNode;
   updateUserInput: UpdateUserInput;
 }
 

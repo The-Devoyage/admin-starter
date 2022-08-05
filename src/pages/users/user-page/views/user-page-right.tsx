@@ -1,17 +1,41 @@
+import { useContext } from 'react';
 import { Providers } from 'src/apollo';
+import { useGetUsersContext } from 'src/apollo/providers/users/queries';
 import { InviteUserModal, UserMembershipsCard } from 'src/components/users';
 import { UpdateUserMembershipModal } from 'src/components/users/update-user-membership-modal';
-import { StringFilterByEnum } from 'src/types/generated';
+import {
+  StringFilterByEnum,
+  UserPage_GetUsersQuery,
+} from 'src/types/generated';
+import { UserPageContext } from '../provider/user-page-provider';
 
-export const UserPageRight = () => (
-  <Providers.Users.Queries.UserPageProviderContext.Consumer>
-    {({ loading, user }) => (
-      <Providers.Users.Mutations.InviteUserProvider
-        inviteUserInput={{
+export const UserPageRight = () => {
+  const { user_id } = useContext(UserPageContext);
+  const { loading, utils } =
+    useGetUsersContext<UserPage_GetUsersQuery['getUsers']['data'][0]>();
+
+  const user = utils.getUser(user_id!);
+
+  return (
+    <Providers.Users.Mutations.InviteUserProvider
+      inviteUserInput={{
+        query: {
+          _id: [
+            {
+              string: user?._id!,
+              filterBy: StringFilterByEnum.Objectid,
+            },
+          ],
+        },
+        payload: {},
+      }}
+    >
+      <Providers.Users.Mutations.UpdateUserProvider
+        updateUserInput={{
           query: {
             _id: [
               {
-                string: user?._id,
+                string: user?._id!,
                 filterBy: StringFilterByEnum.Objectid,
               },
             ],
@@ -19,26 +43,12 @@ export const UserPageRight = () => (
           payload: {},
         }}
       >
-        <Providers.Users.Mutations.UpdateUserProvider
-          updateUserInput={{
-            query: {
-              _id: [
-                {
-                  string: user?._id,
-                  filterBy: StringFilterByEnum.Objectid,
-                },
-              ],
-            },
-            payload: {},
-          }}
-        >
-          <>
-            <UserMembershipsCard loading={loading} user={user} />
-            <UpdateUserMembershipModal />
-            <InviteUserModal />
-          </>
-        </Providers.Users.Mutations.UpdateUserProvider>
-      </Providers.Users.Mutations.InviteUserProvider>
-    )}
-  </Providers.Users.Queries.UserPageProviderContext.Consumer>
-);
+        <>
+          <UserMembershipsCard loading={loading} user={user} />
+          <UpdateUserMembershipModal />
+          <InviteUserModal />
+        </>
+      </Providers.Users.Mutations.UpdateUserProvider>
+    </Providers.Users.Mutations.InviteUserProvider>
+  );
+};

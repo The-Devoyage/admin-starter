@@ -5,7 +5,7 @@ import RegisterPage from './pages/auth/register-page/register-page';
 import { ResetActivationCodePage } from './pages/auth/reset-activation-code-page/reset-activation-code-page';
 import { ResetPasswordPage } from './pages/auth/reset-password-page/reset-password-page';
 import { VerifyEmailPage } from './pages/auth/verify-email-page/verify-email-page';
-import Dashboard from './pages/dashboard/dashboard';
+import { Dashboard } from './pages/dashboard/dashboard';
 import { MediasPage } from './pages/media/medias-page/medias-page';
 import UserPage from './pages/users/user-page/user-page';
 import UsersPage from './pages/users/users-page/users-page';

@@ -15,3 +15,17 @@ export const ACCOUNT_COUNT_WIDGET_GET_ACCOUNTS = gql`
     }
   }
 `;
+
+export const DASHBOARD_GET_ME = gql`
+  query App_GetMe {
+    me {
+      _id
+      first_name
+      last_name
+      email
+      image {
+        path
+      }
+    }
+  }
+`;

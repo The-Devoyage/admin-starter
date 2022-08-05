@@ -1,8 +1,14 @@
 import { DocumentNode, useQuery } from '@apollo/client';
 import { createContext, FC, ReactNode, useContext, useMemo } from 'react';
 import { UserBase } from 'src/apollo/types';
+import { getProperty } from 'src/apollo/utils';
 import { Utils } from 'src/common';
-import { GetUsersInput, Stats, StringFilterByEnum } from 'src/types/generated';
+import {
+  GetUsersInput,
+  Stats,
+  StringFilterByEnum,
+  User,
+} from 'src/types/generated';
 
 interface IGetUsersContext<U extends UserBase> {
   users: U[];
@@ -10,6 +16,9 @@ interface IGetUsersContext<U extends UserBase> {
   handleFetchMore: () => void;
   handleSearch: (v: string) => void;
   stats?: Stats;
+  utils: {
+    getUser: (user_id: User['_id']) => U | null;
+  };
 }
 
 const GetUsersContext = createContext<IGetUsersContext<UserBase>>({
@@ -17,6 +26,9 @@ const GetUsersContext = createContext<IGetUsersContext<UserBase>>({
   loading: false,
   handleFetchMore: () => null,
   handleSearch: () => null,
+  utils: {
+    getUser: () => null,
+  },
 });
 
 export const useGetUsersContext = <U extends UserBase>() => {
@@ -37,6 +49,7 @@ interface GetUsersProviderProps {
     documentNode: DocumentNode;
     variables: {
       getUsersInput: GetUsersInput;
+      membershipsAccountUsersInput?: GetUsersInput;
     };
   };
 }
@@ -48,9 +61,14 @@ export const GetUsersProvider: FC<GetUsersProviderProps> = ({
   const { data, loading, fetchMore, refetch } = useQuery(query.documentNode, {
     variables: query.variables,
   });
+
+  const users: User[] = data?.getUsers.data ?? [];
   const stats = data?.getUsers.stats;
 
   const value = useMemo(() => {
+    const getUser = (user_id: User['_id']) =>
+      users.find((u) => getProperty(u, '_id') === user_id) ?? null;
+
     const handleFetchMore = () => {
       fetchMore({
         variables: {
@@ -111,10 +129,15 @@ export const GetUsersProvider: FC<GetUsersProviderProps> = ({
       }
     };
 
-    const users = data?.getUsers.data ?? [];
-
-    return { users, loading, stats, handleFetchMore, handleSearch };
-  }, [loading, data]);
+    return {
+      users,
+      loading,
+      stats,
+      handleFetchMore,
+      handleSearch,
+      utils: { getUser },
+    };
+  }, [loading, users]);
 
   return (
     <GetUsersContext.Provider value={value}>
