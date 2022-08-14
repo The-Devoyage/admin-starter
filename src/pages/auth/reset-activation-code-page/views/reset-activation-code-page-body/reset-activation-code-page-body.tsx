@@ -1,9 +1,9 @@
 import { CContainer } from '@coreui/react';
-import { useResetActivationCodeContext } from 'src/apollo/providers/accounts/mutations';
+import { Hooks } from '@the-devoyage/orions-arrow';
 import { ResetActivationCodeCard } from 'src/components/auth/reset-code';
 
 export const ResetActivationCodePageBody = () => {
-  const { form, loading } = useResetActivationCodeContext();
+  const { form, loading } = Hooks.Accounts.useResetActivationCodeContext();
 
   return (
     <CContainer>

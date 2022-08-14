@@ -1,5 +1,5 @@
 import { FC, ReactNode, useContext } from 'react';
-import { Providers } from 'src/apollo';
+import { Providers } from '@the-devoyage/orions-arrow';
 import {
   BooleanFilterByEnum,
   OperatorFieldConfigEnum,

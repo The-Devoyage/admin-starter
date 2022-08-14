@@ -1,5 +1,6 @@
 import { FC, ReactNode } from 'react';
-import { Providers, Variables } from 'src/apollo';
+import { Variables } from 'src/apollo';
+import { Providers } from '@the-devoyage/orions-arrow';
 import { useFormHelpers } from 'src/common/utils/use-form-helpers';
 import { AccountPage_GetAccountsQuery } from 'src/types/generated';
 import { useNavigate } from 'react-router-dom';

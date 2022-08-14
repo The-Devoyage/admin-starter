@@ -9,7 +9,7 @@
     "generate": "graphql-codegen"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.2",
+    "@apollo/client": "^3.6.9",
     "@coreui/coreui": "^4.1.4",
     "@coreui/icons": "^2.1.0",
     "@coreui/icons-react": "^2.0.1",

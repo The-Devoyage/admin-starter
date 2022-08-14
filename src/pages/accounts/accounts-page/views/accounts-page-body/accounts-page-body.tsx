@@ -1,4 +1,4 @@
-import { useGetAccountsContext } from 'src/apollo/providers/accounts/queries';
+import { Hooks } from '@the-devoyage/orions-arrow';
 import { AccountsList_GetAccountsQuery } from 'src/types/generated';
 import { useContext } from 'react';
 import { AccountsList } from 'src/components/accounts';
@@ -7,7 +7,7 @@ import { AccountsPageContext } from '../../provider';
 export const AccountsPageBody = () => {
   const { setCreateAccountModalVisible } = useContext(AccountsPageContext);
   const { accounts, loading, stats, handleSearch, handleFetchMore } =
-    useGetAccountsContext<
+    Hooks.Accounts.useGetAccountsContext<
       AccountsList_GetAccountsQuery['getAccounts']['data'][0]
     >();
 

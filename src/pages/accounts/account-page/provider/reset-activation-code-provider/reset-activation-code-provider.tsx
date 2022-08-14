@@ -1,7 +1,6 @@
 import { getOperationName } from 'apollo-link';
 import { FC, ReactNode, useContext } from 'react';
-import { Providers } from 'src/apollo';
-import { useGetAccountsContext } from 'src/apollo/providers/accounts/queries';
+import { Providers, Hooks } from '@the-devoyage/orions-arrow';
 import { useFormHelpers } from 'src/common/utils/use-form-helpers';
 import { AccountPage_GetAccountsQuery } from 'src/types/generated';
 import {
@@ -22,7 +21,7 @@ export const ResetActivationCodeProvider: FC<
   const { account_id } = useContext(AccountPageContext);
 
   const { utils } =
-    useGetAccountsContext<
+    Hooks.Accounts.useGetAccountsContext<
       AccountPage_GetAccountsQuery['getAccounts']['data'][0]
     >();
 

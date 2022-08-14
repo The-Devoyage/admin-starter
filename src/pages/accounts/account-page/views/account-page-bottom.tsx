@@ -1,7 +1,6 @@
 import { CCol } from '@coreui/react';
 import { useContext } from 'react';
-import { useResetActivationCodeContext } from 'src/apollo/providers/accounts/mutations';
-import { useGetAccountsContext } from 'src/apollo/providers/accounts/queries';
+import { Hooks } from '@the-devoyage/orions-arrow';
 import {
   AccountActivationCard,
   AccountUsersCard,
@@ -11,12 +10,12 @@ import { AccountPageContext } from '../provider/account-page-provider';
 
 export const AccountPageBottom = () => {
   const { loading, utils } =
-    useGetAccountsContext<
+    Hooks.Accounts.useGetAccountsContext<
       AccountPage_GetAccountsQuery['getAccounts']['data'][0]
     >();
 
   const { loading: resettingActivationCode, form } =
-    useResetActivationCodeContext();
+    Hooks.Accounts.useResetActivationCodeContext();
 
   const { account_id, setInviteUserModalVisible } =
     useContext(AccountPageContext);

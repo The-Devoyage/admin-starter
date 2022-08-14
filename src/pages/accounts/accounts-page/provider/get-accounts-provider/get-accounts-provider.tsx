@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import { Providers } from 'src/apollo';
+import { Providers } from '@the-devoyage/orions-arrow';
 import { ACCOUNTS_PAGE_GET_ACCOUNTS } from '../../operations';
 
 interface GetAccountsProvider {

@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Providers } from 'src/apollo';
+import { Providers } from '@the-devoyage/orions-arrow';
 import { useFormHelpers } from 'src/common/utils/use-form-helpers';
 import { REGISTER_PAGE_REGISTER_ACCOUNT } from '../../operations';
 

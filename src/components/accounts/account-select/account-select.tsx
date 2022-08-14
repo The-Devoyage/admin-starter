@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import ReactSelect, { SingleValue } from 'react-select';
-import { Providers } from 'src/apollo';
-import { useGetAccountsContext } from 'src/apollo/providers/accounts/queries';
+import { Providers } from '@the-devoyage/orions-arrow';
+import { Hooks } from '@the-devoyage/orions-arrow';
 import {
   Account,
   AccountSelect_GetAccountsQuery,
@@ -85,7 +85,7 @@ const AccountSelectInput: FC<AccountSelectProps> = ({
     handleSearch,
     utils,
     loading: loadingAccounts,
-  } = useGetAccountsContext<
+  } = Hooks.Accounts.useGetAccountsContext<
     AccountSelect_GetAccountsQuery['getAccounts']['data'][0]
   >();
 

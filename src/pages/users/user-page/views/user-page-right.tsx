@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Providers } from 'src/apollo';
-import { useGetUsersContext } from 'src/apollo/providers/users/queries';
+import { Hooks } from '@the-devoyage/orions-arrow';
 import { InviteUserModal, UserMembershipsCard } from 'src/components/users';
 import { UpdateUserMembershipModal } from 'src/components/users/update-user-membership-modal';
 import {
@@ -12,7 +12,9 @@ import { UserPageContext } from '../provider/user-page-provider';
 export const UserPageRight = () => {
   const { user_id } = useContext(UserPageContext);
   const { loading, utils } =
-    useGetUsersContext<UserPage_GetUsersQuery['getUsers']['data'][0]>();
+    Hooks.Users.useGetUsersContext<
+      UserPage_GetUsersQuery['getUsers']['data'][0]
+    >();
 
   const user = utils.getUser(user_id!);
 

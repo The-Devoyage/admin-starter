@@ -29,3 +29,19 @@ export const DASHBOARD_GET_ME = gql`
     }
   }
 `;
+
+export const USER_COUNT_WIDGET_GET_USERS = gql`
+  query UserCountWidget_GetUsers($getUsersInput: GetUsersInput!) {
+    getUsers(getUsersInput: $getUsersInput) {
+      stats {
+        total
+        history {
+          _id {
+            MONTH
+          }
+          total
+        }
+      }
+    }
+  }
+`;

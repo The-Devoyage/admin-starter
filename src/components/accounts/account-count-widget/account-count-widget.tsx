@@ -20,7 +20,8 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { useGetAccountsContext } from 'src/apollo/providers/accounts/queries';
+import { FC } from 'react';
+import { Stats } from 'src/types/generated';
 
 ChartJS.register(
   CategoryScale,
@@ -47,9 +48,15 @@ const labels = [
   'Dec',
 ];
 
-export const AccountCountWidget = () => {
-  const { stats, loading } = useGetAccountsContext();
+interface AccountCountWidgetProps {
+  stats?: Stats;
+  loading: boolean;
+}
 
+export const AccountCountWidget: FC<AccountCountWidgetProps> = ({
+  stats,
+  loading,
+}) => {
   return (
     <CWidgetStatsA
       className="mb-4"

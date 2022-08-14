@@ -1,9 +1,10 @@
 import { FC, ReactNode, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Providers, Variables } from 'src/apollo';
+import { Variables } from 'src/apollo';
 import { LoginUserProviderContext } from 'src/apollo/providers/users/mutations';
 import { useFormHelpers } from 'src/common/utils/use-form-helpers';
 import { LOGIN_PAGE_LOGIN } from '../../operations';
+import { Providers } from '@the-devoyage/orions-arrow';
 
 interface LoginAccountProviderProps {
   children: ReactNode;
