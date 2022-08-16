@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC } from 'react';
 import { cilFile, cilImage } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
 import {
@@ -15,19 +15,27 @@ import {
   PaginatedTableRow,
   Utils,
 } from 'src/common';
-import { MediaManagerModal } from '../media-manager-modal/media-manager-modal';
-import { useGetMediaContext } from 'src/apollo/providers/media/queries';
-import {
-  MediaList_GetMediaQuery,
-  useMediaManager_GetMediaQuery,
-} from 'src/types/generated';
-import { Providers } from 'src/apollo';
+import { Media, Stats, User } from 'src/types/generated';
 
-export const MediaList = () => {
-  const [mediaManagerModalVisible, setMediaManagerVisible] = useState(false);
-  const { media, loading, stats, handleFetchMore, handleSearch } =
-    useGetMediaContext<MediaList_GetMediaQuery['getMedia']['data'][0]>();
+interface MediaListProps {
+  setMediaManagerVisible: (v: boolean) => void;
+  media: (Pick<Media, '_id' | 'src' | 'mimetype' | 'title' | 'createdAt'> & {
+    created_by: Pick<User, 'first_name' | 'last_name' | 'email'>;
+  })[];
+  loading: boolean;
+  handleFetchMore: () => void;
+  handleSearch: (v: string) => void;
+  stats?: Stats;
+}
 
+export const MediaList: FC<MediaListProps> = ({
+  setMediaManagerVisible,
+  media,
+  loading,
+  handleFetchMore,
+  handleSearch,
+  stats,
+}) => {
   return (
     <>
       <CCard className="w-100 d-flex flex-grow-1">
@@ -90,19 +98,6 @@ export const MediaList = () => {
           </CButton>
         </CCardFooter>
       </CCard>
-      <Providers.Media.Queries.GetMediaProvider
-        queryHook={useMediaManager_GetMediaQuery}
-        getMediaInput={{
-          query: {},
-          config: { pagination: { limit: 16, reverse: true } },
-          transform: { resize: { width: 300, height: 200 } },
-        }}
-      >
-        <MediaManagerModal
-          visible={mediaManagerModalVisible}
-          setVisible={setMediaManagerVisible}
-        />
-      </Providers.Media.Queries.GetMediaProvider>
     </>
   );
 };

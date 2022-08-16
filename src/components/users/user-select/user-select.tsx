@@ -1,14 +1,15 @@
 import { FC } from 'react';
 import ReactSelect from 'react-select';
-import { Providers } from 'src/apollo';
 import { Utils } from 'src/common';
-import { StringFilterByEnum, User } from 'src/types/generated';
+import { User } from 'src/types/generated';
 
 interface UserSelectProps {
   value: User['_id'];
   handleChange: (v: User['_id']) => void;
   loading: boolean;
   disabled?: boolean;
+  handleSearch: (v: string) => void;
+  users: Pick<User, '_id' | 'email' | 'first_name' | 'last_name'>[];
 }
 
 export const UserSelect: FC<UserSelectProps> = ({
@@ -16,48 +17,31 @@ export const UserSelect: FC<UserSelectProps> = ({
   handleChange,
   loading,
   disabled,
+  handleSearch,
+  users,
 }) => {
   return (
-    <Providers.Users.Queries.UserSelectProvider
-      getUsersInput={{
-        query: {
-          _id: value
-            ? [
-                {
-                  string: value,
-                  filterBy: StringFilterByEnum.Objectid,
-                },
-              ]
-            : undefined,
-        },
-      }}
-    >
-      <Providers.Users.Queries.UserSelectProviderContext.Consumer>
-        {({ users, handleSearch, loading: loadingUsers }) => (
-          <ReactSelect
-            placeholder="Select User"
-            options={users?.map((u) => ({ label: u.email, value: u._id }))}
-            isMulti={false}
-            onChange={(v) => v?.value && handleChange(v?.value)}
-            onInputChange={(v) => handleSearch(v)}
-            isLoading={loadingUsers}
-            isClearable
-            value={
-              value
-                ? {
-                    value,
-                    label: Utils.Users.determineName(
-                      null,
-                      users?.find((u) => u._id === value) ?? null,
-                    ),
-                  }
-                : null
+    <ReactSelect
+      placeholder="Select User"
+      options={users?.map((u) => ({ label: u.email, value: u._id }))}
+      isMulti={false}
+      onChange={(v) => v?.value && handleChange(v?.value)}
+      onInputChange={(v) => handleSearch(v)}
+      isLoading={loading}
+      isClearable
+      value={
+        value
+          ? {
+              value,
+              label: Utils.Users.determineName(
+                null,
+                users?.find((u) => u._id === value) ?? null,
+              ),
             }
-            isDisabled={loading || disabled}
-            filterOption={() => true}
-          />
-        )}
-      </Providers.Users.Queries.UserSelectProviderContext.Consumer>
-    </Providers.Users.Queries.UserSelectProvider>
+          : null
+      }
+      isDisabled={loading || disabled}
+      filterOption={() => true}
+    />
   );
 };

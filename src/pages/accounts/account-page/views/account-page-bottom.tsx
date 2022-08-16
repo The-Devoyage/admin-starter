@@ -10,12 +10,12 @@ import { AccountPageContext } from '../provider/account-page-provider';
 
 export const AccountPageBottom = () => {
   const { loading, utils } =
-    Hooks.Accounts.useGetAccountsContext<
+    Hooks.Accounts.useGetAccounts<
       AccountPage_GetAccountsQuery['getAccounts']['data'][0]
     >();
 
   const { loading: resettingActivationCode, form } =
-    Hooks.Accounts.useResetActivationCodeContext();
+    Hooks.Accounts.useResetActivationCode();
 
   const { account_id, setInviteUserModalVisible } =
     useContext(AccountPageContext);

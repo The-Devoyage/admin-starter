@@ -45,3 +45,19 @@ export const USER_COUNT_WIDGET_GET_USERS = gql`
     }
   }
 `;
+
+export const MEDIA_COUNT_WIDGET_GET_MEDIA = gql`
+  query MediaCountWidget_GetMedia($getMediaInput: GetMediaInput!) {
+    getMedia(getMediaInput: $getMediaInput) {
+      stats {
+        total
+        history {
+          _id {
+            MONTH
+          }
+          total
+        }
+      }
+    }
+  }
+`;

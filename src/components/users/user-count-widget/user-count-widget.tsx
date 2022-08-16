@@ -49,7 +49,7 @@ const labels = [
 ];
 
 interface UserCountWidgetProps {
-  stats: Stats;
+  stats?: Stats;
   loading: boolean;
 }
 

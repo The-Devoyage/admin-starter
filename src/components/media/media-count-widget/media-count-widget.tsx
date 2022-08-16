@@ -20,8 +20,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { useGetMediaContext } from 'src/apollo/providers/media/queries';
-import { MediaCountWidget_GetMediaQuery } from 'src/types/generated';
+import { Hooks } from '@the-devoyage/orions-arrow';
 
 ChartJS.register(
   CategoryScale,
@@ -49,7 +48,7 @@ const labels = [
 ];
 
 export const MediaCountWidget = () => {
-  const { stats, loading } = useGetMediaContext();
+  const { stats, loading } = Hooks.Media.useGetMedia();
 
   return (
     <CWidgetStatsA

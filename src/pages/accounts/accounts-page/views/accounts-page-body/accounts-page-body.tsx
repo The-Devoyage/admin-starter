@@ -7,7 +7,7 @@ import { AccountsPageContext } from '../../provider';
 export const AccountsPageBody = () => {
   const { setCreateAccountModalVisible } = useContext(AccountsPageContext);
   const { accounts, loading, stats, handleSearch, handleFetchMore } =
-    Hooks.Accounts.useGetAccountsContext<
+    Hooks.Accounts.useGetAccounts<
       AccountsList_GetAccountsQuery['getAccounts']['data'][0]
     >();
 

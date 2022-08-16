@@ -21,7 +21,7 @@ export const ResetActivationCodeProvider: FC<
   const { account_id } = useContext(AccountPageContext);
 
   const { utils } =
-    Hooks.Accounts.useGetAccountsContext<
+    Hooks.Accounts.useGetAccounts<
       AccountPage_GetAccountsQuery['getAccounts']['data'][0]
     >();
 
@@ -37,9 +37,7 @@ export const ResetActivationCodeProvider: FC<
         documentNode: ACCOUNT_PAGE_RESET_ACTIVATION_CODE,
         refetchQueries,
         variables: {
-          resetActivationCodeInput: {
-            email: account?.email!,
-          },
+          email: account?.email!,
         },
         onCompleted: (_, helpers, reset) =>
           handleFormSuccess({

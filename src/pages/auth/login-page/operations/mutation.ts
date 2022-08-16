@@ -11,3 +11,14 @@ export const LOGIN_PAGE_LOGIN = gql`
     }
   }
 `;
+
+export const LOGIN_PAGE_LOGIN_USER = gql`
+  mutation LoginPage_LoginUser {
+    loginUser {
+      token
+      user {
+        _id
+      }
+    }
+  }
+`;

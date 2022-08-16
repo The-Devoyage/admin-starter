@@ -3,7 +3,7 @@ import { VerifyEmailCard } from 'src/components/auth/verify-email';
 import { Hooks } from '@the-devoyage/orions-arrow';
 
 export const VerifyEmailPageBody = () => {
-  const { form, loading } = Hooks.Accounts.useVerifyAccountEmailContext();
+  const { form, loading } = Hooks.Accounts.useVerifyAccountEmail();
 
   return (
     <CContainer>

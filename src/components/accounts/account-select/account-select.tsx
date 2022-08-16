@@ -85,7 +85,7 @@ const AccountSelectInput: FC<AccountSelectProps> = ({
     handleSearch,
     utils,
     loading: loadingAccounts,
-  } = Hooks.Accounts.useGetAccountsContext<
+  } = Hooks.Accounts.useGetAccounts<
     AccountSelect_GetAccountsQuery['getAccounts']['data'][0]
   >();
 

@@ -6,11 +6,9 @@ import { UserPage_GetUsersQuery } from 'src/types/generated';
 import { UserPageContext } from '../provider/user-page-provider';
 
 export const UserPageLeft = () => {
-  const { user_id } = useContext(UserPageContext);
+  const { user_id, setUpdateUserModalVisible } = useContext(UserPageContext);
   const { loading, utils } =
-    Hooks.Users.useGetUsersContext<
-      UserPage_GetUsersQuery['getUsers']['data'][0]
-    >();
+    Hooks.Users.useGetUsers<UserPage_GetUsersQuery['getUsers']['data'][0]>();
 
   const user = utils.getUser(user_id!);
 
@@ -20,7 +18,11 @@ export const UserPageLeft = () => {
         <UserOverviewCard user={user} loading={loading} />
       </CCol>
       <CCol lg={12} className="mt-3">
-        <UserDetailsCard user={user} loading={loading} />
+        <UserDetailsCard
+          user={user}
+          loading={loading}
+          setUpdateUserModalVisible={setUpdateUserModalVisible}
+        />
       </CCol>
     </>
   );

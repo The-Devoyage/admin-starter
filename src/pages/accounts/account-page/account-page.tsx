@@ -2,7 +2,7 @@ import { CRow } from '@coreui/react';
 import { AccountPageRootProvider } from './provider';
 import { AccountPageBottom, AccountPageTop } from './views';
 
-const AccountPage = () => {
+export const AccountPage = () => {
   return (
     <AccountPageRootProvider>
       <CRow className="mb-3">
@@ -14,5 +14,3 @@ const AccountPage = () => {
     </AccountPageRootProvider>
   );
 };
-
-export default AccountPage;

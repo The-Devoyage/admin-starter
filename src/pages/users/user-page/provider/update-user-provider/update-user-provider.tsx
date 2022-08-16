@@ -1,10 +1,8 @@
+import { Providers } from '@the-devoyage/orions-arrow';
 import { FC, ReactNode, useContext } from 'react';
-import { Providers } from 'src/apollo';
-import { useGetUsersContext } from 'src/apollo/providers/users/queries';
-import {
-  StringFilterByEnum,
-  UserPage_GetUsersQuery,
-} from 'src/types/generated';
+import { useFormHelpers } from 'src/common/utils/use-form-helpers';
+import { StringFilterByEnum } from 'src/types/generated';
+import { USER_PAGE_UPDATE_USER } from '../../operations/mutation';
 import { UserPageContext } from '../user-page-provider';
 
 interface UpdateUserProviderProps {
@@ -15,37 +13,34 @@ export const UpdateUserProvider: FC<UpdateUserProviderProps> = ({
   children,
 }) => {
   const { user_id } = useContext(UserPageContext);
-  const { utils } =
-    useGetUsersContext<UserPage_GetUsersQuery['getUsers']['data'][0]>();
-  const user = utils.getUser(user_id!);
+  const { handleFormError, handleFormSuccess } = useFormHelpers();
 
   return (
     <Providers.Users.Mutations.UpdateUserProvider
-      updateUserInput={{
-        query: {
-          _id: [
-            {
-              string: user?._id!,
-              filterBy: StringFilterByEnum.Objectid,
-            },
-          ],
-        },
-        payload: {
-          email: user?.email,
-          image: user?.image?._id,
-          phone: user?.phone,
-          about: user?.about,
-          address: {
-            lineOne: user?.address?.lineOne,
-            lineTwo: user?.address?.lineTwo,
-            zip: user?.address?.zip,
-            city: user?.address?.city,
-            state: user?.address?.state,
-            country: user?.address?.country,
+      mutation={{
+        documentNode: USER_PAGE_UPDATE_USER,
+        variables: {
+          query: {
+            _id: [
+              {
+                string: user_id!,
+                filterBy: StringFilterByEnum.Objectid,
+              },
+            ],
           },
-          last_name: user?.last_name,
-          first_name: user?.first_name,
+          payload: {},
         },
+        onCompleted: (_, helpers, reset) =>
+          handleFormSuccess({
+            reset,
+            helpers,
+            success: {
+              header: 'Success!',
+              message: 'User successfully updated.',
+            },
+          }),
+        onError: (error, helpers, reset) =>
+          handleFormError({ error, helpers, reset }),
       }}
     >
       {children}

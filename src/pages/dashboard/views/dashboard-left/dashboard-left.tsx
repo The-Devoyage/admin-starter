@@ -3,6 +3,6 @@ import { WelcomeCard } from 'src/components/dashboard';
 import { App_MeQuery } from 'src/types/generated';
 
 export const DashboardLeft = () => {
-  const { me } = Hooks.Users.useGetMeContext<App_MeQuery['me']>();
+  const { me } = Hooks.Users.useGetMe<App_MeQuery['me']>();
   return <WelcomeCard me={me} />;
 };

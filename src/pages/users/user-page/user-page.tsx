@@ -1,6 +1,6 @@
 import { CCol, CRow } from '@coreui/react';
 import { UserPageRootProvider } from './provider';
-import { UserPageRight, UserPageLeft } from './views';
+import { UserPageRight, UserPageLeft, UserPageModals } from './views';
 
 const UserPage = () => {
   return (
@@ -13,6 +13,7 @@ const UserPage = () => {
           <UserPageRight />
         </CCol>
       </CRow>
+      <UserPageModals />
     </UserPageRootProvider>
   );
 };

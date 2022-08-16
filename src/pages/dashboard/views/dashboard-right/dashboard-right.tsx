@@ -4,9 +4,8 @@ import { UserCountWidget } from 'src/components/users';
 import { Hooks } from '@the-devoyage/orions-arrow';
 
 export const DashboardRight = () => {
-  const { stats, loading } = Hooks.Accounts.useGetAccountsContext();
-  const { stats: userStats, loading: usersLoading } =
-    Hooks.Users.useGetUsersContext();
+  const { stats, loading } = Hooks.Accounts.useGetAccounts();
+  const { stats: userStats, loading: usersLoading } = Hooks.Users.useGetUsers();
 
   return (
     <>

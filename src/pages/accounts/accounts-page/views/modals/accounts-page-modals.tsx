@@ -6,7 +6,7 @@ import { AccountsPageContext } from '../../provider';
 export const AccountsPageModals = () => {
   const { createAccountModalVisible, setCreateAccountModalVisible } =
     useContext(AccountsPageContext);
-  const { form, loading } = Hooks.Accounts.useRegisterAccountContext();
+  const { form, loading } = Hooks.Accounts.useRegisterAccount();
 
   return (
     <CreateAccountModal

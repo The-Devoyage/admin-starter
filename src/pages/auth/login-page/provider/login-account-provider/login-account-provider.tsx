@@ -1,10 +1,9 @@
-import { FC, ReactNode, useContext } from 'react';
+import { FC, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Variables } from 'src/apollo';
-import { LoginUserProviderContext } from 'src/apollo/providers/users/mutations';
 import { useFormHelpers } from 'src/common/utils/use-form-helpers';
 import { LOGIN_PAGE_LOGIN } from '../../operations';
-import { Providers } from '@the-devoyage/orions-arrow';
+import { Providers, Hooks } from '@the-devoyage/orions-arrow';
 
 interface LoginAccountProviderProps {
   children: ReactNode;
@@ -15,7 +14,7 @@ export const LoginAccountProvider: FC<LoginAccountProviderProps> = ({
 }) => {
   const { handleFormError, handleFormSuccess } = useFormHelpers();
   const navigate = useNavigate();
-  const { handleLoginUser } = useContext(LoginUserProviderContext);
+  const { form } = Hooks.Users.useLoginUser();
 
   return (
     <Providers.Accounts.Mutations.LoginAccountProvider
@@ -23,8 +22,8 @@ export const LoginAccountProvider: FC<LoginAccountProviderProps> = ({
         documentNode: LOGIN_PAGE_LOGIN,
         onCompleted: (data, helpers, reset) => {
           localStorage.setItem('token', data.token);
-          if (handleLoginUser) {
-            handleLoginUser();
+          if (form) {
+            form.submitForm();
           } else {
             handleFormSuccess({
               reset,

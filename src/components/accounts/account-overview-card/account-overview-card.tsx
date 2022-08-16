@@ -10,7 +10,6 @@ import {
   CRow,
 } from '@coreui/react';
 import { FC } from 'react';
-import { Providers } from 'src/apollo';
 import { Utils } from 'src/common';
 import { UserOverviewCard } from 'src/components/users';
 import { AccountPage_GetAccountsQuery } from 'src/types/generated';
@@ -22,12 +21,14 @@ interface AccountOverviewCardProps {
     | AccountPage_GetAccountsQuery['getAccounts']['data'][0]['users']['data'][0]
     | null;
   loading: boolean;
+  setCreateUserModalVisible: (v: boolean) => void;
 }
 
 export const AccountOverviewCard: FC<AccountOverviewCardProps> = ({
   loading,
   defaultUser,
   account,
+  setCreateUserModalVisible,
 }) => {
   if (loading) {
     return <AccountOverviewCardLoading />;
@@ -89,36 +90,32 @@ export const AccountOverviewCard: FC<AccountOverviewCardProps> = ({
             {defaultUser ? (
               <UserOverviewCard user={defaultUser} loading={loading} />
             ) : (
-              <Providers.Users.Mutations.CreateUserProviderContext.Consumer>
-                {({ setCreateUserModalVisible }) => (
-                  <CAlert
-                    color="info"
-                    className="d-flex flex-column justify-content-between h-100 mb-0"
-                  >
-                    <CRow className="mb-3">
-                      <CAlertHeading>Default User Not Found</CAlertHeading>
-                      <CCol lg={8}>
-                        <span>
-                          This account does not have a default user. A default
-                          user is automatically created when the user logs in
-                          for the first time.
-                        </span>
-                      </CCol>
-                    </CRow>
-                    <CRow className="d-flex align-items-end">
-                      <CCol lg={8} />
-                      <CCol lg={4} className="align-self-end">
-                        <CButton
-                          className="w-100"
-                          onClick={() => setCreateUserModalVisible(true)}
-                        >
-                          Create Default User
-                        </CButton>
-                      </CCol>
-                    </CRow>
-                  </CAlert>
-                )}
-              </Providers.Users.Mutations.CreateUserProviderContext.Consumer>
+              <CAlert
+                color="info"
+                className="d-flex flex-column justify-content-between h-100 mb-0"
+              >
+                <CRow className="mb-3">
+                  <CAlertHeading>Default User Not Found</CAlertHeading>
+                  <CCol lg={8}>
+                    <span>
+                      This account does not have a default user. A default user
+                      is automatically created when the user logs in for the
+                      first time.
+                    </span>
+                  </CCol>
+                </CRow>
+                <CRow className="d-flex align-items-end">
+                  <CCol lg={8} />
+                  <CCol lg={4} className="align-self-end">
+                    <CButton
+                      className="w-100"
+                      onClick={() => setCreateUserModalVisible(true)}
+                    >
+                      Create Default User
+                    </CButton>
+                  </CCol>
+                </CRow>
+              </CAlert>
             )}
           </CCardBody>
         </CCol>

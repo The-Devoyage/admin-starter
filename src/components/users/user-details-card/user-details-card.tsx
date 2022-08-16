@@ -8,7 +8,6 @@ import {
   CRow,
 } from '@coreui/react';
 import { FC } from 'react';
-import { Providers } from 'src/apollo';
 import { Format } from 'src/common/utils/format';
 import { UserPage_GetUsersQuery } from 'src/types/generated';
 import { UpdateUserModal } from '../update-user-modal';
@@ -17,11 +16,13 @@ import { UserDetailsCardLoading } from './user-details-card-loading';
 interface UserDetailsCardProps {
   loading: boolean;
   user: UserPage_GetUsersQuery['getUsers']['data'][0] | null;
+  setUpdateUserModalVisible: (v: boolean) => void;
 }
 
 export const UserDetailsCard: FC<UserDetailsCardProps> = ({
   user,
   loading,
+  setUpdateUserModalVisible,
 }) => {
   if (loading) {
     return <UserDetailsCardLoading />;
@@ -65,19 +66,13 @@ export const UserDetailsCard: FC<UserDetailsCardProps> = ({
         </CRow>
       </CCardBody>
       <CCardFooter className="d-flex justify-content-end">
-        <Providers.Users.Mutations.UpdateUserProviderContext.Consumer>
-          {({ setUpdateUserModalVisible }) => (
-            <>
-              <CButton
-                color="primary"
-                onClick={() => setUpdateUserModalVisible(true)}
-              >
-                Edit User Details
-              </CButton>
-              <UpdateUserModal />
-            </>
-          )}
-        </Providers.Users.Mutations.UpdateUserProviderContext.Consumer>
+        <CButton
+          color="primary"
+          onClick={() => setUpdateUserModalVisible(true)}
+        >
+          Edit User Details
+        </CButton>
+        <UpdateUserModal />
       </CCardFooter>
     </CCard>
   );
