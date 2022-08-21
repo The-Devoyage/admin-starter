@@ -17,25 +17,22 @@ import {
   InviteUserInput,
   MembershipStatusEnum,
   UpdateUserInput,
-  User,
   UserFieldFiltersInput,
+  StringFilterByEnum,
 } from 'src/types/generated';
 import { UserMembershipLocalFormContent } from '../user-membership-local-form-content';
 import { UserMembershipStatusSelect } from '../user-membership-status-select';
 import { UserRoleSelect } from '../user-role-select';
 import { UserSelect } from '../user-select';
-import { StringFilterByEnum } from 'src/types/generated';
 
 interface UpdateUserMembershipFormContentProps {
   form: FormikProps<UpdateUserInput> | FormikProps<InviteUserInput> | null;
   loading: boolean;
-  users: Pick<User, '_id' | 'email' | 'first_name' | 'last_name'>[];
-  handleSearch: (v: string) => void;
 }
 
 export const UserMembershipFormContent: FC<
   UpdateUserMembershipFormContentProps
-> = ({ form, loading, users, handleSearch }) => {
+> = ({ form, loading }) => {
   const userIdToUpdate = (userFieldFilters?: UserFieldFiltersInput) => {
     const _idFilters = userFieldFilters?._id;
     const _idFilter = _idFilters?.length ? _idFilters[0] : null;
@@ -51,8 +48,6 @@ export const UserMembershipFormContent: FC<
         <CCol lg={12} className="mb-3">
           <CFormLabel>User</CFormLabel>
           <UserSelect
-            handleSearch={handleSearch}
-            users={users}
             loading={loading}
             value={userIdToUpdate(form?.values.query) ?? ''}
             disabled={!!form?.initialValues.query._id?.length}
@@ -69,15 +64,14 @@ export const UserMembershipFormContent: FC<
           <CFormLabel>Account</CFormLabel>
           <AccountSelect
             loading={loading}
-            value={{
-              _id:
-                form?.initialValues.payload.memberships?.account ??
-                form?.values.payload.memberships?.account ??
-                '',
-            }}
+            value={
+              form?.initialValues.payload.memberships?.account ??
+              form?.values.payload.memberships?.account ??
+              ''
+            }
             disabled={!!form?.initialValues.payload.memberships?.account}
             handleChange={(v) =>
-              form?.setFieldValue('payload.memberships.account', v?.value)
+              form?.setFieldValue('payload.memberships.account', v)
             }
           />
         </CCol>

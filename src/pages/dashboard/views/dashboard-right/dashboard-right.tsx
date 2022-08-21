@@ -1,17 +1,15 @@
-import { AccountCountWidget } from 'src/components/accounts';
 import { MediaCountWidget } from 'src/components/media/media-count-widget';
 import { UserCountWidget } from 'src/components/users';
 import { Hooks } from '@the-devoyage/orions-arrow';
 
 export const DashboardRight = () => {
-  const { stats, loading } = Hooks.Accounts.useGetAccounts();
   const { stats: userStats, loading: usersLoading } = Hooks.Users.useGetUsers();
+  const { stats: mediaStats, loading: mediaLoading } = Hooks.Media.useGetMedia();
 
   return (
     <>
-      <AccountCountWidget stats={stats} loading={loading} />
-      <UserCountWidget stats={userStats} loading={usersLoading} />
-      <MediaCountWidget />
+      <UserCountWidget stats={userStats} loading={usersLoading} className="mb-3" />
+      <MediaCountWidget stats={mediaStats} loading={mediaLoading} />
     </>
   );
 };

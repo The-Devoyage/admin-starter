@@ -16,32 +16,32 @@ import { UserFormContent } from '../user-form-content';
 interface CreateUserModalProps {
   form: FormikProps<CreateUserInput> | null;
   loading: boolean;
-  createUserModalVisible: boolean;
-  setCreateUserModalVisible: (v: boolean) => void;
+  visible: boolean;
+  setVisible: (v: boolean) => void;
 }
 
 export const CreateUserModal: FC<CreateUserModalProps> = ({
   form,
   loading,
-  createUserModalVisible,
-  setCreateUserModalVisible,
+  visible,
+  setVisible,
 }) => (
   <CForm
     onSubmit={(e) => {
       e.preventDefault();
       form?.submitForm();
-      setCreateUserModalVisible(false);
+      setVisible(false);
     }}
   >
     <CModal
-      visible={createUserModalVisible}
-      onClose={() => setCreateUserModalVisible(false)}
+      visible={visible}
+      onClose={() => setVisible(false)}
       scrollable
       portal={false}
     >
       <CModalHeader closeButton={false}>
         Create User
-        <CloseButton onClick={() => setCreateUserModalVisible(false)} />
+        <CloseButton onClick={() => setVisible(false)} />
       </CModalHeader>
       <CModalBody>
         <UserFormContent form={form} loading={loading} />

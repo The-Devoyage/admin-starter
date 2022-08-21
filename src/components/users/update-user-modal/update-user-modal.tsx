@@ -16,33 +16,33 @@ import { UserFormContent } from '../user-form-content';
 
 interface UpdateUserModalProps {
   form: FormikProps<UpdateUserInput> | null;
-  updateUserModalVisible: boolean;
-  setUpdateUserModalVisible: (v: boolean) => void;
+  visible: boolean;
+  setVisible: (v: boolean) => void;
   loading: boolean;
 }
 
 export const UpdateUserModal: FC<UpdateUserModalProps> = ({
   form,
-  updateUserModalVisible,
-  setUpdateUserModalVisible,
+  visible,
+  setVisible,
   loading,
 }) => (
   <CForm
     onSubmit={(e) => {
       e.preventDefault();
       form?.submitForm();
-      setUpdateUserModalVisible(false);
+      setVisible(false);
     }}
   >
     <CModal
-      visible={updateUserModalVisible}
-      onClose={() => setUpdateUserModalVisible(false)}
+      visible={visible}
+      onClose={() => setVisible(false)}
       scrollable
       portal={false}
     >
       <CModalHeader closeButton={false}>
         Update User
-        <CloseButton onClick={() => setUpdateUserModalVisible(false)} />
+        <CloseButton onClick={() => setVisible(false)} />
       </CModalHeader>
       <CModalBody>
         <UserFormContent form={form} loading={loading} />

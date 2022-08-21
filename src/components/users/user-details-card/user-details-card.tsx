@@ -10,7 +10,6 @@ import {
 import { FC } from 'react';
 import { Format } from 'src/common/utils/format';
 import { UserPage_GetUsersQuery } from 'src/types/generated';
-import { UpdateUserModal } from '../update-user-modal';
 import { UserDetailsCardLoading } from './user-details-card-loading';
 
 interface UserDetailsCardProps {
@@ -72,7 +71,6 @@ export const UserDetailsCard: FC<UserDetailsCardProps> = ({
         >
           Edit User Details
         </CButton>
-        <UpdateUserModal />
       </CCardFooter>
     </CCard>
   );

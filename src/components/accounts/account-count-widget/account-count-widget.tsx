@@ -1,4 +1,5 @@
 import { cilOptions } from '@coreui/icons';
+import { useNavigate } from 'react-router-dom';
 import CIcon from '@coreui/icons-react';
 import {
   CContainer,
@@ -20,7 +21,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Stats } from 'src/types/generated';
 
 ChartJS.register(
@@ -57,6 +58,9 @@ export const AccountCountWidget: FC<AccountCountWidgetProps> = ({
   stats,
   loading,
 }) => {
+  const [showAxes, setShowAxes] = useState(true);
+  const navigate = useNavigate();
+
   return (
     <CWidgetStatsA
       className="mb-4"
@@ -69,10 +73,8 @@ export const AccountCountWidget: FC<AccountCountWidgetProps> = ({
             <CIcon icon={cilOptions} className="text-high-emphasis-inverse" />
           </CDropdownToggle>
           <CDropdownMenu>
-            <CDropdownItem>Action</CDropdownItem>
-            <CDropdownItem>Another action</CDropdownItem>
-            <CDropdownItem>Something else here...</CDropdownItem>
-            <CDropdownItem disabled>Disabled action</CDropdownItem>
+            <CDropdownItem onClick={() => navigate("/accounts")} role="button">Manage Accounts</CDropdownItem>
+            <CDropdownItem active={showAxes} onClick={() => setShowAxes(!showAxes)} role="button">Show Axes</CDropdownItem>
           </CDropdownMenu>
         </CDropdown>
       }
@@ -97,8 +99,10 @@ export const AccountCountWidget: FC<AccountCountWidgetProps> = ({
             options={{
               responsive: true,
               scales: {
-                xAxes: { display: false },
-                yAxes: { display: false },
+                xAxes: { display: showAxes, grid: { color: "rgba(255, 255, 255, 0.3)" }, ticks: { color: "white" } },
+                yAxes: { display: showAxes, grid: { color: "rgba(255, 255, 255, 0.3)" }, ticks: { color: "white" } },
+
+
               },
               plugins: { legend: { display: false } },
             }}

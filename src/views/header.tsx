@@ -44,9 +44,6 @@ function Header() {
                   Dashboard
                 </CNavLink>
               </CNavItem>
-              <CNavItem>
-                <CNavLink href="/settings">Settings</CNavLink>
-              </CNavItem>
             </>
           ) : (
             <>

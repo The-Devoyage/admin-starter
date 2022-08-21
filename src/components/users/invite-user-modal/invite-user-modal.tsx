@@ -10,50 +10,41 @@ import { FormikProps } from 'formik';
 import { FC } from 'react';
 import { Utils } from 'src/common';
 import { CloseButton } from 'src/common/buttons/close-button';
-import { InviteUserInput, User } from 'src/types/generated';
+import { InviteUserInput } from 'src/types/generated';
 import { UserMembershipFormContent } from '../user-membership-form-content';
 
 interface InviteUserModalProps {
   form: FormikProps<InviteUserInput> | null;
-  setInviteUserModalVisible: (v: boolean) => void;
-  inviteUserModalVisible: boolean;
+  setVisible: (v: boolean) => void;
+  visible: boolean;
   loading: boolean;
-  handleSearch: (v: string) => void;
-  users: Pick<User, '_id' | 'email' | 'first_name' | 'last_name'>[];
 }
 
 export const InviteUserModal: FC<InviteUserModalProps> = ({
-  inviteUserModalVisible,
-  setInviteUserModalVisible,
+  visible,
+  setVisible,
   form,
   loading,
-  users,
-  handleSearch,
 }) => (
   <CForm
     onSubmit={(e) => {
       e.preventDefault();
       form?.submitForm();
-      setInviteUserModalVisible(false);
+      setVisible(false);
     }}
   >
     <CModal
-      visible={inviteUserModalVisible}
-      onClose={() => setInviteUserModalVisible(false)}
+      visible={visible}
+      onClose={() => setVisible(false)}
       scrollable
       portal={false}
     >
       <CModalHeader closeButton={false}>
         Add Membership
-        <CloseButton onClick={() => setInviteUserModalVisible(false)} />
+        <CloseButton onClick={() => setVisible(false)} />
       </CModalHeader>
       <CModalBody>
-        <UserMembershipFormContent
-          form={form}
-          loading={loading}
-          users={users}
-          handleSearch={handleSearch}
-        />
+        <UserMembershipFormContent form={form} loading={loading} />
       </CModalBody>
       <CModalFooter>
         <CButton

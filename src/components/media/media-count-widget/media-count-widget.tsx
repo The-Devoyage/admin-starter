@@ -20,7 +20,9 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Hooks } from '@the-devoyage/orions-arrow';
+import { useNavigate } from 'react-router-dom';
+import { FC, useState } from 'react';
+import { Stats } from 'src/types/generated'
 
 ChartJS.register(
   CategoryScale,
@@ -47,8 +49,14 @@ const labels = [
   'Dec',
 ];
 
-export const MediaCountWidget = () => {
-  const { stats, loading } = Hooks.Media.useGetMedia();
+interface MediaCountWidgetProps {
+  stats?: Stats;
+  loading: boolean;
+}
+
+export const MediaCountWidget: FC<MediaCountWidgetProps> = ({ stats, loading }) => {
+  const navigate = useNavigate();
+  const [showAxes, setShowAxes] = useState(false);
 
   return (
     <CWidgetStatsA
@@ -62,10 +70,8 @@ export const MediaCountWidget = () => {
             <CIcon icon={cilOptions} className="text-high-emphasis-inverse" />
           </CDropdownToggle>
           <CDropdownMenu>
-            <CDropdownItem>Action</CDropdownItem>
-            <CDropdownItem>Another action</CDropdownItem>
-            <CDropdownItem>Something else here...</CDropdownItem>
-            <CDropdownItem disabled>Disabled action</CDropdownItem>
+            <CDropdownItem onClick={() => navigate("/media")} role="button">Manage Media</CDropdownItem>
+            <CDropdownItem onClick={() => setShowAxes(!showAxes)} active={showAxes} role="button">Show Axes</CDropdownItem>
           </CDropdownMenu>
         </CDropdown>
       }
@@ -90,8 +96,8 @@ export const MediaCountWidget = () => {
             options={{
               responsive: true,
               scales: {
-                xAxes: { display: false },
-                yAxes: { display: false },
+                xAxes: { display: showAxes, grid: { color: "rgba(255, 255, 255, 0.3)" }, ticks: { color: "white" } },
+                yAxes: { display: showAxes, grid: { color: "rgba(255, 255, 255, 0.3)" }, ticks: { color: "white" } },
               },
               plugins: { legend: { display: false } },
             }}

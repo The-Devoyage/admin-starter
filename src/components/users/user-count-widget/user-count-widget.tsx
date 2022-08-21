@@ -1,3 +1,4 @@
+import { useState, FC } from 'react';
 import { cilOptions } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
 import {
@@ -21,7 +22,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Stats } from 'src/types/generated';
-import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 ChartJS.register(
   CategoryScale,
@@ -51,65 +52,86 @@ const labels = [
 interface UserCountWidgetProps {
   stats?: Stats;
   loading: boolean;
+  className?: string;
 }
 
 export const UserCountWidget: FC<UserCountWidgetProps> = ({
   stats,
   loading,
-}) => (
-  <CWidgetStatsA
-    className="mb-4"
-    color="primary"
-    value={`${stats?.total ?? 0} New Users`}
-    title="This Year"
-    action={
-      <CDropdown alignment="end">
-        <CDropdownToggle color="transparent" caret={false} className="p-0">
-          <CIcon icon={cilOptions} className="text-high-emphasis-inverse" />
-        </CDropdownToggle>
-        <CDropdownMenu>
-          <CDropdownItem>Action</CDropdownItem>
-          <CDropdownItem>Another action</CDropdownItem>
-          <CDropdownItem>Something else here...</CDropdownItem>
-          <CDropdownItem disabled>Disabled action</CDropdownItem>
-        </CDropdownMenu>
-      </CDropdown>
-    }
-    chart={
-      !loading ? (
-        <Line
-          className="p-3"
-          data={{
-            labels,
-            datasets: [
-              {
-                label: 'Users',
-                data: labels.map(
-                  (_, idx) =>
-                    stats?.history?.find((h) => h._id?.MONTH === idx + 1)
-                      ?.total ?? 0,
-                ),
-                borderColor: 'rgba(255,255,255, 0.7)',
+  className,
+}) => {
+  const navigate = useNavigate();
+  const [showAxes, setShowAxes] = useState(false);
+
+  return (
+    <CWidgetStatsA
+      className={className}
+      color="primary"
+      value={`${stats?.total ?? 0} New Users`}
+      title="This Year"
+      action={
+        <CDropdown alignment="end">
+          <CDropdownToggle color="transparent" caret={false} className="p-0">
+            <CIcon icon={cilOptions} className="text-high-emphasis-inverse" />
+          </CDropdownToggle>
+          <CDropdownMenu>
+            <CDropdownItem onClick={() => navigate('/users')} role="button">
+              Manage Users
+            </CDropdownItem>
+            <CDropdownItem
+              onClick={() => setShowAxes(!showAxes)}
+              active={showAxes}
+              role="button"
+            >
+              Show Axes
+            </CDropdownItem>
+          </CDropdownMenu>
+        </CDropdown>
+      }
+      chart={
+        !loading ? (
+          <Line
+            className="p-3"
+            data={{
+              labels,
+              datasets: [
+                {
+                  label: 'Users',
+                  data: labels.map(
+                    (_, idx) =>
+                      stats?.history?.find((h) => h._id?.MONTH === idx + 1)
+                        ?.total ?? 0,
+                  ),
+                  borderColor: 'rgba(255,255,255, 0.7)',
+                },
+              ],
+            }}
+            options={{
+              responsive: true,
+              scales: {
+                xAxes: {
+                  display: showAxes,
+                  grid: { color: 'rgba(255, 255, 255, 0.3)' },
+                  ticks: { color: 'white' },
+                },
+                yAxes: {
+                  display: showAxes,
+                  grid: { color: 'rgba(255, 255, 255, 0.3)' },
+                  ticks: { color: 'white' },
+                },
               },
-            ],
-          }}
-          options={{
-            responsive: true,
-            scales: {
-              xAxes: { display: false },
-              yAxes: { display: false },
-            },
-            plugins: { legend: { display: false } },
-          }}
-        />
-      ) : (
-        <CContainer
-          className="d-flex justify-content-center align-items-center"
-          style={{ height: 200 }}
-        >
-          <CSpinner />
-        </CContainer>
-      )
-    }
-  />
-);
+              plugins: { legend: { display: false } },
+            }}
+          />
+        ) : (
+          <CContainer
+            className="d-flex justify-content-center align-items-center"
+            style={{ height: 200 }}
+          >
+            <CSpinner />
+          </CContainer>
+        )
+      }
+    />
+  );
+};
