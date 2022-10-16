@@ -54,7 +54,7 @@ export const useFormHelpers = () => {
     const { helpers, error, reset, toast, callback } = data;
 
     if (helpers) {
-      helpers.setStatus({ message: error.message });
+      helpers.setStatus(error.message);
       helpers.setSubmitting(false);
     }
 
@@ -71,18 +71,29 @@ export const useFormHelpers = () => {
     if (error.graphQLErrors.length) {
       for (const graphQLError of error.graphQLErrors) {
         if (graphQLError.extensions.exception.errors) {
-          for (const exceptionError in graphQLError.extensions.exception
-            .errors) {
-            if (exceptionError) {
-              triggerToast({
-                header: Format.String.humanizeString(exceptionError),
-                message: `Please check the "${Format.String.humanizeString(
-                  exceptionError,
-                )}" field and try again.`,
-                button: toast?.button,
-              });
+          helpers?.setErrors(graphQLError.extensions.exception.errors);
+        } else if (graphQLError.extensions.errors) {
+          helpers?.setErrors(graphQLError.extensions.errors);
+        } else if (graphQLError.extensions.response.body.errors) {
+          const { errors = [] } = graphQLError.extensions.response.body;
+          let formErrors = {};
+          for (const err of errors) {
+            const regexp = /at "(.*)";/i;
+            const regexpGroups = regexp.exec(err.message) ?? [];
+            if (regexpGroups[1]) {
+              const locationArray = regexpGroups[1].split('.');
+              delete locationArray[0];
+              const formError = locationArray.reduceRight((res, key, i) => {
+                if (i === locationArray.length - 1) {
+                  return { [key]: err.message };
+                }
+                return { [key]: res };
+              }, {});
+
+              formErrors = Object.assign(formErrors, formError);
             }
           }
+          helpers?.setErrors(formErrors);
         } else {
           triggerToast({
             header: `${Format.String.humanizeString(
@@ -98,8 +109,7 @@ export const useFormHelpers = () => {
     if (error.networkError) {
       triggerToast({
         header: 'Network Error',
-        message:
-          'Something went wrong with this request. Please try again or advise IT staff.',
+        message: 'Something went wrong. Please try again.',
       });
     }
 

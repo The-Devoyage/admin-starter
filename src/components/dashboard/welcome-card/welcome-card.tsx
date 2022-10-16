@@ -1,4 +1,4 @@
-import { CCallout, CCard, CCardBody, CCardTitle } from '@coreui/react';
+import { CCallout, CCardTitle } from '@coreui/react';
 import { AccountCountWidget } from 'src/components/accounts';
 import { FC } from 'react';
 import { Utils } from 'src/common';
@@ -14,18 +14,17 @@ export const WelcomeCard: FC<WelcomeCardProps> = ({ me }) => {
 
   return (
     <>
-      <CCard className="mb-3">
-        <CCardBody>
-          <CCallout color="success">
-            <CCardTitle>
-              {`Welcome, ${Utils.Users.determineName(null, me)}!`}
-            </CCardTitle>
-            Your operations portal is designed to make it easy to manage the
-            assets of your business including Users, File Uploads (Media), and
-            Accounts.
-          </CCallout>
-        </CCardBody>
-      </CCard>
+      <CCallout
+        color="success"
+        className="mb-3"
+        style={{ backgroundColor: 'white' }}
+      >
+        <CCardTitle>
+          {`Welcome, ${Utils.Users.determineName(null, me)}!`}
+        </CCardTitle>
+        Your operations portal is designed to make it easy to manage the assets
+        of your business including Users, File Uploads (Media), and Accounts.
+      </CCallout>
       <AccountCountWidget stats={stats} loading={loading} />
     </>
   );

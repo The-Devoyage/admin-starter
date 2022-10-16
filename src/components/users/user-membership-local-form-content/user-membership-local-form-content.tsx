@@ -6,7 +6,9 @@ import {
   CFormTextarea,
 } from '@coreui/react';
 import { FormikProps } from 'formik';
+import phone from 'phone';
 import { FC } from 'react';
+import { Phone } from 'src/common/inputs/phone/phone';
 import { InviteUserInput, UpdateUserInput } from 'src/types/generated';
 
 interface UserMembershipLocalFormContentProps {
@@ -26,6 +28,12 @@ export const UserMembershipLocalFormContent: FC<
         value={form?.values.payload.memberships?.local?.first_name ?? ''}
         onChange={form?.handleChange}
         disabled={loading}
+        invalid={
+          !!(
+            form?.errors.payload
+              ?.memberships as InviteUserInput['payload']['memberships']
+          )?.local?.first_name
+        }
       />
     </CCol>
     <CCol lg={6} className="mb-3">
@@ -36,17 +44,31 @@ export const UserMembershipLocalFormContent: FC<
         value={form?.values.payload.memberships?.local?.last_name ?? ''}
         onChange={form?.handleChange}
         disabled={loading}
+        invalid={
+          !!(
+            form?.errors.payload
+              ?.memberships as InviteUserInput['payload']['memberships']
+          )?.local?.last_name
+        }
       />
     </CCol>
     <CCol lg={6} className="mb-3">
       <CFormLabel>Phone</CFormLabel>
-      <CFormInput
-        type="phone"
-        name="payload.memberships.local.phone"
-        placeholder="555-555-5555"
+      <Phone
         value={form?.values.payload.memberships?.local?.phone ?? ''}
-        onChange={form?.handleChange}
+        onChange={(v) =>
+          form?.setFieldValue(
+            'payload.memberships.local.phone',
+            phone(v).phoneNumber ?? v,
+          )
+        }
         disabled={loading}
+        invalid={
+          !!(
+            form?.errors.payload
+              ?.memberships as InviteUserInput['payload']['memberships']
+          )?.local?.phone
+        }
       />
     </CCol>
     <CCol lg={12}>
@@ -57,6 +79,12 @@ export const UserMembershipLocalFormContent: FC<
         value={form?.values.payload.memberships?.local?.about ?? ''}
         onChange={form?.handleChange}
         disabled={loading}
+        invalid={
+          !!(
+            form?.errors.payload
+              ?.memberships as InviteUserInput['payload']['memberships']
+          )?.local?.about
+        }
       />
     </CCol>
   </CRow>

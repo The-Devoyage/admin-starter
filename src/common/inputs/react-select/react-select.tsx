@@ -1,13 +1,23 @@
 import { FC } from 'react';
 import Select, { Props } from 'react-select';
 
-export const ReactSelect: FC<Props> = (props) => {
-  const customStyles = {};
+interface ReactSelectProps extends Props {
+  invalid?: string;
+}
 
-  return (
+export const ReactSelect: FC<ReactSelectProps> = ({ invalid, ...props }) => (
+  <>
     <Select
       {...props}
-      styles={customStyles}
+      styles={{
+        control: (base) => ({
+          ...base,
+          borderColor: invalid ? 'red' : undefined,
+          '&:hover': {
+            borderColor: invalid ? 'red' : undefined,
+          },
+        }),
+      }}
       theme={(theme) => ({
         ...theme,
         colors: {
@@ -15,5 +25,6 @@ export const ReactSelect: FC<Props> = (props) => {
         },
       })}
     />
-  );
-};
+    {invalid && <small style={{ color: 'red' }}>{invalid}</small>}
+  </>
+);

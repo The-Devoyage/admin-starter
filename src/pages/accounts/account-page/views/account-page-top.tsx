@@ -12,8 +12,13 @@ export const AccountPageTop = () => {
     >();
   const { account_id, setCreateUserModalVisible } =
     useContext(AccountPageContext);
-  const account = utils.getAccount(account_id!);
-  const defaultUser = utils.getDefaultUser(account_id!);
+
+  if (!account_id) {
+    return null;
+  }
+
+  const account = utils.getAccount(account_id);
+  const defaultUser = utils.getDefaultUser(account_id);
 
   return (
     <CCol>

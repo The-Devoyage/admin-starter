@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import ReactSelect, { SingleValue } from 'react-select';
+import { SingleValue } from 'react-select';
+import { ReactSelect } from 'src/common/inputs';
 import { Hooks } from '@the-devoyage/orions-arrow';
 import { Account, AccountSelect_GetAccountsQuery } from 'src/types/generated';
 import { Utils } from 'src/common';
@@ -9,6 +10,7 @@ interface AccountSelectProps {
   value: Account['_id'];
   handleChange: (v: Account['_id']) => void;
   loading: boolean;
+  invalid?: string;
   disabled?: boolean;
 }
 
@@ -17,6 +19,7 @@ const AccountSelectInput: FC<AccountSelectProps> = ({
   loading,
   handleChange,
   disabled,
+  invalid,
 }) => {
   const {
     accounts,
@@ -49,6 +52,7 @@ const AccountSelectInput: FC<AccountSelectProps> = ({
       isLoading={loadingAccounts || loading}
       filterOption={() => true}
       isClearable
+      invalid={invalid}
       value={
         value && {
           value,
@@ -69,6 +73,7 @@ export const AccountSelect: FC<AccountSelectProps> = ({
   loading,
   handleChange,
   disabled,
+  invalid,
 }) => (
   <AccountSelectRootProvider value={{ _id: value }}>
     <AccountSelectInput
@@ -76,6 +81,7 @@ export const AccountSelect: FC<AccountSelectProps> = ({
       loading={loading}
       handleChange={handleChange}
       disabled={disabled}
+      invalid={invalid}
     />
   </AccountSelectRootProvider>
 );

@@ -23,6 +23,8 @@ export const LoginFormContent: FC<LoginFormContentProps> = ({
         value={form?.values.email}
         onChange={form?.handleChange}
         disabled={loading}
+        invalid={!!form?.errors.email}
+        feedbackInvalid={form?.errors.email}
       />
     </CCol>
     <CCol lg={12} className="mb-3">
@@ -35,6 +37,8 @@ export const LoginFormContent: FC<LoginFormContentProps> = ({
         value={form?.values.password}
         onChange={form?.handleChange}
         disabled={loading}
+        invalid={!!form?.errors.password}
+        feedbackInvalid={form?.errors.password}
       />
     </CCol>
   </CRow>

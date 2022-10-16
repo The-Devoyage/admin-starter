@@ -1,4 +1,8 @@
 import {
+  CAccordion,
+  CAccordionBody,
+  CAccordionHeader,
+  CAccordionItem,
   CButton,
   CDropdownDivider,
   CForm,
@@ -31,7 +35,6 @@ export const UpdateUserModal: FC<UpdateUserModalProps> = ({
     onSubmit={(e) => {
       e.preventDefault();
       form?.submitForm();
-      setVisible(false);
     }}
   >
     <CModal
@@ -46,8 +49,15 @@ export const UpdateUserModal: FC<UpdateUserModalProps> = ({
       </CModalHeader>
       <CModalBody>
         <UserFormContent form={form} loading={loading} />
-        <CDropdownDivider />
-        <AddressFormContent form={form} loading={loading} />
+        <CDropdownDivider className="mb-3" />
+        <CAccordion>
+          <CAccordionItem>
+            <CAccordionHeader>Address</CAccordionHeader>
+            <CAccordionBody>
+              <AddressFormContent form={form} loading={loading} />
+            </CAccordionBody>
+          </CAccordionItem>
+        </CAccordion>
       </CModalBody>
       <CModalFooter className="justify-content-end">
         <CButton type="submit" color="primary">

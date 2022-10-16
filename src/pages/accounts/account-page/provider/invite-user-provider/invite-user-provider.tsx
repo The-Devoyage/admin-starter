@@ -1,8 +1,8 @@
 import { FC, ReactNode, useContext } from 'react';
 import { Providers } from '@the-devoyage/orions-arrow';
+import { useFormHelpers } from 'src/common/utils/use-form-helpers';
 import { AccountPageContext } from '../account-page-provider';
 import { ACCOUNT_PAGE_INVITE_USER } from '../../operations';
-import { useFormHelpers } from 'src/common/utils/use-form-helpers';
 
 interface InviteUserProviderProps {
   children: ReactNode;
@@ -13,6 +13,8 @@ export const InviteUserProvider: FC<InviteUserProviderProps> = ({
 }) => {
   const { handleFormError, handleFormSuccess } = useFormHelpers();
   const { account_id } = useContext(AccountPageContext);
+
+  if (!account_id) return null;
 
   return (
     <Providers.Users.Mutations.InviteUserProvider
@@ -32,7 +34,7 @@ export const InviteUserProvider: FC<InviteUserProviderProps> = ({
           },
           payload: {
             memberships: {
-              account: account_id!,
+              account: account_id,
               local: {
                 first_name: '',
                 last_name: '',

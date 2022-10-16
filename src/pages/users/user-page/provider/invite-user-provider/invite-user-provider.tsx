@@ -13,7 +13,9 @@ export const InviteUserProvider: FC<InviteUserProviderProps> = ({
   children,
 }) => {
   const { handleFormError, handleFormSuccess } = useFormHelpers();
-  const { user_id } = useContext(UserPageContext);
+  const { user_id, setInviteUserModalVisible } = useContext(UserPageContext);
+
+  if (!user_id) return null;
 
   return (
     <Providers.Users.Mutations.InviteUserProvider
@@ -23,19 +25,21 @@ export const InviteUserProvider: FC<InviteUserProviderProps> = ({
           query: {
             _id: [
               {
-                string: user_id!,
+                string: user_id,
                 filterBy: StringFilterByEnum.Objectid,
               },
             ],
           },
           payload: {},
         },
-        onCompleted: (_, helpers, reset) =>
+        onCompleted: (_, helpers, reset) => {
           handleFormSuccess({
             helpers,
             reset,
             success: { header: 'Success', message: 'Invite Sent!' },
-          }),
+          });
+          setInviteUserModalVisible(false);
+        },
         onError: (error, helpers, reset) =>
           handleFormError({ error, reset, helpers }),
       }}

@@ -20,7 +20,9 @@ export const AccountPageBottom = () => {
   const { account_id, setInviteUserModalVisible } =
     useContext(AccountPageContext);
 
-  const account = utils.getAccount(account_id!);
+  if (!account_id) return null;
+
+  const account = utils.getAccount(account_id);
 
   return (
     <>

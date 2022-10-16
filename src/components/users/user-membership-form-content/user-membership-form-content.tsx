@@ -28,11 +28,12 @@ import { UserSelect } from '../user-select';
 interface UpdateUserMembershipFormContentProps {
   form: FormikProps<UpdateUserInput> | FormikProps<InviteUserInput> | null;
   loading: boolean;
+  showError: ('USER_INPUT' | 'ACCOUNT_INPUT')[];
 }
 
 export const UserMembershipFormContent: FC<
   UpdateUserMembershipFormContentProps
-> = ({ form, loading }) => {
+> = ({ form, loading, showError }) => {
   const userIdToUpdate = (userFieldFilters?: UserFieldFiltersInput) => {
     const _idFilters = userFieldFilters?._id;
     const _idFilter = _idFilters?.length ? _idFilters[0] : null;
@@ -51,6 +52,12 @@ export const UserMembershipFormContent: FC<
             loading={loading}
             value={userIdToUpdate(form?.values.query) ?? ''}
             disabled={!!form?.initialValues.query._id?.length}
+            invalid={
+              showError.includes('USER_INPUT')
+                ? form?.errors.query?._id &&
+                  'This user has already been invited.'
+                : undefined
+            }
             handleChange={(v) => {
               form?.setFieldValue('query._id[0].string', v);
               form?.setFieldValue(
@@ -72,6 +79,12 @@ export const UserMembershipFormContent: FC<
             disabled={!!form?.initialValues.payload.memberships?.account}
             handleChange={(v) =>
               form?.setFieldValue('payload.memberships.account', v)
+            }
+            invalid={
+              showError.includes('ACCOUNT_INPUT')
+                ? form?.errors.query?._id &&
+                  'This user has already been invited.'
+                : undefined
             }
           />
         </CCol>

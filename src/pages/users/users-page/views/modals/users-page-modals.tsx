@@ -11,8 +11,8 @@ export const UsersPageModals = () => {
   return (
     <CreateUserModal
       form={form}
-      setCreateUserModalVisible={setCreateUserModalVisible}
-      createUserModalVisible={createUserModalVisible}
+      setVisible={setCreateUserModalVisible}
+      visible={createUserModalVisible}
       loading={loading}
     />
   );

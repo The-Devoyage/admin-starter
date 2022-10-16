@@ -23,7 +23,7 @@ interface MembershipsListProps {
   memberships: UserPage_GetUsersQuery['getUsers']['data'][0]['memberships'];
   loading: boolean;
   form: FormikProps<UpdateUserInput> | null;
-  setUpdateUserMembershipModalVisible: (v: boolean) => void;
+  setVisible: (v: boolean) => void;
 }
 
 type UserInputMembershipInput = Pick<
@@ -35,7 +35,7 @@ export const MembershipsList: FC<MembershipsListProps> = ({
   memberships,
   loading,
   form,
-  setUpdateUserMembershipModalVisible,
+  setVisible,
 }) => {
   if (loading) {
     return <MembershipsListLoading />;
@@ -103,7 +103,7 @@ export const MembershipsList: FC<MembershipsListProps> = ({
                   payload: initialMembershipValues,
                 },
               });
-              setUpdateUserMembershipModalVisible(true);
+              setVisible(true);
             }}
           >
             <CTableDataCell>
@@ -112,7 +112,7 @@ export const MembershipsList: FC<MembershipsListProps> = ({
               </CTooltip>
             </CTableDataCell>
             <CTableDataCell>{m.account._id}</CTableDataCell>
-            <CTableDataCell style={{ textTransform: 'capitalize' }}>
+            <CTableDataCell>
               {Utils.Users.determineName(m.account, null)}
             </CTableDataCell>
             <CTableDataCell style={{ textTransform: 'capitalize' }}>

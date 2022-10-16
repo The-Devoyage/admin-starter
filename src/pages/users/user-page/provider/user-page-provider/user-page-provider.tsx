@@ -56,10 +56,6 @@ export const UserPageProvider: FC<UserPageProviderProps> = ({ children }) => {
     return undefined;
   }, [user_id, navigate]);
 
-  if (!user_id) {
-    return null;
-  }
-
   const value = useMemo(
     () => ({
       user_id,

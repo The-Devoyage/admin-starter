@@ -24,26 +24,23 @@ export const CreateAccountModal: FC<CreateAccountModalProps> = ({
   setVisible,
   form,
   loading,
-}) => {
-  return (
-    <CModal visible={visible} onClose={() => setVisible(false)}>
-      <CModalHeader>Create Account</CModalHeader>
-      <CForm
-        onSubmit={(e) => {
-          e.preventDefault();
-          form?.submitForm();
-          setVisible(false);
-        }}
-      >
-        <CModalBody>
-          <RegisterFormContent form={form} disablePasswords />
-        </CModalBody>
-        <CModalFooter className="d-flex justify-content-end">
-          <CButton type="submit" disabled={loading || !form?.dirty}>
-            {loading ? <CSpinner size="sm" /> : 'Create'}
-          </CButton>
-        </CModalFooter>
-      </CForm>
-    </CModal>
-  );
-};
+}) => (
+  <CModal visible={visible} onClose={() => setVisible(false)}>
+    <CModalHeader>Create Account</CModalHeader>
+    <CForm
+      onSubmit={(e) => {
+        e.preventDefault();
+        form?.submitForm();
+      }}
+    >
+      <CModalBody>
+        <RegisterFormContent form={form} disablePasswords />
+      </CModalBody>
+      <CModalFooter className="d-flex justify-content-end">
+        <CButton type="submit" disabled={loading || !form?.dirty}>
+          {loading ? <CSpinner size="sm" /> : 'Create'}
+        </CButton>
+      </CModalFooter>
+    </CForm>
+  </CModal>
+);

@@ -2,13 +2,13 @@ import { FC, ReactNode } from 'react';
 import { Variables } from 'src/apollo';
 import { Providers } from '@the-devoyage/orions-arrow';
 import { useFormHelpers } from 'src/common/utils/use-form-helpers';
-import { AccountPage_GetAccountsQuery } from 'src/types/generated';
+import { AccountsPage_RegisterAccountMutation } from 'src/types/generated';
 import { useNavigate } from 'react-router-dom';
+import { getOperationName } from 'apollo-link';
 import {
   ACCOUNTS_PAGE_GET_ACCOUNTS,
   ACCOUNTS_PAGE_REGISTER_ACCOUNT,
 } from '../../operations';
-import { getOperationName } from 'apollo-link';
 
 interface RegisterAccountProviderProps {
   children: ReactNode;
@@ -28,7 +28,7 @@ export const RegisterAccountProvider: FC<RegisterAccountProviderProps> = ({
 
   return (
     <Providers.Accounts.Mutations.RegisterAccontProvider<
-      AccountPage_GetAccountsQuery['getAccounts']['data'][0]
+      AccountsPage_RegisterAccountMutation['register']
     >
       mutation={{
         documentNode: ACCOUNTS_PAGE_REGISTER_ACCOUNT,

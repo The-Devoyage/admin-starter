@@ -7,7 +7,9 @@ import {
 } from '@coreui/react';
 import { FormikProps } from 'formik';
 import { FC } from 'react';
+import { Phone } from 'src/common/inputs/phone/phone';
 import { CreateUserInput, UpdateUserInput } from 'src/types/generated';
+import phone from 'phone';
 
 interface UserFormContentProps {
   form: FormikProps<UpdateUserInput> | FormikProps<CreateUserInput> | null;
@@ -28,6 +30,8 @@ export const UserFormContent: FC<UserFormContentProps> = ({
         value={form?.values.payload.email ?? ''}
         onChange={form?.handleChange}
         disabled={loading}
+        required
+        invalid={!!form?.errors.payload?.email}
       />
     </CCol>
     <CCol lg={6} className="mb-3">
@@ -38,6 +42,7 @@ export const UserFormContent: FC<UserFormContentProps> = ({
         value={form?.values.payload.first_name ?? ''}
         onChange={form?.handleChange}
         disabled={loading}
+        invalid={!!form?.errors.payload?.first_name}
       />
     </CCol>
     <CCol lg={6} className="mb-3">
@@ -48,17 +53,21 @@ export const UserFormContent: FC<UserFormContentProps> = ({
         value={form?.values.payload.last_name ?? ''}
         onChange={form?.handleChange}
         disabled={loading}
+        invalid={!!form?.errors.payload?.last_name}
       />
     </CCol>
     <CCol lg={6} className="mb-3">
       <CFormLabel>Phone</CFormLabel>
-      <CFormInput
-        type="phone"
-        name="payload.phone"
+      <Phone
+        specialLabel=""
+        country="us"
         placeholder="555-555-5555"
         value={form?.values.payload.phone ?? ''}
-        onChange={form?.handleChange}
+        onChange={(v) =>
+          form?.setFieldValue('payload.phone', phone(v).phoneNumber ?? v)
+        }
         disabled={loading}
+        invalid={!!form?.errors.payload?.phone}
       />
     </CCol>
     <CCol lg={12} className="mb-3">
@@ -69,6 +78,7 @@ export const UserFormContent: FC<UserFormContentProps> = ({
         value={form?.values.payload.about ?? ''}
         onChange={form?.handleChange}
         disabled={loading}
+        invalid={!!form?.errors.payload?.about}
       />
     </CCol>
   </CRow>

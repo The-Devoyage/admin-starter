@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { Providers } from '@the-devoyage/orions-arrow';
-import { MEDIAS_PAGE_DELETE_MEDIA } from '../../operations/mutation';
 import { useFormHelpers } from 'src/common/utils/use-form-helpers';
+import { MEDIAS_PAGE_DELETE_MEDIA } from '../../operations/mutation';
 
 interface DeleteMediaProviderProps {
   children: ReactNode;

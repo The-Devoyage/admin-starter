@@ -26,7 +26,9 @@ export const USER_PAGE_UPDATE_USER = gql`
 `;
 
 export const USER_PAGE_UPDATE_USER_MEMBERSHIP = gql`
-  mutation UserPage_UpdateUser($updateUserInput: UpdateUserInput!) {
+  mutation UserPageUpdateUserMembership_UpdateUser(
+    $updateUserInput: UpdateUserInput!
+  ) {
     updateUser(updateUserInput: $updateUserInput) {
       _id
       email

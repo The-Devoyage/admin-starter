@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import {
   CButton,
   CForm,
@@ -8,27 +9,22 @@ import {
 } from '@coreui/react';
 import { CloseButton } from 'src/common/buttons/close-button';
 import { useNavigate } from 'react-router-dom';
-import { UserMembershipFormContent } from '../user-membership-form-content';
 import { FormikProps } from 'formik';
-import { UpdateUserInput, User } from 'src/types/generated';
-import { FC } from 'react';
+import { UpdateUserInput } from 'src/types/generated';
+import { UserMembershipFormContent } from '../user-membership-form-content';
 
 interface UpdateUserMembershipModalProps {
   form: FormikProps<UpdateUserInput> | null;
   loading: boolean;
-  setUpdateUserMembershipModalVisible: (v: boolean) => void;
-  updateUserMembershipModalVisible: boolean;
-  users: Pick<User, '_id' | 'email' | 'first_name' | 'last_name'>[];
-  handleSearch: (v: string) => void;
+  setVisible: (v: boolean) => void;
+  visible: boolean;
 }
 
 export const UpdateUserMembershipModal: FC<UpdateUserMembershipModalProps> = ({
   form,
   loading,
-  setUpdateUserMembershipModalVisible,
-  updateUserMembershipModalVisible,
-  users,
-  handleSearch,
+  setVisible,
+  visible,
 }) => {
   const navigate = useNavigate();
 
@@ -37,27 +33,24 @@ export const UpdateUserMembershipModal: FC<UpdateUserMembershipModalProps> = ({
       onSubmit={(e) => {
         e.preventDefault();
         form?.submitForm();
-        setUpdateUserMembershipModalVisible(false);
+        setVisible(false);
       }}
     >
       <CModal
-        visible={updateUserMembershipModalVisible}
-        onClose={() => setUpdateUserMembershipModalVisible(false)}
+        visible={visible}
+        onClose={() => setVisible(false)}
         scrollable
         portal={false}
       >
         <CModalHeader closeButton={false}>
           Update User Membership
-          <CloseButton
-            onClick={() => setUpdateUserMembershipModalVisible(false)}
-          />
+          <CloseButton onClick={() => setVisible(false)} />
         </CModalHeader>
         <CModalBody>
           <UserMembershipFormContent
             form={form}
             loading={loading}
-            users={users}
-            handleSearch={handleSearch}
+            showError={['USER_INPUT']}
           />
         </CModalBody>
         <CModalFooter className="d-flex justify-content-between">

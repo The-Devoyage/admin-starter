@@ -30,7 +30,6 @@ export const CreateUserModal: FC<CreateUserModalProps> = ({
     onSubmit={(e) => {
       e.preventDefault();
       form?.submitForm();
-      setVisible(false);
     }}
   >
     <CModal

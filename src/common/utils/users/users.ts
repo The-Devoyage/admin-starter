@@ -7,7 +7,9 @@ export const determineName = (
   const hasName = !!user?.first_name || !!user?.last_name;
   if (user) {
     if (hasName) {
-      return `${user.first_name}${hasName ? ' ' : ''}${user.last_name}`;
+      return `${user.first_name ?? ''}${hasName ? ' ' : ''}${
+        user.last_name ?? ''
+      }`;
     }
     return user.email;
   }

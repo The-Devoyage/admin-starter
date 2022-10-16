@@ -30,7 +30,6 @@ export const InviteUserModal: FC<InviteUserModalProps> = ({
     onSubmit={(e) => {
       e.preventDefault();
       form?.submitForm();
-      setVisible(false);
     }}
   >
     <CModal
@@ -44,7 +43,11 @@ export const InviteUserModal: FC<InviteUserModalProps> = ({
         <CloseButton onClick={() => setVisible(false)} />
       </CModalHeader>
       <CModalBody>
-        <UserMembershipFormContent form={form} loading={loading} />
+        <UserMembershipFormContent
+          form={form}
+          loading={loading}
+          showError={['ACCOUNT_INPUT']}
+        />
       </CModalBody>
       <CModalFooter>
         <CButton

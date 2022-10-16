@@ -13,16 +13,14 @@ export const UserPageRight = () => {
     setUpdateUserMembershipModalVisible,
   } = useContext(UserPageContext);
 
-  const {
-    loading: fetchingUsers,
-    utils,
-    users,
-    handleSearch,
-  } = Hooks.Users.useGetUsers<UserPage_GetUsersQuery['getUsers']['data'][0]>();
+  const { loading: fetchingUsers, utils } =
+    Hooks.Users.useGetUsers<UserPage_GetUsersQuery['getUsers']['data'][0]>();
 
   const { form, loading: updatingMembership } = Hooks.Users.useUpdateUser();
 
-  const user = utils.getUser(user_id!);
+  if (!user_id) return null;
+
+  const user = utils.getUser(user_id);
 
   const loading = fetchingUsers || updatingMembership;
 
@@ -31,17 +29,17 @@ export const UserPageRight = () => {
       <UserMembershipsCard
         loading={loading}
         user={user}
-        setInviteUserModalVisible={setInviteUserModalVisible}
+        setVisible={{
+          inviteUserModal: setInviteUserModalVisible,
+          updateUserMembershipModal: setUpdateUserMembershipModalVisible,
+        }}
+        form={form}
       />
       <UpdateUserMembershipModal
         form={form}
-        users={users}
         loading={loading}
-        handleSearch={handleSearch}
-        updateUserMembershipModalVisible={updateUserMembershipModalVisible}
-        setUpdateUserMembershipModalVisible={
-          setUpdateUserMembershipModalVisible
-        }
+        visible={updateUserMembershipModalVisible}
+        setVisible={setUpdateUserMembershipModalVisible}
       />
     </>
   );
