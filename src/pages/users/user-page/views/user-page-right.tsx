@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import { Hooks } from '@the-devoyage/orions-arrow';
 import { UserMembershipsCard } from 'src/components/users';
-import { UpdateUserMembershipModal } from 'src/components/users/update-user-membership-modal';
 import { UserPage_GetUsersQuery } from 'src/types/generated';
 import { UserPageContext } from '../provider/user-page-provider';
 
@@ -9,7 +8,6 @@ export const UserPageRight = () => {
   const {
     user_id,
     setInviteUserModalVisible,
-    updateUserMembershipModalVisible,
     setUpdateUserMembershipModalVisible,
   } = useContext(UserPageContext);
 
@@ -25,22 +23,14 @@ export const UserPageRight = () => {
   const loading = fetchingUsers || updatingMembership;
 
   return (
-    <>
-      <UserMembershipsCard
-        loading={loading}
-        user={user}
-        setVisible={{
-          inviteUserModal: setInviteUserModalVisible,
-          updateUserMembershipModal: setUpdateUserMembershipModalVisible,
-        }}
-        form={form}
-      />
-      <UpdateUserMembershipModal
-        form={form}
-        loading={loading}
-        visible={updateUserMembershipModalVisible}
-        setVisible={setUpdateUserMembershipModalVisible}
-      />
-    </>
+    <UserMembershipsCard
+      loading={loading}
+      user={user}
+      setVisible={{
+        inviteUserModal: setInviteUserModalVisible,
+        updateUserMembershipModal: setUpdateUserMembershipModalVisible,
+      }}
+      form={form}
+    />
   );
 };

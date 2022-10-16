@@ -83,7 +83,7 @@ export const MembershipsList: FC<MembershipsListProps> = ({
       <CTableHead>
         <CTableRow>
           <CTableHeaderCell>Status</CTableHeaderCell>
-          <CTableHeaderCell>Account</CTableHeaderCell>
+          <CTableHeaderCell>Account ID</CTableHeaderCell>
           <CTableHeaderCell>Owner</CTableHeaderCell>
           <CTableHeaderCell>Role</CTableHeaderCell>
         </CTableRow>
@@ -97,11 +97,9 @@ export const MembershipsList: FC<MembershipsListProps> = ({
             onClick={() => {
               const initialMembershipValues =
                 generateInitialMembershipValues(m);
-              form?.resetForm({
-                values: {
-                  query: form.values.query,
-                  payload: initialMembershipValues,
-                },
+              form?.setValues({
+                query: form.values.query,
+                payload: initialMembershipValues,
               });
               setVisible(true);
             }}

@@ -1,6 +1,7 @@
 import { Hooks } from '@the-devoyage/orions-arrow';
 import { useContext } from 'react';
 import { InviteUserModal, UpdateUserModal } from 'src/components/users';
+import { UpdateUserMembershipModal } from 'src/components/users/update-user-membership-modal';
 import { UserPageContext } from '../provider/user-page-provider';
 
 export const UserPageModals = () => {
@@ -9,6 +10,8 @@ export const UserPageModals = () => {
     inviteUserModalVisible,
     updateUserModalVisible,
     setUpdateUserModalVisible,
+    updateUserMembershipModalVisible,
+    setUpdateUserMembershipModalVisible,
   } = useContext(UserPageContext);
 
   const { loading, form } = Hooks.Users.useInviteUser();
@@ -29,6 +32,12 @@ export const UserPageModals = () => {
         loading={loading}
         setVisible={setInviteUserModalVisible}
         visible={inviteUserModalVisible}
+      />
+      <UpdateUserMembershipModal
+        form={updateUserForm}
+        loading={loading}
+        visible={updateUserMembershipModalVisible}
+        setVisible={setUpdateUserMembershipModalVisible}
       />
     </>
   );

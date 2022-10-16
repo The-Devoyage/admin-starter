@@ -38,7 +38,10 @@ export const UpdateUserMembershipModal: FC<UpdateUserMembershipModalProps> = ({
     >
       <CModal
         visible={visible}
-        onClose={() => setVisible(false)}
+        onClose={() => {
+          form?.resetForm();
+          setVisible(false);
+        }}
         scrollable
         portal={false}
       >

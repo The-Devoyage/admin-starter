@@ -15,6 +15,8 @@ interface GetUserProviderProps {
 export const GetUserProvider: FC<GetUserProviderProps> = ({ children }) => {
   const { user_id } = useContext(UserPageContext);
 
+  if (!user_id) return null;
+
   return (
     <Providers.Users.Queries.GetUsersProvider
       query={{
@@ -23,9 +25,7 @@ export const GetUserProvider: FC<GetUserProviderProps> = ({ children }) => {
           getUsersInput: {
             config: { pagination: { limit: 1 } },
             query: {
-              _id: [
-                { string: user_id!, filterBy: StringFilterByEnum.Objectid },
-              ],
+              _id: [{ string: user_id, filterBy: StringFilterByEnum.Objectid }],
             },
           },
           membershipsAccountUsersInput: {
