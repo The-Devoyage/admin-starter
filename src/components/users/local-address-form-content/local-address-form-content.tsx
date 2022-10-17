@@ -26,7 +26,9 @@ export const LocalAddressFormContent: FC<LocalAddressFormContentProps> = ({
       <CFormLabel>Country</CFormLabel>
       <CFormSelect
         placeholder="Country"
-        value={form?.values.payload.address?.country ?? undefined}
+        value={
+          form?.values.payload.memberships?.local?.address?.country ?? undefined
+        }
         onChange={form?.handleChange}
         name="payload.memberships.local.address.country"
         invalid={

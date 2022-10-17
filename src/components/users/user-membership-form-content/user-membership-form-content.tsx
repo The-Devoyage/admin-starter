@@ -1,7 +1,6 @@
 import {
   CAccordion,
   CAccordionBody,
-  CAccordionHeader,
   CAccordionItem,
   CCol,
   CDropdownDivider,
@@ -11,7 +10,7 @@ import {
 } from '@coreui/react';
 import { FormikProps } from 'formik';
 import { FC } from 'react';
-import { LocalAddressFormContent } from 'src/common/form-content/local-address-form-content';
+import { FormAccordionHeader } from 'src/common/accordion';
 import { AccountSelect } from 'src/components/accounts';
 import {
   InviteUserInput,
@@ -20,6 +19,7 @@ import {
   UserFieldFiltersInput,
   StringFilterByEnum,
 } from 'src/types/generated';
+import { LocalAddressFormContent } from '../local-address-form-content';
 import { UserMembershipLocalFormContent } from '../user-membership-local-form-content';
 import { UserMembershipStatusSelect } from '../user-membership-status-select';
 import { UserRoleSelect } from '../user-role-select';
@@ -127,13 +127,44 @@ export const UserMembershipFormContent: FC<
       <CDropdownDivider className="mb-3" />
       <CAccordion>
         <CAccordionItem>
-          <CAccordionHeader>Local User Details</CAccordionHeader>
+          <FormAccordionHeader
+            invalid={() => {
+              const local = (
+                form?.errors.payload
+                  ?.memberships as UpdateUserInput['payload']['memberships']
+              )?.local;
+              return !!(
+                local?.about ||
+                local?.phone ||
+                local?.last_name ||
+                local?.first_name
+              );
+            }}
+          >
+            Local User Details
+          </FormAccordionHeader>
           <CAccordionBody>
             <UserMembershipLocalFormContent form={form} loading={loading} />
           </CAccordionBody>
         </CAccordionItem>
         <CAccordionItem>
-          <CAccordionHeader>Local Address</CAccordionHeader>
+          <FormAccordionHeader
+            invalid={() => {
+              const localAddress = (
+                form?.errors.payload
+                  ?.memberships as UpdateUserInput['payload']['memberships']
+              )?.local?.address;
+              return !!(
+                localAddress?.zip ||
+                localAddress?.city ||
+                localAddress?.state ||
+                localAddress?.country ||
+                localAddress?.lineOne
+              );
+            }}
+          >
+            Local Address
+          </FormAccordionHeader>
           <CAccordionBody>
             <LocalAddressFormContent form={form} loading={loading} />
           </CAccordionBody>

@@ -64,7 +64,10 @@ export const UserFormContent: FC<UserFormContentProps> = ({
         placeholder="555-555-5555"
         value={form?.values.payload.phone ?? ''}
         onChange={(v) =>
-          form?.setFieldValue('payload.phone', phone(v).phoneNumber ?? v)
+          form?.setFieldValue(
+            'payload.phone',
+            phone(v).phoneNumber ?? v.length ? `+${v}` : null,
+          )
         }
         disabled={loading}
         invalid={!!form?.errors.payload?.phone}

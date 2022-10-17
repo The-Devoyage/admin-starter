@@ -33,7 +33,6 @@ export const UpdateUserMembershipModal: FC<UpdateUserMembershipModalProps> = ({
       onSubmit={(e) => {
         e.preventDefault();
         form?.submitForm();
-        setVisible(false);
       }}
     >
       <CModal

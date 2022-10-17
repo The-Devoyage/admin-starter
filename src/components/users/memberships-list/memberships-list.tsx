@@ -62,6 +62,7 @@ export const MembershipsList: FC<MembershipsListProps> = ({
             state: membership.local?.address?.state,
             lineOne: membership.local?.address?.lineOne,
             lineTwo: membership.local?.address?.lineTwo,
+            country: membership.local?.address?.country,
           },
         },
       },

@@ -1,7 +1,6 @@
 import {
   CAccordion,
   CAccordionBody,
-  CAccordionHeader,
   CAccordionItem,
   CButton,
   CDropdownDivider,
@@ -13,9 +12,10 @@ import {
 } from '@coreui/react';
 import { FormikProps } from 'formik';
 import { FC } from 'react';
+import { FormAccordionHeader } from 'src/common/accordion';
 import { CloseButton } from 'src/common/buttons/close-button';
-import { AddressFormContent } from 'src/common/form-content';
 import { UpdateUserInput } from 'src/types/generated';
+import { AddressFormContent } from '../address-form-content';
 import { UserFormContent } from '../user-form-content';
 
 interface UpdateUserModalProps {
@@ -52,7 +52,11 @@ export const UpdateUserModal: FC<UpdateUserModalProps> = ({
         <CDropdownDivider className="mb-3" />
         <CAccordion>
           <CAccordionItem>
-            <CAccordionHeader>Address</CAccordionHeader>
+            <FormAccordionHeader
+              invalid={() => !!form?.errors.payload?.address}
+            >
+              Address
+            </FormAccordionHeader>
             <CAccordionBody>
               <AddressFormContent form={form} loading={loading} />
             </CAccordionBody>

@@ -8,9 +8,9 @@ import {
 } from '@coreui/react';
 import { FormikProps } from 'formik';
 import { FC } from 'react';
-import { AddressFormContent } from 'src/common';
 import { CloseButton } from 'src/common/buttons/close-button';
 import { CreateUserInput } from 'src/types/generated';
+import { AddressFormContent } from '../address-form-content';
 import { UserFormContent } from '../user-form-content';
 
 interface CreateUserModalProps {

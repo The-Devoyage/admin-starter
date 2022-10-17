@@ -71,12 +71,36 @@ export const useFormHelpers = () => {
     if (error.graphQLErrors.length) {
       for (const graphQLError of error.graphQLErrors) {
         if (graphQLError.extensions.exception.errors) {
+          triggerToast({
+            header: `${Format.String.humanizeString(
+              graphQLError.extensions.serviceName ?? 'Unknown',
+            )} Error`,
+            message: graphQLError.message,
+            button: toast?.button,
+          });
+
           helpers?.setErrors(graphQLError.extensions.exception.errors);
         } else if (graphQLError.extensions.errors) {
+          triggerToast({
+            header: `${Format.String.humanizeString(
+              graphQLError.extensions.serviceName ?? 'Unknown',
+            )} Error`,
+            message: graphQLError.message,
+            button: toast?.button,
+          });
+
           helpers?.setErrors(graphQLError.extensions.errors);
         } else if (graphQLError.extensions.response.body.errors) {
+          triggerToast({
+            header: 'Error',
+            message: 'Please try agian.',
+            button: toast?.button,
+          });
+
           const { errors = [] } = graphQLError.extensions.response.body;
+
           let formErrors = {};
+
           for (const err of errors) {
             const regexp = /at "(.*)";/i;
             const regexpGroups = regexp.exec(err.message) ?? [];

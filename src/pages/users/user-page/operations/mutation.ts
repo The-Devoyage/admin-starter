@@ -14,6 +14,7 @@ export const USER_PAGE_UPDATE_USER = gql`
         lineOne
         state
         zip
+        country
       }
       phone
       image {
@@ -41,6 +42,7 @@ export const USER_PAGE_UPDATE_USER_MEMBERSHIP = gql`
         lineOne
         state
         zip
+        country
       }
       phone
       image {
