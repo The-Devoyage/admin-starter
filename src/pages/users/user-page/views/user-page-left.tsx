@@ -10,7 +10,9 @@ export const UserPageLeft = () => {
   const { loading, utils } =
     Hooks.Users.useGetUsers<UserPage_GetUsersQuery['getUsers']['data'][0]>();
 
-  const user = utils.getUser(user_id!);
+  if (!user_id) return null;
+
+  const user = utils.getUser(user_id);
 
   return (
     <>
