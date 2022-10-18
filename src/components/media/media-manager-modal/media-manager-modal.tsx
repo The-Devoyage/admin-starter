@@ -64,6 +64,7 @@ export const MediaManagerModal: FC<MediaManagerModalProps> = ({
         triggerToast({ header: title, message })
       }
       acceptFileTypes="pdf png jpg jpeg"
+      validUploadMimeTypes={['image/png', 'image/jpg', 'image/jpeg']}
     />
   );
 };
