@@ -90,7 +90,7 @@ export const useFormHelpers = () => {
           });
 
           helpers?.setErrors(graphQLError.extensions.errors);
-        } else if (graphQLError.extensions.response.body.errors) {
+        } else if (graphQLError.extensions.response?.body.errors) {
           triggerToast({
             header: 'Error',
             message: 'Please try agian.',

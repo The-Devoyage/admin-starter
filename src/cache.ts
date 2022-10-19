@@ -1,6 +1,5 @@
 import { InMemoryCache } from '@apollo/client';
 import { Stats } from 'src/types/generated';
-import hash from 'object-hash';
 
 interface PaginatedResponse {
   data: [];
@@ -49,19 +48,7 @@ export const cache: InMemoryCache = new InMemoryCache({
       },
     },
     Media: {
-      fields: {
-        uri: {
-          merge(existing = {}, incoming: string, options) {
-            const hash_id = hash(options.variables ?? {});
-            return { ...existing, [hash_id]: incoming };
-          },
-          read(existing: Record<string, string>, options) {
-            const hash_id = hash(options.variables ?? {});
-            const uri: string = existing[hash_id];
-            return uri;
-          },
-        },
-      },
+      keyFields: ['_id', 'src'],
     },
   },
 });

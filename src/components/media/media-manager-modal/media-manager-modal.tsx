@@ -1,43 +1,37 @@
-import { MediaManager } from '@the-devoyage/media-manager';
+import { MediaManager as DMediaManager } from '@the-devoyage/media-manager';
 import {
   DeleteMediaInput,
+  MediaManager_GetMediaQuery,
   StringFilterByEnum,
-  Media,
-  Stats,
-  CreateMediaInput,
 } from 'src/types/generated';
 import { useToaster } from 'src/common/utils/use-toaster';
 import { Dispatch, FC, SetStateAction } from 'react';
-import { FormikProps } from 'formik';
+import { Hooks } from '@the-devoyage/orions-arrow';
+import { MediaManagerModalRootProvider } from './provider';
 
 interface MediaManagerModalProps {
   visible: boolean;
   setVisible: Dispatch<SetStateAction<boolean>>;
-  media: Pick<Media, '_id' | 'title' | 'src' | 'mimetype'>[];
-  stats?: Stats;
-  loading: boolean;
-  handleSearch: (v: string) => void;
-  handleFetchMore: () => void;
-  searchValue?: string;
-  deleteForm: FormikProps<DeleteMediaInput> | null;
-  uploadForm: FormikProps<CreateMediaInput> | null;
 }
 
-export const MediaManagerModal: FC<MediaManagerModalProps> = ({
-  visible,
-  setVisible,
-  media,
-  stats,
-  loading,
-  handleSearch,
-  handleFetchMore,
-  searchValue,
-  deleteForm,
-  uploadForm,
-}) => {
+const MediaManager: FC<MediaManagerModalProps> = ({ visible, setVisible }) => {
   const { triggerToast } = useToaster();
+  const { form: uploadForm, loading: uploading } = Hooks.Media.useCreateMedia();
+  const { form: deleteForm, loading: deleting } = Hooks.Media.useDeleteMedia();
+  const {
+    media,
+    stats,
+    handleFetchMore,
+    handleSearch,
+    searchValue,
+    loading: fetching,
+  } = Hooks.Media.useGetMedia<
+    MediaManager_GetMediaQuery['getMedia']['data'][0]
+  >();
+  const loading = fetching || uploading || deleting;
+
   return (
-    <MediaManager
+    <DMediaManager
       media={media}
       hasMore={!!stats?.remaining}
       loading={loading}
@@ -68,3 +62,12 @@ export const MediaManagerModal: FC<MediaManagerModalProps> = ({
     />
   );
 };
+
+export const MediaManagerModal: FC<MediaManagerModalProps> = ({
+  visible,
+  setVisible,
+}) => (
+  <MediaManagerModalRootProvider>
+    <MediaManager visible={visible} setVisible={setVisible} />
+  </MediaManagerModalRootProvider>
+);

@@ -1,11 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { Utils } from 'src/common';
-import { CreateMediaProvider } from './create-media-provider';
-import { DeleteMediaProvider } from './delete-media-provider/delete-media-provider';
-import {
-  GetMediaProvider,
-  MediaManagerMediaProvider,
-} from './get-media-provider';
+import { GetMediaProvider } from './get-media-provider';
 import { MediasPageProvider } from './medias-page-provider';
 
 interface MediasPageRootProviderProps {
@@ -15,15 +10,7 @@ interface MediasPageRootProviderProps {
 export const MediasPageRootProvider: FC<MediasPageRootProviderProps> = ({
   children,
 }) => (
-  <Utils.Compose
-    components={[
-      MediasPageProvider,
-      GetMediaProvider,
-      CreateMediaProvider,
-      DeleteMediaProvider,
-      MediaManagerMediaProvider,
-    ]}
-  >
+  <Utils.Compose components={[MediasPageProvider, GetMediaProvider]}>
     {children}
   </Utils.Compose>
 );
