@@ -1,7 +1,7 @@
 {
   "name": "react-starter",
   "private": true,
-  "version": "0.0.1",
+  "version": "beta-0.0.1",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
