@@ -51,7 +51,7 @@ const MediaManager: FC<MediaManagerModalProps> = ({ visible, setVisible }) => {
         deleteForm?.submitForm();
       }}
       onUpload={(m) => {
-        uploadForm?.setFieldValue('payload', m.media);
+        uploadForm?.setFieldValue('payload', m.media[0]);
         uploadForm?.submitForm();
       }}
       onNotification={({ title, message }) =>

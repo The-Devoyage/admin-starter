@@ -8,6 +8,7 @@ export const MEDIAS_PAGE_CREATE_MEDIA = gql`
         path
         mimetype
         title
+        src
       }
     }
   }
