@@ -1,4 +1,4 @@
-import { ResetPasswordPageRootProvider } from './provider/provider';
+import { ResetPasswordPageRootProvider } from './provider';
 import { ResetPasswordPageBody } from './views';
 
 export const ResetPasswordPage = () => (

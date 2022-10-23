@@ -1,7 +1,7 @@
 import { CRow } from '@coreui/react';
 import { AccountPageRootProvider } from './provider';
 import { AccountPageBottom, AccountPageTop } from './views';
-import { AccountPageModals } from './views/modals/account-page-modals';
+import { AccountPageModals } from './views/modals';
 
 export const AccountPage = () => (
   <AccountPageRootProvider>
