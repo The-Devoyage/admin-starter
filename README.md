@@ -1,14 +1,29 @@
-# React Starter
+# Admin Starter 
 
-The `@the-devoyage/react-starter` repository is a starter repo with some basics to get up and running a bit quicker.
+This user interface can be used to manage the assets from the micro services APIs provided by The Devoyage.
 
-## Tech
+## Features
 
-- Vite
-- Typescript
-- React
-- Apollo Client
-- React Router Dom
-- Docker 
-- CoreUI React
+- Manage Accounts
+- Manage Users
+- Manage Media/File Uploads
 
+## Getting Started
+
+1. Login to the Git Hub Registry
+
+```
+npm login --registry=https://npm.pkg.github.com
+```
+
+2. Install Dependencies
+
+```
+npm install
+```
+
+3. Run The Project
+
+```
+npm run dev
+```
