@@ -3,6 +3,7 @@ ARG GITHUB_TOKEN
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY .npmrc .npmrc  
+RUN echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> .npmrc
 COPY package.json package-lock.json ./
 USER $user
 RUN npm install
