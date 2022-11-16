@@ -18,7 +18,6 @@ export const LogoutButton = () => {
   };
 
   if (!isAuthenticated) return null;
-  
   return (
     <CButton color="primary" onClick={handleLogout}>
       <CIcon icon={cilAccountLogout} />

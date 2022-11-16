@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './scss/styles.scss';
 import LostPage from './pages/errors/lost-page/lost-page';
 import { AppLoading } from './common';
+import './scss/styles.scss';
 
 const UnauthenticatedPage = React.lazy(
   () => import('./pages/errors/unauthenticated-page/unauthenticated-page'),

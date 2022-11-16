@@ -1,5 +1,8 @@
 import { FC } from 'react';
-import PhoneInput, { PhoneInputProps } from 'react-phone-input-2';
+import PI, { PhoneInputProps } from 'react-phone-input-2';
+
+// eslint-disable-next-line
+const PhoneInput = import.meta.env.PROD ? (PI as any).default : PI;
 
 interface IPhoneInputProps extends PhoneInputProps {
   invalid?: boolean;
