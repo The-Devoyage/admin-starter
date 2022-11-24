@@ -33,7 +33,7 @@ function Header() {
             </CHeaderToggler>
           )}
           <CHeaderBrand role="button" onClick={() => navigate('/')}>
-            The Devoyage
+            {import.meta.env.VITE_WEB_TITLE}
           </CHeaderBrand>
         </div>
         <CHeaderNav className="d-none d-md-flex me-auto">
