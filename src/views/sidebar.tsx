@@ -13,7 +13,8 @@ function Sidebar() {
       visible={isAuthenticated && sidebarShow}
       onHide={() => Variables.UI.sidebarShowVar(false)}
     >
-      <CSidebarBrand className="d-none d-md-flex">The Devoyage</CSidebarBrand>
+      <CSidebarBrand className="d-none d-md-flex">
+        {import.meta.env.VITE_WEB_TITLE}</CSidebarBrand>
       <CSidebarNav>
         <CNavItem to="/" component={NavLink}>
           Dashboard
