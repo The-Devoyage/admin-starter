@@ -32,8 +32,8 @@ export default ({ mode }) => {
     server: {
       port: 3333,
       proxy: {
-        '/graphql': 'http://localhost:5000',
-        '/media-server': 'http://localhost:5000',
+        '/graphql': process.env.VITE_GRAPHQL_URL_ID,
+        '/media-server': process.env.VITE_MEDIA_SERVER_ID,
       },
     },
   });
